@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Timothy</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/css/uikit.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="uk-navbar-container uk-navbar-transparent nav-color uk-light" uk-navbar>
+            <div class="uk-navbar-left uk-margin-medium-left">
+                <ul class="uk-navbar-nav">
+                    <li class="menu-font"><h3 class="system-title">Timothy</h3></li>
+                </ul>
+            </div>
+            <div class="uk-navbar-right uk-margin-medium-right">
+                <ul class="uk-navbar-nav">
+                    <li><a class="menu-title" href="#">サマリー</a></li>
+                    <li><a class="menu-title" asp-area="" asp-controller="Home" asp-action="Privacy">着信</a></li>
+                    <li><a class="menu-title" asp-area="" asp-controller="Home" asp-action="Index">問合せ</a></li>
+                    <li>
+                        <a class="menu-title" asp-area="" asp-controller="Home" asp-action="Privacy">マスタ</a>
+                        <div class="uk-navbar-dropdown" uk-dropdown="boundary: .boundary">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li><a href="#">ユーザ</a></li>
+                                <li><a href="#">システム</a></li>
+                                <li><a href="#">ダウンロード</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                 </ul>
+                 <div class="uk-navbar-item uk-visible@m">
+                     <a href="#" class="uk-button uk-button-default tm-button-default uk-icon">ログアウト<span class="uk-margin-small-center" uk-icon="sign-out"></span></a>
+                 </div>
+            </div>
+        </nav>
+    </header>
+    <div class="uk-container uk-container-expand">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <script src="~/lib/js/uikit.min.js"></script>
+    <script src="~/lib/js/uikit-icons.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
