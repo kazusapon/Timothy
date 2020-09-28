@@ -35,6 +35,10 @@ html {
   }
 }
 
+.content-area {
+  padding-top: 70px;
+}
+
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
@@ -85,4 +89,57 @@ a.menu-title {
 
 a.menu-title:hover {
   color: #fff462 !important;
+}
+
+#inquiry-search-area {
+  height: 60px;
+  width: 100%;
+}
+
+#inquiry-search-area .inquiry-add-button {
+  margin-left: 40px;
+}
+
+#inquiry-list .inquiry-id {
+  width: 70px;
+}
+
+#inquiry-list .incoming-dated {
+  width: 150px;
+}
+
+#inquiry-list .company-name {
+  width: 230px;
+}
+
+#inquiry-list .inquirer-name {
+  width: 150px;
+}
+
+#inquiry-list .telephone-number {
+  width: 150px;
+}
+
+#inquiry-list .system-name {
+  width: 150px;
+}
+
+#inquiry-list .respondent {
+  width: 200px;
+}
+
+#inquiry-list .question {
+  width: 450px;
+}
+
+#inquiry-list .answer {
+  width: 450px;
+}
+
+.add-button {
+  background-color: #d1ffe8;
+}
+
+.search-button {
+  background-color: #ffffdb;
 }
