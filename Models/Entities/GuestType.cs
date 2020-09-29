@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityModels
 {
-    class GuestType
+    public class GuestType
     {
         public int Id {get; set;}
 

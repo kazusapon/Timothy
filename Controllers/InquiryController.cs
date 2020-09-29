@@ -11,10 +11,18 @@ namespace Timothy.Controllers
 {
     public class InquiryController : Controller
     {
-        [HttpGet]
-        public IActionResult Index()
+        private readonly DatabaseContext _context;
+
+        public InquiryController(DatabaseContext context)
         {
-            return View();
+            this._context = context;
+        }
+        
+        [HttpGet]
+        [Route("Inquiry")]
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Inquiry.ToListAsync());
         }
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityModels
 {
-    class Classification
+    public class Classification
     {
         public int Id {get; set;}
 

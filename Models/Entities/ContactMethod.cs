@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityModels
 {
-    class ContactMethod
+    public class ContactMethod
     {
         public int Id {get; set;}
 

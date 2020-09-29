@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityModels
 {
-    class CallRegister
+    public class CallRegister
     {
         public int Id {get; set;}
 
