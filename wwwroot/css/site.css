@@ -75,7 +75,9 @@ body {
 }
 
 .nav-color {
-  background-color:#89c997;
+  background-color: #706fd3;
+  /* background-color: #58b19f; */
+  /* background-color: #8c7ae6; */
 }
 
 h3.system-title {
@@ -92,12 +94,13 @@ a.menu-title:hover {
 }
 
 #inquiry-search-area {
+  margin: 0 auto;
   height: 60px;
   width: 100%;
 }
 
 #inquiry-search-area .inquiry-add-button {
-  margin-left: 40px;
+  margin-left: 50px;
 }
 
 #inquiry-list .inquiry-id {

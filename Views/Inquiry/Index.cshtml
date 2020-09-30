@@ -1,7 +1,7 @@
 @model IEnumerable<EntityModels.Inquiry>
 
-<div class="uk-padding-small uk-padding-remove-left uk-padding-remove-right">
-    <div id="inquiry-search-area" class="uk-flex uk-flex-center uk-flex-middle">
+<div class="uk-padding-small uk-padding-remove-left uk-padding-remove-right ">
+    <div id="inquiry-search-area" class="uk-flex uk-flex-center uk-flex-middle uk-flex-around">
         <div class="uk-inline">
             <span class="uk-form-icon" uk-icon="icon: calendar"></span>
             <input class="uk-input uk-form-width-medium" type="text">
@@ -23,12 +23,21 @@
         <label><input class="uk-checkbox" type="checkbox" checked> 確認済み</label>
         <div class="uk-button-group">
             <button class="uk-button uk-button-default"><span class="uk-margin-small-center" uk-icon="search"></span></button>
+            <button class="uk-button uk-button-default" type="button"><span class="uk-margin-small-center" uk-icon="download"></button>
+            <div uk-dropdown="mode: click">
+                <ul class="uk-nav uk-dropdown-nav">
+                    <li><a href="#">EXCEL</a></li>
+                    <li><a href="#">CSV</a></li>
+                </ul>
+            </div>
             <button class="uk-button uk-button-default">クリア</button>
         </div>
+
+
         <button class="uk-button uk-button-primary inquiry-add-button">新規登録</button>
     </div>
     
-    <table id="inquiry-list" class="uk-table uk-table-striped uk-table-hover">
+    <table id="inquiry-list" class="uk-table uk-table-striped uk-table-hover uk-table-small">
         <thead>
             <tr>
                 <th class="inquiry-id">ID</th>
