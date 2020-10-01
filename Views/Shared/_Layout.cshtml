@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Timothy</title>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/flatpickr.min.css" />
     <link rel="stylesheet" href="~/lib/css/uikit.min.css" />
 </head>
 <body>
@@ -21,11 +22,13 @@
                     <li><a class="menu-title" asp-area="" asp-controller="Home" asp-action="Privacy">着信</a></li>
                     <li><a class="menu-title" asp-controller="Inquiry" asp-action="Index">問合せ</a></li>
                     <li>
-                        <a class="menu-title" asp-area="" asp-controller="Home" asp-action="Privacy">マスタ</a>
+                        <a class="menu-title" asp-area="" asp-controller="Home" asp-action="Privacy">設定</a>
                         <div class="uk-navbar-dropdown" uk-dropdown="boundary: .boundary">
                             <ul class="uk-nav uk-navbar-dropdown-nav">
                                 <li><a href="#">ユーザ</a></li>
                                 <li><a href="#">システム</a></li>
+                                <li><a href="#">連絡方法</a></li>
+                                <li><a href="#">担当者分類</a></li>
                                 <li><a href="#">ダウンロード</a></li>
                             </ul>
                         </div>
@@ -44,8 +47,12 @@
     </div>
     <script src="~/lib/js/uikit.min.js"></script>
     <script src="~/lib/js/uikit-icons.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/flatpicker/flatpickr.js"></script>
+    <script src="~/lib/flatpicker/ja.js"></script>
+    <script>
+        flatpickr('.flatpicker-calendar');
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
