@@ -6,23 +6,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Database.Models;
+using Inquiry.Model;
 
 namespace Timothy.Controllers
 {
     public class InquiryController : Controller
     {
-        private readonly DatabaseContext _context;
+        private readonly DatabaseContext context;
+
+        private InquiryModel inquiryModel;
 
         public InquiryController(DatabaseContext context)
         {
-            this._context = context;
+            this.context = context;
+            this.inquiryModel = new InquiryModel(context);
         }
         
         [HttpGet]
         [Route("Inquiry")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Inquiry.ToListAsync());
+
+            return View(await inquiryModel.GetIndexListsAsync());
         }
     }
 }

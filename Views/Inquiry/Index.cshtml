@@ -1,4 +1,4 @@
-@model IEnumerable<EntityModels.Inquiry>
+@model IEnumerable<Inquiry.View.Models.InquiryIndexLists>
 
 <div class="uk-padding-small uk-padding-remove-left uk-padding-remove-right ">
     <div id="inquiry-search-area" class="uk-flex uk-flex-center uk-flex-middle uk-flex-around">
@@ -39,15 +39,15 @@
     <table id="inquiry-list" class="uk-table uk-table-striped uk-table-hover uk-table-small">
         <thead>
             <tr>
-                <th class="inquiry-id">ID</th>
-                <th class="incoming-dated">着信日時</th>
-                <th class="company-name">会社名</th>
-                <th class="inquirer-name">担当者</th>
-                <th class="telephone-number">電話番号</th>
-                <th class="system-name">システム名</th>
-                <th class="respondent">回答者</th>
-                <th class="question">問合せ</th>
-                <th class="answer">回答</th>
+                <th class="inquiry-id">@Html.DisplayNameFor(model => model.Id)</th>
+                <th class="incoming-dated">@Html.DisplayNameFor(model => model.IncomingDateTime)</th>
+                <th class="company-name">@Html.DisplayNameFor(model => model.CompanyName)</th>
+                <th class="inquirer-name">@Html.DisplayNameFor(model => model.InquirerName)</th>
+                <th class="telephone-number">@Html.DisplayNameFor(model => model.TelephoneNumber)</th>
+                <th class="system-name">@Html.DisplayNameFor(model => model.SystemName)</th>
+                <th class="respondent">@Html.DisplayNameFor(model => model.SystemName)</th>
+                <th class="question">@Html.DisplayNameFor(model => model.Question)</th>
+                <th class="answer">@Html.DisplayNameFor(model => model.Answer)</th>
             </tr>
         </thead>
         <tbody>

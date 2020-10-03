@@ -5,10 +5,6 @@ namespace Database.Models
 {
     public class DatabaseContext : DbContext
     {
-        public DatabaseContext() : base()
-        {
-            
-        }
         public DatabaseContext(DbContextOptions options) : base(options)
         {
             

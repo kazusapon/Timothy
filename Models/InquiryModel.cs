@@ -12,14 +12,14 @@ namespace Inquiry.Model
     {
         private readonly DatabaseContext _context;
 
-        public InquiryModel()
+        public InquiryModel(DatabaseContext context)
         {
-            this._context = new DatabaseContext();
+            this._context = context;
         }
         
         public async Task<List<InquiryIndexLists>> GetIndexListsAsync()
         {
-            var inquryLists = await (from inquiry in this._context.Inquiry
+            return await (from inquiry in this._context.Inquiry
                                         join system in this._context.System
                                         on inquiry.SystemId equals system.Id
                                         join user in this._context.User
@@ -38,9 +38,6 @@ namespace Inquiry.Model
                                             Question = inquiry.Question,
                                             Answer = inquiry.Answer
                                         }).AsNoTracking().ToListAsync();
-            
-            return inquryLists;
         }
     }
-
 }
