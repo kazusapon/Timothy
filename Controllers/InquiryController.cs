@@ -29,5 +29,12 @@ namespace Timothy.Controllers
 
             return View(await inquiryModel.GetIndexListAsync());
         }
+
+        [HttpGet]
+        [Route("Inquiry/New")]
+        public IActionResult New()
+        {
+            return View();
+        }
     }
 }
