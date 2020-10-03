@@ -51,39 +51,20 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="inquiry-id">123456</td>
-                <td class="incoming-dated">20/12/24 12:00</td>
-                <td class="company-name">テスト株式会社</td>
-                <td class="inquirer-name">テスト基次郎</td>
-                <td class="telephone-number">090-5555-6666</td>
-                <td class="system-name">テスト管理</td>
-                <td class="respondent">テスト間次郎</td>
-                <td class="question">あいうえおかきくけこさしすせそあいうえおかきくけこさしすせそあいうえおかきくけこさしすせそ</td>
-                <td class="answer">たちつてとたちつてとたちつてとたちつてとたちつてとたちつてとたちつてとたちつてとたちつてとたちつてと</td>
-            </tr>
-            <tr>
-                <td class="inquiry-id">123456</td>
-                <td class="incoming-dated">20/12/24 12:00</td>
-                <td class="company-name">テスト株式会社</td>
-                <td class="inquirer-name">テスト基次郎</td>
-                <td class="telephone-number">090-5555-6666</td>
-                <td class="system-name">テスト管理</td>
-                <td class="respondent">テスト間次郎</td>
-                <td class="question">あいうえおかきくけこさしすせそあいうえおかきくけこさしすせそあいうえおかきくけこさしすせそ</td>
-                <td class="answer">たちつてとたちつてとたちつてとたちつてとたちつてとたちつてとたちつてとたちつてとたちつてとたちつてと</td>            
-            </tr>
-            <tr>
-                <td class="inquiry-id">123456</td>
-                <td class="incoming-dated">20/12/24 12:00</td>
-                <td class="company-name">テスト株式会社</td>
-                <td class="inquirer-name">テスト基次郎</td>
-                <td class="telephone-number">090-5555-6666</td>
-                <td class="system-name">テスト管理</td>
-                <td class="respondent">テスト間次郎</td>
-                <td class="question">あいうえおかきくけこさしすせそあいうえおかきくけこさしすせそあいうえおかきくけこさしすせそ</td>
-                <td class="answer">たちつてとたちつてとたちつてとたちつてとたちつてとたちつてとたちつてとたちつてとたちつてとたちつてと</td>
-            </tr>
+            @foreach (var inquiry in Model)
+            {
+                <tr>
+                    <td class="inquiry-id">@inquiry.Id</td>
+                    <td class="incoming-dated">@inquiry.IncomingDateTime.ToString("yy/MM/dd HH:mm")</td>
+                    <td class="company-name">@inquiry.CompanyName</td>
+                    <td class="inquirer-name">@inquiry.InquirerName</td>
+                    <td class="telephone-number">@inquiry.TelephoneNumber</td>
+                    <td class="system-name">@inquiry.SystemName</td>
+                    <td class="respondent">@inquiry.UserName</td>
+                    <td class="question">@inquiry.Question</td>
+                    <td class="answer">@inquiry.Answer</td>
+                </tr>   
+            }
         </tbody>
     </table>
 </div>

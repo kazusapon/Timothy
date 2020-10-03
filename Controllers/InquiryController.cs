@@ -14,7 +14,7 @@ namespace Timothy.Controllers
     {
         private readonly DatabaseContext context;
 
-        private InquiryModel inquiryModel;
+        private IInquiry inquiryModel;
 
         public InquiryController(DatabaseContext context)
         {
@@ -27,7 +27,7 @@ namespace Timothy.Controllers
         public async Task<IActionResult> Index()
         {
 
-            return View(await inquiryModel.GetIndexListsAsync());
+            return View(await inquiryModel.GetIndexListAsync());
         }
     }
 }
