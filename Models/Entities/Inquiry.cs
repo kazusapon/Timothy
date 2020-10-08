@@ -6,8 +6,8 @@ namespace EntityModels
 {
     public enum CompletionState
     {
-        完了 = 1,
-        未完了 = 0
+        未完了 = 0,
+        完了 = 1
     }
 
     public class Inquiry
