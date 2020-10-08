@@ -138,3 +138,28 @@ a.menu-title:hover {
 #inquiry-list .answer {
   width: 450px;
 }
+
+#inquiry-input-form {
+  width: 1000px;
+}
+
+#inquiry-input-form .datetime-input-field {
+  width: 200px;
+}
+
+#inquiry-input-form .select-box-field {
+  width: 260px;
+}
+
+#inquiry-input-form .line-input-text-field {
+  width: 700px;
+}
+
+#inquiry-input-form .textarea-input {
+  width: 900px;
+}
+
+#inquiry-input-form .form-under-buttons {
+  display: flex;
+  justify-content: flex-end;
+}

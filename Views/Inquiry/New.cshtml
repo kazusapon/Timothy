@@ -1,4 +1,121 @@
-<div class="uk-padding-small uk-padding-remove-left uk-padding-remove-right ">
-<p>きりんだよ</p>
+@model Inquiry.View.Models.InquiryForm;
+
+<div class="uk-padding-small">
+
+    <form id="inquiry-input-form" class="uk-form-horizontal uk-margin-large">
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">着信日</label>
+            <div class="uk-form-controls">
+                <input class="uk-input datetime-input-field" id="form-horizontal-text" type="text" placeholder="Some text...">
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">着信時刻</label>
+            <div class="uk-form-controls">
+                <input class="uk-input datetime-input-field" type="text" placeholder="Some text...">
+                <span>　～　</span>
+                <input class="uk-input datetime-input-field" id="form-horizontal-text" type="text" placeholder="Some text...">
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-select">システム</label>
+            <div class="uk-form-controls">
+                <select class="uk-select select-box-field" id="form-horizontal-select">
+                    <option>Option 01</option>
+                    <option>Option 02</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-select">連絡方法</label>
+            <div class="uk-form-controls">
+                <select class="uk-select select-box-field" id="form-horizontal-select">
+                    <option>Option 01</option>
+                    <option>Option 02</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">問合せ元</label>
+            <div class="uk-form-controls">
+                <input class="uk-input line-input-text-field" id="form-horizontal-text" type="text" placeholder="Some text...">
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-select">問合せ元分類</label>
+            <div class="uk-form-controls">
+                <select class="uk-select select-box-field" id="form-horizontal-select">
+                    <option>Option 01</option>
+                    <option>Option 02</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">担当者名</label>
+            <div class="uk-form-controls">
+                <input class="uk-input line-input-text-field" id="form-horizontal-text" type="text" placeholder="Some text...">
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">電話番号</label>
+            <div class="uk-form-controls">
+                <input class="uk-input line-input-text-field" id="form-horizontal-text" type="text" placeholder="Some text...">
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">電話番号（予備）</label>
+            <div class="uk-form-controls">
+                <input class="uk-input line-input-text-field" id="form-horizontal-text" type="text" placeholder="Some text...">
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-select">回答者</label>
+            <div class="uk-form-controls">
+                <select class="uk-select select-box-field" id="form-horizontal-select">
+                    <option>Option 01</option>
+                    <option>Option 02</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-select">問合せ</label>
+            <div class="uk-form-controls">
+                <textarea class="uk-textarea textarea-input" rows="5" placeholder="Textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-select">回答</label>
+            <div class="uk-form-controls">
+                <textarea class="uk-textarea textarea-input" rows="5" placeholder="Textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-select">お問合せ分類</label>
+            <div class="uk-form-controls">
+                <select class="uk-select select-box-field" id="form-horizontal-select">
+                    <option>Option 01</option>
+                    <option>Option 02</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-under-buttons">
+            <button class="uk-button uk-button-default">戻る</button>
+            <span>　</span>
+            <button class="uk-button uk-button-primary">登録</button>
+        </div>
+    </form>
 
 </div>

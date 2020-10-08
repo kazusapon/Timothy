@@ -4,6 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityModels
 {
+    public enum CompletionState
+    {
+        完了 = 1,
+        未完了 = 0
+    }
+
     public class Inquiry
     {
         [Key]

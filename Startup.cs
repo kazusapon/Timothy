@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Database.Models;
+using Inquiry.Model;
+using System.Model;
 
 namespace Timothy
 {
@@ -32,6 +34,10 @@ namespace Timothy
                     Configuration.GetConnectionString("DatabaseContext")
                 )
             );
+
+            // Insert dependencies
+            services.AddScoped<IInquiry, InquiryModel>();
+            services.AddScoped<ISystem, SystemModel>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

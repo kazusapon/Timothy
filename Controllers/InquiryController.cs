@@ -6,7 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Database.Models;
+using EntityModels;
 using Inquiry.Model;
+using System.Model;
+using Inquiry.View.Models;
 
 namespace Timothy.Controllers
 {
@@ -16,10 +19,13 @@ namespace Timothy.Controllers
 
         private IInquiry inquiryModel;
 
-        public InquiryController(DatabaseContext context)
+        private readonly ISystem system;
+
+        public InquiryController(DatabaseContext context, IInquiry inquiry, ISystem system)
         {
             this.context = context;
-            this.inquiryModel = new InquiryModel(context);
+            this.inquiryModel = inquiry;
+            this.system = system;
         }
         
         [HttpGet]
@@ -34,7 +40,10 @@ namespace Timothy.Controllers
         [Route("Inquiry/New")]
         public IActionResult New()
         {
-            return View();
+            var inquiryForm = new InquiryForm();
+            inquiryForm.CompletionStates = Enum.GetValues(typeof(EntityModels.CompletionState)).AsQueryable();
+
+            return View(inquiryForm);
         }
     }
 }
