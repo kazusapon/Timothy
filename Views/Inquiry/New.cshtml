@@ -4,7 +4,9 @@
 
     <form id="inquiry-input-form" class="uk-form-horizontal uk-margin-large">
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">着信日</label>
+            <label class="uk-form-label" for="form-horizontal-text">
+                @Html.DisplayNameFor(model => model.IncomingDate)
+            </label>
             <div class="uk-form-controls">
                 <input class="uk-input datetime-input-field" id="form-horizontal-text" type="text" placeholder="Some text...">
             </div>
@@ -20,7 +22,9 @@
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">システム</label>
+            <label class="uk-form-label" for="form-horizontal-select">
+                @Html.DisplayNameFor(model => model.Systems)
+            </label>
             <div class="uk-form-controls">
                 <select class="uk-select select-box-field" id="form-horizontal-select">
                     <option>Option 01</option>
@@ -30,7 +34,9 @@
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">連絡方法</label>
+            <label class="uk-form-label" for="form-horizontal-select">
+                @Html.DisplayNameFor(model => model.ContactMethods)
+            </label>
             <div class="uk-form-controls">
                 <select class="uk-select select-box-field" id="form-horizontal-select">
                     <option>Option 01</option>
@@ -40,14 +46,18 @@
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">問合せ元</label>
+            <label class="uk-form-label" for="form-horizontal-text">
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </label>
             <div class="uk-form-controls">
                 <input class="uk-input line-input-text-field" id="form-horizontal-text" type="text" placeholder="Some text...">
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">問合せ元分類</label>
+            <label class="uk-form-label" for="form-horizontal-select">
+                @Html.DisplayNameFor(model => model.GuestTypes)
+            </label>
             <div class="uk-form-controls">
                 <select class="uk-select select-box-field" id="form-horizontal-select">
                     <option>Option 01</option>
@@ -57,28 +67,36 @@
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">担当者名</label>
+            <label class="uk-form-label" for="form-horizontal-text">
+                @Html.DisplayNameFor(model => model.InquirerName)
+            </label>
             <div class="uk-form-controls">
                 <input class="uk-input line-input-text-field" id="form-horizontal-text" type="text" placeholder="Some text...">
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">電話番号</label>
+            <label class="uk-form-label" for="form-horizontal-text">
+                @Html.DisplayNameFor(model => model.TelephoneNumber)
+            </label>
             <div class="uk-form-controls">
                 <input class="uk-input line-input-text-field" id="form-horizontal-text" type="text" placeholder="Some text...">
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">電話番号（予備）</label>
+            <label class="uk-form-label" for="form-horizontal-text">
+                @Html.DisplayNameFor(model => model.SpareTelephoneNumber)
+            </label>
             <div class="uk-form-controls">
                 <input class="uk-input line-input-text-field" id="form-horizontal-text" type="text" placeholder="Some text...">
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">回答者</label>
+            <label class="uk-form-label" for="form-horizontal-select">
+                @Html.DisplayNameFor(model => model.Users)
+            </label>
             <div class="uk-form-controls">
                 <select class="uk-select select-box-field" id="form-horizontal-select">
                     <option>Option 01</option>
@@ -88,21 +106,27 @@
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">問合せ</label>
+            <label class="uk-form-label" for="form-horizontal-select">
+                @Html.DisplayNameFor(model => model.Question)
+            </label>
             <div class="uk-form-controls">
                 <textarea class="uk-textarea textarea-input" rows="5" placeholder="Textarea"></textarea>
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">回答</label>
+            <label class="uk-form-label" for="form-horizontal-select">
+                @Html.DisplayNameFor(model => model.Answer)
+            </label>
             <div class="uk-form-controls">
                 <textarea class="uk-textarea textarea-input" rows="5" placeholder="Textarea"></textarea>
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">お問合せ分類</label>
+            <label class="uk-form-label" for="form-horizontal-select">
+                @Html.DisplayNameFor(model => model.Classifications)
+            </label>
             <div class="uk-form-controls">
                 <select class="uk-select select-box-field" id="form-horizontal-select">
                     <option>Option 01</option>
@@ -110,6 +134,20 @@
                 </select>
             </div>
         </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-select">
+                @Html.DisplayNameFor(model => model.CompletionStatus)
+            </label>
+            <div class="uk-form-controls">
+                @Html.DropDownList("CompletionStates",
+                    Model.CompletionStatus,
+                    new { @class = "uk-select select-box-field", id = "form-horizontal-select", selected = "1"}
+                )
+
+            </div>
+        </div>
+
 
         <div class="form-under-buttons">
             <button class="uk-button uk-button-default">戻る</button>

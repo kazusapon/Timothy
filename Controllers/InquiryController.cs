@@ -41,7 +41,7 @@ namespace Timothy.Controllers
         public IActionResult New()
         {
             var inquiryForm = new InquiryForm();
-            inquiryForm.CompletionStates = Enum.GetValues(typeof(EntityModels.CompletionState)).AsQueryable();
+            inquiryForm.SetCompletionStatus(); // = Enum.GetValues(typeof(EntityModels.CompletionState));
 
             return View(inquiryForm);
         }
