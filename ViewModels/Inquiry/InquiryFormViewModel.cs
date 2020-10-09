@@ -48,6 +48,7 @@ namespace Inquiry.View.Models
         [Display(Name = "回答")]
         public string Answer {get; set;}
 
+        [Display(Name = "問合せ分類")]
         public IEnumerable<EntityModels.Classification> Classifications {get; set;}
 
         [Display(Name = "完了")]
