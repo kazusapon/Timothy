@@ -10,6 +10,7 @@ using EntityModels;
 using Inquiry.Model;
 using System.Model;
 using Inquiry.View.Models;
+using Form.View.Models;
 
 namespace Timothy.Controllers
 {
@@ -40,10 +41,13 @@ namespace Timothy.Controllers
         [Route("Inquiry/New")]
         public IActionResult New()
         {
-            var inquiryForm = new InquiryForm();
-            inquiryForm.SetCompletionStatus(); // = Enum.GetValues(typeof(EntityModels.CompletionState));
+            var inquiryViewModel = new InquiryViewModel
+            {
+                inquiry = new EntityModels.Inquiry(),
+                inquiryFrom = new InquiryForm()
+            };
 
-            return View(inquiryForm);
+            return View(inquiryViewModel);
         }
     }
 }

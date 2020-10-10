@@ -1,32 +1,41 @@
-@model Inquiry.View.Models.InquiryForm;
+@model Inquiry.View.Models.InquiryViewModel;
 
 <div class="uk-padding-small">
 
     <form id="inquiry-input-form" class="uk-form-horizontal uk-margin-large">
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">
-                @Html.DisplayNameFor(model => model.IncomingDate)
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.IncomingDate)
             </label>
             <div class="uk-form-controls">
-                <input class="uk-input datetime-input-field" id="form-horizontal-text" type="text" placeholder="Some text...">
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+                    <input asp-for="inquiry.IncomingDate" type="date" class="uk-input datetime-input-field flatpicker-calendar">
+                </div>
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">着信時刻</label>
+            <label class="uk-form-label">着信時刻</label>
             <div class="uk-form-controls">
-                <input class="uk-input datetime-input-field" type="text" placeholder="Some text...">
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: clock"></span>
+                    <input asp-for="inquiry.StartTime" type="text" class="uk-input datetime-input-field">
+                </div>
                 <span>　～　</span>
-                <input class="uk-input datetime-input-field" id="form-horizontal-text" type="text" placeholder="Some text...">
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: clock"></span>
+                    <input asp-for="inquiry.EndTime" type="text" class="uk-input datetime-input-field">
+                </div>
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">
-                @Html.DisplayNameFor(model => model.Systems)
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.SystemId)
             </label>
             <div class="uk-form-controls">
-                <select class="uk-select select-box-field" id="form-horizontal-select">
+                <select asp-for="inquiry.SystemId" class="uk-select select-box-field">
                     <option>Option 01</option>
                     <option>Option 02</option>
                 </select>
@@ -34,11 +43,11 @@
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">
-                @Html.DisplayNameFor(model => model.ContactMethods)
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.ContactMethodId)
             </label>
             <div class="uk-form-controls">
-                <select class="uk-select select-box-field" id="form-horizontal-select">
+                <select asp-for="inquiry.ContactMethodId" class="uk-select select-box-field">
                     <option>Option 01</option>
                     <option>Option 02</option>
                 </select>
@@ -46,20 +55,20 @@
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">
-                @Html.DisplayNameFor(model => model.CompanyName)
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.ComapnyName)
             </label>
             <div class="uk-form-controls">
-                <input class="uk-input line-input-text-field" id="form-horizontal-text" type="text" placeholder="Some text...">
+                <input asp-for="inquiry.ComapnyName" type="text" class="uk-input line-input-text-field" placeholder="Some text...">
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">
-                @Html.DisplayNameFor(model => model.GuestTypes)
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.GuestTypeId)
             </label>
             <div class="uk-form-controls">
-                <select class="uk-select select-box-field" id="form-horizontal-select">
+                <select asp-for="inquiry.GuestTypeId" class="uk-select select-box-field">
                     <option>Option 01</option>
                     <option>Option 02</option>
                 </select>
@@ -67,38 +76,38 @@
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">
-                @Html.DisplayNameFor(model => model.InquirerName)
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.InquirerName)
             </label>
             <div class="uk-form-controls">
-                <input class="uk-input line-input-text-field" id="form-horizontal-text" type="text" placeholder="Some text...">
+                <input asp-for="inquiry.InquirerName" type="text" class="uk-input line-input-text-field" placeholder="Some text...">
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">
-                @Html.DisplayNameFor(model => model.TelephoneNumber)
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.TelephoneNumber)
             </label>
             <div class="uk-form-controls">
-                <input class="uk-input line-input-text-field" id="form-horizontal-text" type="text" placeholder="Some text...">
+                <input asp-for="inquiry.TelephoneNumber" type="text" class="uk-input line-input-text-field" placeholder="Some text...">
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">
-                @Html.DisplayNameFor(model => model.SpareTelephoneNumber)
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.SpareTelephoneNumber)
             </label>
             <div class="uk-form-controls">
-                <input class="uk-input line-input-text-field" id="form-horizontal-text" type="text" placeholder="Some text...">
+                <input asp-for="inquiry.SpareTelephoneNumber" type="text" class="uk-input line-input-text-field" placeholder="Some text...">
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">
-                @Html.DisplayNameFor(model => model.Users)
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.UserId)
             </label>
             <div class="uk-form-controls">
-                <select class="uk-select select-box-field" id="form-horizontal-select">
+                <select asp-for="inquiry.UserId" class="uk-select select-box-field">
                     <option>Option 01</option>
                     <option>Option 02</option>
                 </select>
@@ -106,29 +115,29 @@
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">
-                @Html.DisplayNameFor(model => model.Question)
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.Question)
             </label>
             <div class="uk-form-controls">
-                <textarea class="uk-textarea textarea-input" rows="5" placeholder="Textarea"></textarea>
+                <textarea asp-for="inquiry.Question" class="uk-textarea textarea-input" rows="5" placeholder="Textarea"></textarea>
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">
-                @Html.DisplayNameFor(model => model.Answer)
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.Answer)
             </label>
             <div class="uk-form-controls">
-                <textarea class="uk-textarea textarea-input" rows="5" placeholder="Textarea"></textarea>
+                <textarea asp-for="inquiry.Answer" class="uk-textarea textarea-input" rows="5" placeholder="Textarea"></textarea>
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">
-                @Html.DisplayNameFor(model => model.Classifications)
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.ClassificationId)
             </label>
             <div class="uk-form-controls">
-                <select class="uk-select select-box-field" id="form-horizontal-select">
+                <select asp-for="inquiry.ClassificationId" class="uk-select select-box-field">
                     <option>Option 01</option>
                     <option>Option 02</option>
                 </select>
@@ -136,15 +145,21 @@
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">
-                @Html.DisplayNameFor(model => model.CompletionStatus)
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.InquiryRelation)
             </label>
             <div class="uk-form-controls">
-                @Html.DropDownList("CompletionStates",
-                    Model.CompletionStatus,
-                    new { @class = "uk-select select-box-field", id = "form-horizontal-select", selected = "1"}
-                )
+                <input asp-for="inquiry.InquiryRelation" type="text" class="uk-input line-input-text-field" placeholder="Some text...">
+            </div>
+        </div>
 
+        <div class="uk-margin">
+            <label class="uk-form-label">
+                @Html.DisplayNameFor(model => model.inquiry.ComplateFlag)
+            </label>
+            <div class="uk-form-controls">
+                <select asp-for="inquiry.ComplateFlag" asp-items="Html.GetEnumSelectList<EntityModels.CompletionState>()" class="uk-select select-box-field">
+                </select>
             </div>
         </div>
 
