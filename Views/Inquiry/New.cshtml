@@ -35,9 +35,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.SystemId)
             </label>
             <div class="uk-form-controls">
-                <select asp-for="inquiry.SystemId" class="uk-select select-box-field">
-                    <option>Option 01</option>
-                    <option>Option 02</option>
+                <select asp-for="inquiry.SystemId" asp-items="Model.inquiryFrom.Systems" class="uk-select select-box-field">
                 </select>
             </div>
         </div>
@@ -158,7 +156,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.ComplateFlag)
             </label>
             <div class="uk-form-controls">
-                <select asp-for="inquiry.ComplateFlag" asp-items="Html.GetEnumSelectList<EntityModels.CompletionState>()" class="uk-select select-box-field">
+                <select asp-for="inquiry.ComplateFlag" asp-items="Model.inquiry.GetCompletionStateSelectListItem()" class="uk-select select-box-field">
                 </select>
             </div>
         </div>

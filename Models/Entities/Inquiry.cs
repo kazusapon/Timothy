@@ -1,13 +1,17 @@
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EntityModels
 {
     public enum CompletionState
     {
-        未完了 = 0,
-        完了 = 1
+        未完了,
+        完了
     }
 
     public class Inquiry
@@ -69,5 +73,22 @@ namespace EntityModels
         [Display(Name = "着信終了時刻")]
         [DataType(DataType.Time)]
         public DateTime EndTime {get; set;}
+
+        public IEnumerable<SelectListItem> GetCompletionStateSelectListItem()
+        {
+            var completionStateList = new List<SelectListItem>();
+            foreach(CompletionState completionState in Enum.GetValues(typeof(CompletionState)))
+            {
+                int value = (int)completionState;
+                string text = Enum.GetName(typeof(CompletionState), completionState);
+
+                completionStateList.Add(new SelectListItem{
+                    Value = value == 1 ? true.ToString() : false.ToString(),
+                    Text = text
+                });
+            }
+
+            return completionStateList;
+        }
     }
 }

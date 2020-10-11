@@ -9,14 +9,14 @@ namespace Form.View.Models
 {
     public class InquiryForm
     {
-        public IEnumerable<EntityModels.System> Systems {get; set;}
+        public IEnumerable<SelectListItem> Systems {get; set;}
 
-        public IEnumerable<EntityModels.ContactMethod> ContactMethods {get; set;}
+        public IEnumerable<SelectListItem> ContactMethods {get; set;}
 
-        public IEnumerable<EntityModels.GuestType> GuestTypes {get; set;}
+        public IEnumerable<SelectListItem> GuestTypes {get; set;}
 
-        public IEnumerable<EntityModels.User> Users {get; set;}
+        public IEnumerable<SelectListItem> Users {get; set;}
 
-        public IEnumerable<EntityModels.Classification> Classifications {get; set;}
+        public IEnumerable<SelectListItem> Classifications {get; set;}
     }
 }

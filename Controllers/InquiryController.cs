@@ -39,15 +39,23 @@ namespace Timothy.Controllers
 
         [HttpGet]
         [Route("Inquiry/New")]
-        public IActionResult New()
+        public async Task<IActionResult> New()
         {
             var inquiryViewModel = new InquiryViewModel
             {
                 inquiry = new EntityModels.Inquiry(),
-                inquiryFrom = new InquiryForm()
+                inquiryFrom = await SetInquiryFormValuesAsync()
             };
 
             return View(inquiryViewModel);
+        }
+
+        private async Task<InquiryForm> SetInquiryFormValuesAsync()
+        {
+            var inquiryForm = new InquiryForm();
+            inquiryForm.Systems = await this.system.GetSelectListItemAsync();
+
+            return inquiryForm;
         }
     }
 }

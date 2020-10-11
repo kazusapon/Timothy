@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using EntityModels;
 using Database.Models;
 
@@ -17,9 +18,14 @@ namespace System.Model
             this._context = context;
         }
 
-        public async Task<List<EntityModels.System>> GetSystems()
+        public async Task<List<SelectListItem>> GetSelectListItemAsync()
         {
-            return await this._context.System.OrderBy(system => system.Id).AsNoTracking().ToListAsync();
+            return await this._context.System.OrderBy(system => system.Id).Select(sys => 
+                new SelectListItem{
+                    Value = sys.Id.ToString(),
+                    Text = sys.SystemName
+                }
+            ).ToListAsync();
         }
     }
 }
