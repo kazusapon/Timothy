@@ -54,7 +54,8 @@
       },
       time_24hr: true,
       rangeSeparator: " から ",
-      firstDayOfWeek: 0
+      firstDayOfWeek: 0,
+      defaultDate: new Date()
   };
   fp.l10ns.ja = Japanese;
   var ja = fp.l10ns;

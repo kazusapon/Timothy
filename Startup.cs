@@ -12,6 +12,10 @@ using Microsoft.EntityFrameworkCore;
 using Database.Models;
 using Inquiry.Model;
 using System.Model;
+using GuestType.Model;
+using User.Model;
+using Classification.Model;
+using ContactMethod.Model;
 
 namespace Timothy
 {
@@ -38,6 +42,10 @@ namespace Timothy
             // Insert dependencies
             services.AddScoped<IInquiry, InquiryModel>();
             services.AddScoped<ISystem, SystemModel>();
+            services.AddScoped<IContactMethod, ContactMethodModel>();
+            services.AddScoped<IGuestType, GuestTypeModel>();
+            services.AddScoped<IUser, UserModel>();
+            services.AddScoped<IClassification, ClassificationModel>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

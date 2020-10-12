@@ -10,7 +10,7 @@
             <div class="uk-form-controls">
                 <div class="uk-inline">
                     <span class="uk-form-icon" uk-icon="icon: calendar"></span>
-                    <input asp-for="inquiry.IncomingDate" type="date" class="uk-input datetime-input-field flatpicker-calendar">
+                    <input asp-for="inquiry.IncomingDate" type="date" class="uk-input datetime-input-field flatpicker-calendar" value=@ViewBag.toDate>
                 </div>
             </div>
         </div>
@@ -20,12 +20,12 @@
             <div class="uk-form-controls">
                 <div class="uk-inline">
                     <span class="uk-form-icon" uk-icon="icon: clock"></span>
-                    <input asp-for="inquiry.StartTime" type="text" class="uk-input datetime-input-field">
+                    <input asp-for="inquiry.StartTime" type="text" class="uk-input datetime-input-field flatpicker-time" value=@ViewBag.toTime>
                 </div>
                 <span>　～　</span>
                 <div class="uk-inline">
                     <span class="uk-form-icon" uk-icon="icon: clock"></span>
-                    <input asp-for="inquiry.EndTime" type="text" class="uk-input datetime-input-field">
+                    <input asp-for="inquiry.EndTime" type="text" class="uk-input datetime-input-field flatpicker-time" value=@ViewBag.toTime>
                 </div>
             </div>
         </div>
@@ -45,9 +45,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.ContactMethodId)
             </label>
             <div class="uk-form-controls">
-                <select asp-for="inquiry.ContactMethodId" class="uk-select select-box-field">
-                    <option>Option 01</option>
-                    <option>Option 02</option>
+                <select asp-for="inquiry.ContactMethodId" asp-items="Model.inquiryFrom.ContactMethods" class="uk-select select-box-field">
                 </select>
             </div>
         </div>
@@ -66,9 +64,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.GuestTypeId)
             </label>
             <div class="uk-form-controls">
-                <select asp-for="inquiry.GuestTypeId" class="uk-select select-box-field">
-                    <option>Option 01</option>
-                    <option>Option 02</option>
+                <select asp-for="inquiry.GuestTypeId" asp-items="Model.inquiryFrom.GuestTypes" class="uk-select select-box-field">
                 </select>
             </div>
         </div>
@@ -105,9 +101,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.UserId)
             </label>
             <div class="uk-form-controls">
-                <select asp-for="inquiry.UserId" class="uk-select select-box-field">
-                    <option>Option 01</option>
-                    <option>Option 02</option>
+                <select asp-for="inquiry.UserId" asp-items="Model.inquiryFrom.Users" class="uk-select select-box-field">
                 </select>
             </div>
         </div>
@@ -135,9 +129,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.ClassificationId)
             </label>
             <div class="uk-form-controls">
-                <select asp-for="inquiry.ClassificationId" class="uk-select select-box-field">
-                    <option>Option 01</option>
-                    <option>Option 02</option>
+                <select asp-for="inquiry.ClassificationId" asp-items="Model.inquiryFrom.Classifications" class="uk-select select-box-field">
                 </select>
             </div>
         </div>
@@ -163,7 +155,7 @@
 
 
         <div class="form-under-buttons">
-            <button class="uk-button uk-button-default">戻る</button>
+            <button asp-controller="Inquiry" asp-action="Index" class="uk-button uk-button-default">戻る</button>
             <span>　</span>
             <button class="uk-button uk-button-primary">登録</button>
         </div>

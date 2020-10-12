@@ -9,24 +9,40 @@ using Database.Models;
 using EntityModels;
 using Inquiry.Model;
 using System.Model;
+using ContactMethod.Model;
 using Inquiry.View.Models;
+using GuestType.Model;
+using User.Model;
+using Classification.Model;
 using Form.View.Models;
 
 namespace Timothy.Controllers
 {
     public class InquiryController : Controller
     {
-        private readonly DatabaseContext context;
+        private readonly DatabaseContext _context;
 
-        private IInquiry inquiryModel;
+        private IInquiry _inquiryModel;
 
-        private readonly ISystem system;
+        private readonly ISystem _system;
 
-        public InquiryController(DatabaseContext context, IInquiry inquiry, ISystem system)
+        private readonly IContactMethod _contactMethod;
+
+        private readonly IGuestType _guestType;
+
+        private readonly IUser _user;
+
+        private readonly IClassification _classification;
+
+        public InquiryController(DatabaseContext context, IInquiry inquiry, ISystem system, IContactMethod contactMethod, IGuestType guestType, IUser user, IClassification classification)
         {
-            this.context = context;
-            this.inquiryModel = inquiry;
-            this.system = system;
+            this._context = context;
+            this._inquiryModel = inquiry;
+            this._system = system;
+            this._contactMethod = contactMethod;
+            this._guestType = guestType;
+            this._user = user;
+            this._classification = classification;
         }
         
         [HttpGet]
@@ -34,7 +50,7 @@ namespace Timothy.Controllers
         public async Task<IActionResult> Index()
         {
 
-            return View(await inquiryModel.GetIndexListAsync());
+            return View(await this._inquiryModel.GetIndexListAsync());
         }
 
         [HttpGet]
@@ -47,13 +63,21 @@ namespace Timothy.Controllers
                 inquiryFrom = await SetInquiryFormValuesAsync()
             };
 
+            var now = DateTime.Now;
+            ViewBag.toDate = now.ToString("yyyy-MM-dd");
+            ViewBag.toTime = now.ToString("HH:mm");
+
             return View(inquiryViewModel);
         }
 
         private async Task<InquiryForm> SetInquiryFormValuesAsync()
         {
             var inquiryForm = new InquiryForm();
-            inquiryForm.Systems = await this.system.GetSelectListItemAsync();
+            inquiryForm.Systems = await this._system.GetSelectListItemsAsync();
+            inquiryForm.ContactMethods = await this._contactMethod.GetSelectListItemsAsync();
+            inquiryForm.GuestTypes = await this._guestType.GetSelectListItemsAsync();
+            inquiryForm.Users = await this._user.GetSelectListItemsAsync();
+            inquiryForm.Classifications = await this._classification.GetSelectListItemsAsync();
 
             return inquiryForm;
         }

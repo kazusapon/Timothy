@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using EntityModels;
 
-namespace System.Model
+namespace GuestType.Model
 {
-    public interface ISystem
+    public interface IGuestType
     {
         Task<List<SelectListItem>> GetSelectListItemsAsync();
     }

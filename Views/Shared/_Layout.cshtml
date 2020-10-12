@@ -23,7 +23,7 @@
                     <li><a class="menu-title" asp-controller="Inquiry" asp-action="Index">問合せ</a></li>
                     <li>
                         <a class="menu-title" asp-area="" asp-controller="Home" asp-action="Privacy">設定</a>
-                        <div class="uk-navbar-dropdown" uk-dropdown="boundary: .boundary">
+                        <div class="uk-navbar-dropdown" uk-dropdown="mode: click">
                             <ul class="uk-nav uk-navbar-dropdown-nav">
                                 <li><a href="#">ユーザ</a></li>
                                 <li><a href="#">システム</a></li>
@@ -52,6 +52,13 @@
     <script src="~/lib/flatpicker/ja.js"></script>
     <script>
         flatpickr('.flatpicker-calendar');
+        flatpickr(".flatpicker-time", {
+            enableTime: true,
+            noCalendar: true,
+            enableSeconds: false,
+            time_24hr: true,
+            dateFormat: "H:i",
+        });
     </script>
     @RenderSection("Scripts", required: false)
 </body>

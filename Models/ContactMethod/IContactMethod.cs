@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using EntityModels;
 
-namespace System.Model
+namespace ContactMethod.Model
 {
-    public interface ISystem
+    public interface IContactMethod
     {
         Task<List<SelectListItem>> GetSelectListItemsAsync();
     }

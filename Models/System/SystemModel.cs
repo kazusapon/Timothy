@@ -18,14 +18,14 @@ namespace System.Model
             this._context = context;
         }
 
-        public async Task<List<SelectListItem>> GetSelectListItemAsync()
+        public async Task<List<SelectListItem>> GetSelectListItemsAsync()
         {
             return await this._context.System.OrderBy(system => system.Id).Select(sys => 
                 new SelectListItem{
                     Value = sys.Id.ToString(),
                     Text = sys.SystemName
                 }
-            ).ToListAsync();
+            ).AsNoTracking().ToListAsync();
         }
     }
 }
