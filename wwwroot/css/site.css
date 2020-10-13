@@ -159,7 +159,55 @@ a.menu-title:hover {
   width: 900px;
 }
 
+#inquiry-input-form .telephone-number {
+  width: 260px;
+}
+
+#inquiry-input-form .inquiry-relation {
+  width: 590px;
+}
+
+
 #inquiry-input-form .form-under-buttons {
   display: flex;
   justify-content: flex-end;
+}
+
+#modal-inquiry-search .inquiry-search-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#modal-inquiry-search .inquiry-search-form-input {
+  display: flex;
+  align-items: flex-start;
+}
+
+#modal-inquiry-search .inquiry-search-id {
+  width: 150px;
+}
+
+#modal-inquiry-search .inquiry-search-telephone-number {
+  width: 260px;
+}
+
+#modal-inquiry-search-result .inquiry-datetime {
+  width: 130px;
+}
+
+#modal-inquiry-search-result .inquiry-company-name {
+  width: 200px;
+}
+
+#modal-inquiry-search-result .inquirer-name {
+  width: 130px;
+}
+
+#modal-inquiry-search-result .inquiry-question {
+  width: 370px;
+}
+
+#modal-inquiry-search-result .inquiry-answer {
+  width: 370px;
 }

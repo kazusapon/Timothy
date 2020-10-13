@@ -10,7 +10,7 @@
             <div class="uk-form-controls">
                 <div class="uk-inline">
                     <span class="uk-form-icon" uk-icon="icon: calendar"></span>
-                    <input asp-for="inquiry.IncomingDate" type="date" class="uk-input datetime-input-field flatpicker-calendar" value=@ViewBag.toDate>
+                    <input asp-for="inquiry.IncomingDate" type="date" class="uk-input datetime-input-field flatpicker-calendar" required value=@ViewBag.toDate>
                 </div>
             </div>
         </div>
@@ -20,12 +20,12 @@
             <div class="uk-form-controls">
                 <div class="uk-inline">
                     <span class="uk-form-icon" uk-icon="icon: clock"></span>
-                    <input asp-for="inquiry.StartTime" type="text" class="uk-input datetime-input-field flatpicker-time" value=@ViewBag.toTime>
+                    <input asp-for="inquiry.StartTime" type="text" class="uk-input datetime-input-field flatpicker-time" required value=@ViewBag.toTime>
                 </div>
                 <span>　～　</span>
                 <div class="uk-inline">
                     <span class="uk-form-icon" uk-icon="icon: clock"></span>
-                    <input asp-for="inquiry.EndTime" type="text" class="uk-input datetime-input-field flatpicker-time" value=@ViewBag.toTime>
+                    <input asp-for="inquiry.EndTime" type="text" class="uk-input datetime-input-field flatpicker-time" required value=@ViewBag.toTime>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.SystemId)
             </label>
             <div class="uk-form-controls">
-                <select asp-for="inquiry.SystemId" asp-items="Model.inquiryFrom.Systems" class="uk-select select-box-field">
+                <select asp-for="inquiry.SystemId" asp-items="Model.inquiryFrom.Systems" class="uk-select select-box-field" required>
                 </select>
             </div>
         </div>
@@ -45,7 +45,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.ContactMethodId)
             </label>
             <div class="uk-form-controls">
-                <select asp-for="inquiry.ContactMethodId" asp-items="Model.inquiryFrom.ContactMethods" class="uk-select select-box-field">
+                <select asp-for="inquiry.ContactMethodId" asp-items="Model.inquiryFrom.ContactMethods" class="uk-select select-box-field" required>
                 </select>
             </div>
         </div>
@@ -55,7 +55,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.ComapnyName)
             </label>
             <div class="uk-form-controls">
-                <input asp-for="inquiry.ComapnyName" type="text" class="uk-input line-input-text-field" placeholder="Some text...">
+                <input asp-for="inquiry.ComapnyName" type="text" class="uk-input line-input-text-field" required maxlength="30">
             </div>
         </div>
 
@@ -64,7 +64,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.GuestTypeId)
             </label>
             <div class="uk-form-controls">
-                <select asp-for="inquiry.GuestTypeId" asp-items="Model.inquiryFrom.GuestTypes" class="uk-select select-box-field">
+                <select asp-for="inquiry.GuestTypeId" asp-items="Model.inquiryFrom.GuestTypes" class="uk-select select-box-field" required>
                 </select>
             </div>
         </div>
@@ -74,7 +74,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.InquirerName)
             </label>
             <div class="uk-form-controls">
-                <input asp-for="inquiry.InquirerName" type="text" class="uk-input line-input-text-field" placeholder="Some text...">
+                <input asp-for="inquiry.InquirerName" type="text" class="uk-input line-input-text-field" required maxlength="15">
             </div>
         </div>
 
@@ -83,7 +83,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.TelephoneNumber)
             </label>
             <div class="uk-form-controls">
-                <input asp-for="inquiry.TelephoneNumber" type="text" class="uk-input line-input-text-field" placeholder="Some text...">
+                <input asp-for="inquiry.TelephoneNumber" type="tel" class="uk-input telephone-number" required maxlength="13">
             </div>
         </div>
 
@@ -92,7 +92,8 @@
                 @Html.DisplayNameFor(model => model.inquiry.SpareTelephoneNumber)
             </label>
             <div class="uk-form-controls">
-                <input asp-for="inquiry.SpareTelephoneNumber" type="text" class="uk-input line-input-text-field" placeholder="Some text...">
+                <input asp-for="inquiry.SpareTelephoneNumber" type="tel" class="uk-input telephone-number" maxlength="13">
+                <label><input type="checkbox" class="uk-checkbox uk-margin-left"> 番号不明</label>
             </div>
         </div>
 
@@ -101,7 +102,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.UserId)
             </label>
             <div class="uk-form-controls">
-                <select asp-for="inquiry.UserId" asp-items="Model.inquiryFrom.Users" class="uk-select select-box-field">
+                <select asp-for="inquiry.UserId" asp-items="Model.inquiryFrom.Users" class="uk-select select-box-field" required>
                 </select>
             </div>
         </div>
@@ -111,7 +112,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.Question)
             </label>
             <div class="uk-form-controls">
-                <textarea asp-for="inquiry.Question" class="uk-textarea textarea-input" rows="5" placeholder="Textarea"></textarea>
+                <textarea asp-for="inquiry.Question" class="uk-textarea textarea-input" rows="5" required maxlength="500"></textarea>
             </div>
         </div>
 
@@ -120,7 +121,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.Answer)
             </label>
             <div class="uk-form-controls">
-                <textarea asp-for="inquiry.Answer" class="uk-textarea textarea-input" rows="5" placeholder="Textarea"></textarea>
+                <textarea asp-for="inquiry.Answer" class="uk-textarea textarea-input" rows="5" required maxlength="500"></textarea>
             </div>
         </div>
 
@@ -129,7 +130,7 @@
                 @Html.DisplayNameFor(model => model.inquiry.ClassificationId)
             </label>
             <div class="uk-form-controls">
-                <select asp-for="inquiry.ClassificationId" asp-items="Model.inquiryFrom.Classifications" class="uk-select select-box-field">
+                <select asp-for="inquiry.ClassificationId" asp-items="Model.inquiryFrom.Classifications" class="uk-select select-box-field" required>
                 </select>
             </div>
         </div>
@@ -139,7 +140,12 @@
                 @Html.DisplayNameFor(model => model.inquiry.InquiryRelation)
             </label>
             <div class="uk-form-controls">
-                <input asp-for="inquiry.InquiryRelation" type="text" class="uk-input line-input-text-field" placeholder="Some text...">
+                <input type="text" class="uk-input inquiry-relation" readonly>
+                <div class="uk-button-group">
+                    <a class="uk-button uk-button-default" href="#modal-inquiry-search" uk-toggle><span uk-icon="link"></span></a>
+                    <button type="button" class="uk-button uk-button-default">クリア</button>
+                </div>
+                <input asp-for="inquiry.InquiryRelation" type="hidden">
             </div>
         </div>
 
@@ -148,11 +154,10 @@
                 @Html.DisplayNameFor(model => model.inquiry.ComplateFlag)
             </label>
             <div class="uk-form-controls">
-                <select asp-for="inquiry.ComplateFlag" asp-items="Model.inquiry.GetCompletionStateSelectListItem()" class="uk-select select-box-field">
+                <select asp-for="inquiry.ComplateFlag" asp-items="Model.inquiry.GetCompletionStateSelectListItem()" class="uk-select select-box-field" required>
                 </select>
             </div>
         </div>
-
 
         <div class="form-under-buttons">
             <button asp-controller="Inquiry" asp-action="Index" class="uk-button uk-button-default">戻る</button>
@@ -160,5 +165,102 @@
             <button class="uk-button uk-button-primary">登録</button>
         </div>
     </form>
+</div>
 
+
+<!-- 問合せ検索用モーダル -->
+<div id="modal-inquiry-search" class="uk-modal-container" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <form class="inquiry-search-form uk-margin-bottom">
+            <div class="uk-form-controls inquiry-search-form-input">
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
+                    <input type="text" class="uk-input inquiry-search-id">
+                </div>
+                <div class="uk-inline uk-margin-left">
+                    <span class="uk-form-icon" uk-icon="icon: receiver"></span>
+                    <input type="tel" class="uk-input inquiry-search-telephone-number">
+                </div>
+            </div>
+
+            <div class="uk-button-group">
+                <button type="button" class="uk-button uk-button-default"><span uk-icon="search"></span></button>
+                <button type="button" class="uk-button uk-button-default">クリア</button>
+            </div>
+        </form>
+        <div class="uk-modal-body uk-padding-remove-vertical" uk-overflow-auto>
+            <table id="modal-inquiry-search-result" class="uk-table uk-table-striped uk-table-hover uk-table-small">
+                <thead>
+                    <tr>
+                        <th class="inquiry-datetime">着信日時</th>
+                        <th class="inquiry-company-name">問合せ元</th>
+                        <th class="inquirer-name">担当者</th>
+                        <th class="inquiry-question">問合せ</th>
+                        <th class="inquiry-answer">回答</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="inquiry-datetime">20/11/30 11:23</td>
+                        <td class="inquiry-company-name">ペンタスネット</td>
+                        <td class="inquirer-name">テスト桃子丸</td>
+                        <td class="inquiry-question">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                        <td class="inquiry-answer">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                    </tr>
+                    <tr>
+                        <td class="inquiry-datetime">20/11/30 11:23</td>
+                        <td class="inquiry-company-name">ペンタスネット</td>
+                        <td class="inquirer-name">テスト桃子丸</td>
+                        <td class="inquiry-question">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                        <td class="inquiry-answer">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                    </tr>
+                    <tr>
+                        <td class="inquiry-datetime">20/11/30 11:23</td>
+                        <td class="inquiry-company-name">ペンタスネット</td>
+                        <td class="inquirer-name">テスト桃子丸</td>
+                        <td class="inquiry-question">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                        <td class="inquiry-answer">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                    </tr>
+                    <tr>
+                        <td class="inquiry-datetime">20/11/30 11:23</td>
+                        <td class="inquiry-company-name">ペンタスネット</td>
+                        <td class="inquirer-name">テスト桃子丸</td>
+                        <td class="inquiry-question">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                        <td class="inquiry-answer">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                    </tr>
+                    <tr>
+                        <td class="inquiry-datetime">20/11/30 11:23</td>
+                        <td class="inquiry-company-name">ペンタスネット</td>
+                        <td class="inquirer-name">テスト桃子丸</td>
+                        <td class="inquiry-question">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                        <td class="inquiry-answer">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                    </tr>
+                    <tr>
+                        <td class="inquiry-datetime">20/11/30 11:23</td>
+                        <td class="inquiry-company-name">ペンタスネット</td>
+                        <td class="inquirer-name">テスト桃子丸</td>
+                        <td class="inquiry-question">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                        <td class="inquiry-answer">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                    </tr>
+                    <tr>
+                        <td class="inquiry-datetime">20/11/30 11:23</td>
+                        <td class="inquiry-company-name">ペンタスネット</td>
+                        <td class="inquirer-name">テスト桃子丸</td>
+                        <td class="inquiry-question">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                        <td class="inquiry-answer">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                    </tr>
+                    <tr>
+                        <td class="inquiry-datetime">20/11/30 11:23</td>
+                        <td class="inquiry-company-name">ペンタスネット</td>
+                        <td class="inquirer-name">テスト桃子丸</td>
+                        <td class="inquiry-question">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                        <td class="inquiry-answer">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+            <button class="uk-button uk-button-default uk-modal-close" type="button">閉じる</button>
+        </div>
+    </div>
 </div>
