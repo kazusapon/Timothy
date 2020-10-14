@@ -39,5 +39,13 @@ namespace Inquiry.Model
                                 Answer = inquiry.Answer
                             }).AsNoTracking().ToListAsync();
         }
+
+        public async Task CreateInquiryAsync(EntityModels.Inquiry inquiry)
+        {
+            this._context.Inquiry.Add(inquiry);
+            await this._context.SaveChangesAsync();
+            
+            return;
+        }
     }
 }

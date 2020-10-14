@@ -49,7 +49,6 @@ namespace Timothy.Controllers
         [Route("Inquiry")]
         public async Task<IActionResult> Index()
         {
-
             return View(await this._inquiryModel.GetIndexListAsync());
         }
 
@@ -70,6 +69,27 @@ namespace Timothy.Controllers
             return View(inquiryViewModel);
         }
 
+        [HttpPost]
+        [Route("Inquiry/Create")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("UserId, SystemId, ContactMethodId, GuestTypeId, ClassificationId, InquiryRelation, ComapnyName, InquirerName, TelephoneNumber, SpareTelephoneNumber, Question, Answer, ComplateFlag, IncomingDate, StartTime, EndTime")] EntityModels.Inquiry inquiry)
+        {
+            if (ModelState.IsValid)
+            {
+                await this._inquiryModel.CreateInquiryAsync(inquiry);
+
+                return RedirectToAction(nameof(New));
+            }
+
+            var inquiryViewModel = new InquiryViewModel
+            {
+                inquiry = inquiry,
+                inquiryFrom = await SetInquiryFormValuesAsync()
+            };
+
+            return View(nameof(New), inquiryViewModel);
+        }
+
         private async Task<InquiryForm> SetInquiryFormValuesAsync()
         {
             var inquiryForm = new InquiryForm();
@@ -80,6 +100,11 @@ namespace Timothy.Controllers
             inquiryForm.Classifications = await this._classification.GetSelectListItemsAsync();
 
             return inquiryForm;
+        }
+
+        private string BindingItems()
+        {
+            return "UserId, SystemId, ContactMethodId, GuestTypeId, ClassificationId, InquiryRelation, ComapnyName, InquirerName, Question, Answer, ComplateFlag, IncomingDate, StartTime, EndTime";
         }
     }
 }

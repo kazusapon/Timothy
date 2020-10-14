@@ -39,21 +39,36 @@ namespace EntityModels
         public int InquiryRelation {get; set;}
 
         [Display(Name = "問合せ元")]
+        [Required(ErrorMessage = "必須項目です")]
+        [MaxLength(30, ErrorMessage = "30文字以下で入力してください")]
         public string ComapnyName {get; set;}
 
         [Display(Name = "担当者")]
+        [Required(ErrorMessage = "必須項目です")]
+        [MaxLength(15, ErrorMessage = "15文字以下で入力してください")]
         public string InquirerName {get; set;}
 
         [Display(Name = "電話番号")]
+        [Required(ErrorMessage = "必須項目です")]
+        [MaxLength(13, ErrorMessage = "13文字以下（ハイフンあり）で入力してください")]
+        [DataType(DataType.PhoneNumber)]
+        [Phone(ErrorMessage = "電話番号として認識できません")]
         public string TelephoneNumber {get; set;}
 
         [Display(Name = "電話番号（予備）")]
+        [MaxLength(13, ErrorMessage = "13文字以下（ハイフンあり）で入力してください")]
+        [DataType(DataType.PhoneNumber)]
+        [Phone(ErrorMessage = "電話番号として認識できません")]
         public string SpareTelephoneNumber {get; set;}
 
         [Display(Name = "問合せ")]
+        [Required(ErrorMessage = "必須項目です")]
+        [MaxLength(500, ErrorMessage = "500文字以下で入力してください")]
         public string Question {get; set;}
 
         [Display(Name = "回答")]
+        [Required(ErrorMessage = "必須項目です")]
+        [MaxLength(500, ErrorMessage = "500文字以下で入力してください")]
         public string Answer {get; set;}
 
         [Display(Name = "完了")]
@@ -63,15 +78,15 @@ namespace EntityModels
         public bool ApprovalFlag {get; set;}
 
         [Display(Name = "着信日")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date, ErrorMessage = "日付として認識できません")]
         public DateTime IncomingDate {get; set;}
 
         [Display(Name = "着信開始時刻")]
-        [DataType(DataType.Time)]
+        [DataType(DataType.Time, ErrorMessage = "時刻として認識できません")]
         public DateTime StartTime {get; set;}
 
         [Display(Name = "着信終了時刻")]
-        [DataType(DataType.Time)]
+        [DataType(DataType.Time, ErrorMessage = "時刻として認識できません")]
         public DateTime EndTime {get; set;}
 
         public IEnumerable<SelectListItem> GetCompletionStateSelectListItem()

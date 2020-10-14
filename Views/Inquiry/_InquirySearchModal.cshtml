@@ -1,0 +1,47 @@
+<!-- 問合せ検索用モーダル -->
+<div id="modal-inquiry-search" class="uk-modal-container" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <form class="inquiry-search-form uk-margin-bottom">
+            <div class="uk-form-controls inquiry-search-form-input">
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
+                    <input type="text" class="uk-input inquiry-search-id">
+                </div>
+                <div class="uk-inline uk-margin-left">
+                    <span class="uk-form-icon" uk-icon="icon: receiver"></span>
+                    <input type="tel" class="uk-input inquiry-search-telephone-number" maxlength="13">
+                </div>
+            </div>
+
+            <div class="uk-button-group">
+                <button type="button" class="uk-button uk-button-default"><span uk-icon="search"></span></button>
+                <button type="button" class="uk-button uk-button-default">クリア</button>
+            </div>
+        </form>
+        <div class="uk-modal-body uk-padding-remove-vertical" uk-overflow-auto>
+            <table id="modal-inquiry-search-result" class="uk-table uk-table-striped uk-table-hover uk-table-small">
+                <thead>
+                    <tr>
+                        <th class="inquiry-datetime">着信日時</th>
+                        <th class="inquiry-company-name">問合せ元</th>
+                        <th class="inquirer-name">担当者</th>
+                        <th class="inquiry-question">問合せ</th>
+                        <th class="inquiry-answer">回答</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="inquiry-datetime">20/11/30 11:23</td>
+                        <td class="inquiry-company-name">じゃまいかんず</td>
+                        <td class="inquirer-name">テスト桃子丸</td>
+                        <td class="inquiry-question">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                        <td class="inquiry-answer">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+            <button type="button" class="uk-button uk-button-default uk-modal-close">閉じる</button>
+        </div>
+    </div>
+</div>

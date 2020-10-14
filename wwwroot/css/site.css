@@ -93,6 +93,10 @@ a.menu-title:hover {
   color: #fff462 !important;
 }
 
+.width-100 {
+  width: 100%;
+}
+
 #inquiry-search-area {
   margin: 0 auto;
   height: 60px;

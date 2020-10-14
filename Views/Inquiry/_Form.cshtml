@@ -1,0 +1,189 @@
+@model Inquiry.View.Models.InquiryViewModel;
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.IncomingDate)
+    </label>
+    <div class="uk-form-controls">
+        <div class="width-100">
+            <div class="uk-inline">
+                <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+                <input asp-for="inquiry.IncomingDate" type="date" class="uk-input datetime-input-field flatpicker-calendar" required value=@ViewBag.toDate>
+            </div>
+        </div>
+        <span asp-validation-for="inquiry.IncomingDate" class="uk-text-danger"></span>
+    </div>
+    <span asp-validation-for="inquiry.IncomingDate" class="uk-text-danger"></span>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">着信時刻</label>
+    <div class="uk-form-controls">
+        <div class="width-100">
+            <div class="uk-inline">
+                <span class="uk-form-icon" uk-icon="icon: clock"></span>
+                <input asp-for="inquiry.StartTime" type="text" class="uk-input datetime-input-field flatpicker-time" required value=@ViewBag.toTime>
+            </div>
+            <span>　～　</span>
+            <div class="uk-inline">
+                <span class="uk-form-icon" uk-icon="icon: clock"></span>
+                <input asp-for="inquiry.EndTime" type="text" class="uk-input datetime-input-field flatpicker-time" required value=@ViewBag.toTime>
+            </div>
+        </div>
+        <span asp-validation-for="inquiry.StartTime" class="uk-text-danger"></span>
+        <span asp-validation-for="inquiry.EndTime" class="uk-text-danger"></span>
+    </div>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.SystemId)
+    </label>
+    <div class="uk-form-controls">
+        <select asp-for="inquiry.SystemId" asp-items="Model.inquiryFrom.Systems" class="uk-select select-box-field" required>
+        </select>
+    </div>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.ContactMethodId)
+    </label>
+    <div class="uk-form-controls">
+        <select asp-for="inquiry.ContactMethodId" asp-items="Model.inquiryFrom.ContactMethods" class="uk-select select-box-field" required>
+        </select>
+    </div>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.ComapnyName)
+    </label>
+    <div class="uk-form-controls">
+        <div class="width-100">
+            <input asp-for="inquiry.ComapnyName" type="text" class="uk-input line-input-text-field" required maxlength="30">
+        </div>
+        <span asp-validation-for="inquiry.ComapnyName" class="uk-text-danger"></span>
+    </div>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.GuestTypeId)
+    </label>
+    <div class="uk-form-controls">
+        <select asp-for="inquiry.GuestTypeId" asp-items="Model.inquiryFrom.GuestTypes" class="uk-select select-box-field" required>
+        </select>
+    </div>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.InquirerName)
+    </label>
+    <div class="uk-form-controls">
+        <div class="width-100">
+            <input asp-for="inquiry.InquirerName" type="text" class="uk-input line-input-text-field" required maxlength="15">
+        </div>
+        <span asp-validation-for="inquiry.InquirerName" class="uk-text-danger"></span>
+    </div>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.TelephoneNumber)
+    </label>
+    <div class="uk-form-controls">
+        <div class="width-100">
+            <input asp-for="inquiry.TelephoneNumber" type="tel" class="uk-input telephone-number" required maxlength="13">
+            <label><input type="checkbox" class="uk-checkbox uk-margin-left"> 番号不明</label>
+        </div>
+        <span asp-validation-for="inquiry.TelephoneNumber" class="uk-text-danger"></span>
+    </div>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.SpareTelephoneNumber)
+    </label>
+    <div class="uk-form-controls">
+        <div class="width-100">
+            <input asp-for="inquiry.SpareTelephoneNumber" type="tel" class="uk-input telephone-number" maxlength="13">
+        </div>
+        <span asp-validation-for="inquiry.SpareTelephoneNumber" class="uk-text-danger"></span>
+    </div>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.UserId)
+    </label>
+    <div class="uk-form-controls">
+        <select asp-for="inquiry.UserId" asp-items="Model.inquiryFrom.Users" class="uk-select select-box-field" required>
+        </select>
+    </div>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.Question)
+    </label>
+    <div class="uk-form-controls">
+        <div class="width-100">
+            <textarea asp-for="inquiry.Question" class="uk-textarea textarea-input" rows="5" required maxlength="500"></textarea>
+        </div>
+        <span asp-validation-for="inquiry.Question" class="uk-text-danger"></span>
+    </div>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.Answer)
+    </label>
+    <div class="uk-form-controls">
+        <div class="width-100">
+            <textarea asp-for="inquiry.Answer" class="uk-textarea textarea-input" rows="5" required maxlength="500"></textarea>
+        </div>
+        <span asp-validation-for="inquiry.Answer" class="uk-text-danger"></span>
+    </div>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.ClassificationId)
+    </label>
+    <div class="uk-form-controls">
+        <select asp-for="inquiry.ClassificationId" asp-items="Model.inquiryFrom.Classifications" class="uk-select select-box-field" required>
+        </select>
+    </div>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.InquiryRelation)
+    </label>
+    <div class="uk-form-controls">
+        <input type="text" class="uk-input inquiry-relation" readonly>
+        <div class="uk-button-group">
+            <a class="uk-button uk-button-default" href="#modal-inquiry-search" uk-toggle><span uk-icon="link"></span></a>
+            <button type="button" class="uk-button uk-button-default">クリア</button>
+        </div>
+        <input asp-for="inquiry.InquiryRelation" type="hidden">
+    </div>
+</div>
+
+<div class="uk-margin">
+    <label class="uk-form-label">
+        @Html.DisplayNameFor(model => model.inquiry.ComplateFlag)
+    </label>
+    <div class="uk-form-controls">
+        <select asp-for="inquiry.ComplateFlag" asp-items="Model.inquiry.GetCompletionStateSelectListItem()" class="uk-select select-box-field" required>
+        </select>
+    </div>
+</div>
+
+<div class="form-under-buttons">
+    <a asp-controller="Inquiry" asp-action="Index" class="uk-button uk-button-default">戻る</a>
+    <span>　</span>
+    <button class="uk-button uk-button-primary">登録</button>
+</div>
