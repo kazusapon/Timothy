@@ -111,6 +111,10 @@ a.menu-title:hover {
   width: 70px;
 }
 
+#inquiry-list .inquiry-list-line:hover {
+  cursor: pointer;
+}
+
 #inquiry-list .incoming-dated {
   width: 150px;
 }

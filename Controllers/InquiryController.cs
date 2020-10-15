@@ -65,6 +65,7 @@ namespace Timothy.Controllers
             var now = DateTime.Now;
             ViewBag.toDate = now.ToString("yyyy-MM-dd");
             ViewBag.toTime = now.ToString("HH:mm");
+            ViewBag.fromTime = now.ToString("HH:mm");
 
             return View(inquiryViewModel);
         }
@@ -78,7 +79,7 @@ namespace Timothy.Controllers
             {
                 await this._inquiryModel.CreateInquiryAsync(inquiry);
 
-                return RedirectToAction(nameof(New));
+                return RedirectToAction(nameof(Index));
             }
 
             var inquiryViewModel = new InquiryViewModel
@@ -86,6 +87,10 @@ namespace Timothy.Controllers
                 inquiry = inquiry,
                 inquiryFrom = await SetInquiryFormValuesAsync()
             };
+
+            ViewBag.toDate = inquiry.IncomingDate.ToString("yyyy-MM-dd");
+            ViewBag.toTime = inquiry.StartTime.ToString("HH:mm");
+            ViewBag.fromTime = inquiry.EndTime.ToString("HH:mm");
 
             return View(nameof(New), inquiryViewModel);
         }

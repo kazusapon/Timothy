@@ -1,5 +1,7 @@
 @model Inquiry.View.Models.InquiryViewModel;
 
+<script src="~/js/Inquiries/Form.js" asp-append-version="true"></script>
+
 <div class="uk-margin">
     <label class="uk-form-label">
         @Html.DisplayNameFor(model => model.inquiry.IncomingDate)
@@ -27,7 +29,7 @@
             <span>　～　</span>
             <div class="uk-inline">
                 <span class="uk-form-icon" uk-icon="icon: clock"></span>
-                <input asp-for="inquiry.EndTime" type="text" class="uk-input datetime-input-field flatpicker-time" required value=@ViewBag.toTime>
+                <input asp-for="inquiry.EndTime" type="text" class="uk-input datetime-input-field flatpicker-time" required value=@ViewBag.fromTime>
             </div>
         </div>
         <span asp-validation-for="inquiry.StartTime" class="uk-text-danger"></span>
@@ -166,7 +168,7 @@
         <input type="text" class="uk-input inquiry-relation" readonly>
         <div class="uk-button-group">
             <a class="uk-button uk-button-default" href="#modal-inquiry-search" uk-toggle><span uk-icon="link"></span></a>
-            <button type="button" class="uk-button uk-button-default">クリア</button>
+            <button type="button" id="inquiry-relation-clear-button" class="uk-button uk-button-default">クリア</button>
         </div>
         <input asp-for="inquiry.InquiryRelation" type="hidden">
     </div>

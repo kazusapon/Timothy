@@ -2,8 +2,8 @@
 
 <div class="uk-padding-small">
     <form asp-controller="Inquiry" asp-action="Create" method="post" id="inquiry-input-form" class="uk-form-horizontal uk-margin-large">
-        @await Html.PartialAsync("_Form", Model);
+        @await Html.PartialAsync("_Form", Model)
     </form>
 </div>
 
-@await Html.PartialAsync("_InquirySearchModal");
+@await Html.PartialAsync("_InquirySearchModal")
