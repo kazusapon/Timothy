@@ -41,7 +41,7 @@ namespace EntityModels
         [Display(Name = "問合せ元")]
         [Required(ErrorMessage = "必須項目です")]
         [MaxLength(30, ErrorMessage = "30文字以下で入力してください")]
-        public string ComapnyName {get; set;}
+        public string CompanyName {get; set;}
 
         [Display(Name = "担当者")]
         [Required(ErrorMessage = "必須項目です")]

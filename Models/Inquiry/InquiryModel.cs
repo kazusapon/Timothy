@@ -30,7 +30,7 @@ namespace Inquiry.Model
                             {
                                 Id = inquiry.Id,
                                 IncomingDateTime = inquiry.IncomingDate,
-                                CompanyName = inquiry.ComapnyName,
+                                CompanyName = inquiry.CompanyName,
                                 InquirerName = inquiry.InquirerName,
                                 TelephoneNumber = inquiry.TelephoneNumber,
                                 SystemName = system.Abbreviation,

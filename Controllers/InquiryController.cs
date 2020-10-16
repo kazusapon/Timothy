@@ -73,7 +73,7 @@ namespace Timothy.Controllers
         [HttpPost]
         [Route("Inquiry/Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId, SystemId, ContactMethodId, GuestTypeId, ClassificationId, InquiryRelation, ComapnyName, InquirerName, TelephoneNumber, SpareTelephoneNumber, Question, Answer, ComplateFlag, IncomingDate, StartTime, EndTime")] EntityModels.Inquiry inquiry)
+        public async Task<IActionResult> Create([Bind("UserId, SystemId, ContactMethodId, GuestTypeId, ClassificationId, InquiryRelation, CompanyName, InquirerName, TelephoneNumber, SpareTelephoneNumber, Question, Answer, ComplateFlag, IncomingDate, StartTime, EndTime")] EntityModels.Inquiry inquiry)
         {
             if (ModelState.IsValid)
             {
@@ -105,11 +105,6 @@ namespace Timothy.Controllers
             inquiryForm.Classifications = await this._classification.GetSelectListItemsAsync();
 
             return inquiryForm;
-        }
-
-        private string BindingItems()
-        {
-            return "UserId, SystemId, ContactMethodId, GuestTypeId, ClassificationId, InquiryRelation, ComapnyName, InquirerName, Question, Answer, ComplateFlag, IncomingDate, StartTime, EndTime";
         }
     }
 }

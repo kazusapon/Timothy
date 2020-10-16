@@ -14,7 +14,7 @@
             </div>
 
             <div class="uk-button-group">
-                <button type="button" class="uk-button uk-button-default"><span uk-icon="search"></span></button>
+                <button type="button"  id="inquiry-search-button" class="uk-button uk-button-default"><span uk-icon="search"></span></button>
                 <button type="button" id="modal-inquiry-search-clear-button" class="uk-button uk-button-default">クリア</button>
             </div>
         </form>
@@ -30,12 +30,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="inquiry-datetime">20/11/30 11:23</td>
-                        <td class="inquiry-company-name">じゃまいかんず</td>
-                        <td class="inquirer-name">テスト桃子丸</td>
-                        <td class="inquiry-question">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
-                        <td class="inquiry-answer">テスト照すチオテスト照すチオテスト照すチオテスト照すチオテスト照すチオ</td>
+                    <tr class="dummy-row stealth">
+                        <td class="inquiry-datetime">
+                            <input type="hidden" class="inquiry-id">
+                        </td>
+                        <td class="inquiry-company-name"></td>
+                        <td class="inquirer-name"></td>
+                        <td class="inquiry-question"></td>
+                        <td class="inquiry-answer"></td>
                     </tr>
                 </tbody>
             </table>

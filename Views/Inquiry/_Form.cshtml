@@ -59,13 +59,13 @@
 
 <div class="uk-margin">
     <label class="uk-form-label">
-        @Html.DisplayNameFor(model => model.inquiry.ComapnyName)
+        @Html.DisplayNameFor(model => model.inquiry.CompanyName)
     </label>
     <div class="uk-form-controls">
         <div class="width-100">
-            <input asp-for="inquiry.ComapnyName" type="text" class="uk-input line-input-text-field" required maxlength="30">
+            <input asp-for="inquiry.CompanyName" type="text" class="uk-input line-input-text-field" required maxlength="30">
         </div>
-        <span asp-validation-for="inquiry.ComapnyName" class="uk-text-danger"></span>
+        <span asp-validation-for="inquiry.CompanyName" class="uk-text-danger"></span>
     </div>
 </div>
 
@@ -167,10 +167,10 @@
     <div class="uk-form-controls">
         <input type="text" class="uk-input inquiry-relation" readonly>
         <div class="uk-button-group">
-            <a class="uk-button uk-button-default" href="#modal-inquiry-search" uk-toggle><span uk-icon="link"></span></a>
+            <a href="#modal-inquiry-search" id="inquiry-search-modal-open-button" class="uk-button uk-button-default" uk-toggle><span uk-icon="link"></span></a>
             <button type="button" id="inquiry-relation-clear-button" class="uk-button uk-button-default">クリア</button>
         </div>
-        <input asp-for="inquiry.InquiryRelation" type="hidden">
+        <input asp-for="inquiry.InquiryRelation" type="hidden" id="inquiry-relation-hidden">
     </div>
 </div>
 

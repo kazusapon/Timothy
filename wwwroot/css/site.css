@@ -219,3 +219,7 @@ a.menu-title:hover {
 #modal-inquiry-search-result .inquiry-answer {
   width: 370px;
 }
+
+.stealth {
+  display: none !important;
+}
