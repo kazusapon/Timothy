@@ -89,6 +89,18 @@ namespace EntityModels
         [DataType(DataType.Time, ErrorMessage = "時刻として認識できません")]
         public DateTime EndTime {get; set;}
 
+        [NotMapped]
+        public string IncomingDateTimeText
+        {
+            get
+            {
+                var date = this.IncomingDate.ToString("yy/MM/dd");
+                var time = this.StartTime.ToString("HH:mm");
+                
+                return date + " " + time;
+            }
+        }
+
         public IEnumerable<SelectListItem> GetCompletionStateSelectListItem()
         {
             var completionStateList = new List<SelectListItem>();

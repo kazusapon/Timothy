@@ -17,6 +17,7 @@
         static _inquirySearchModelOpenButtonEventListener() {
             const modalOpenButton = document.querySelector("#inquiry-search-modal-open-button");
             modalOpenButton.addEventListener('click', () => {
+                InquiryRelationHelper._rowRemove();
                 const tel = document.querySelector("#inquiry-input-form .telephone-number").value;
                 document.querySelector("#modal-inquiry-search .inquiry-search-form .inquiry-search-telephone-number").value = tel;
             });
@@ -47,10 +48,12 @@
         static _relationButtonEventListener() {
             const relationButton = document.querySelector("#inquiry-search-button");
             relationButton.addEventListener('click', async () => {
+                this._rowRemove();
                 const inquiries = await this._fetchInquieries();
                 if (inquiries === null) {
                     return;
                 }
+
                 this._buildInquirySearchResult(inquiries);
 
                 return;
@@ -60,7 +63,6 @@
         static async _fetchInquieries() {
             const id = document.querySelector(".inquiry-search-form input.inquiry-search-id").value === "" ? "-1" : document.querySelector(".inquiry-search-form input.inquiry-search-id").value;
             const telephoneNumber = document.querySelector(".inquiry-search-form input.inquiry-search-telephone-number").value;
-
             return await fetch(`/api/InquiryRest/${id}/telephoneNumber/${telephoneNumber}`, {
                 method: 'GET'
             }).then((responce) => {
@@ -75,29 +77,62 @@
             const tbody = document.querySelector('#modal-inquiry-search-result tbody');
 
             [...inquiries].forEach(inquiry => {
-                const tr = tbody.insertRow(1);
-                const inquiryDatetime = dummyRow.querySelector("td.inquiry-datetime");
-                inquiryDatetime.textContent = inquiry.incomingDate;
+                const tr = tbody.insertRow();
+
+                const id = `#inquiry_${inquiry.id}`;
+
+                //重複の削除
+                const repeatId = tbody.querySelectorAll(id);
+                if ([...repeatId].length > 0) {
+                    return;
+                }
+
+                tr.id = `inquiry_${inquiry.id}`;
+
+                const inquiryDatetime = dummyRow.querySelector("td.inquiry-datetime").cloneNode(true);
+                inquiryDatetime.textContent = inquiry.incomingDateTimeText;
                 tr.appendChild(inquiryDatetime);
 
-                const inquiryCompanyName = dummyRow.querySelector("td.inquiry-company-name");
+                const inquiryCompanyName = dummyRow.querySelector("td.inquiry-company-name").cloneNode(true);
                 inquiryCompanyName.textContent = inquiry.companyName;
                 tr.appendChild(inquiryCompanyName);
 
-                const inquirerName = dummyRow.querySelector("td.inquirer-name");
+                const inquirerName = dummyRow.querySelector("td.inquirer-name").cloneNode(true);
                 inquirerName.textContent = inquiry.inquirerName;
                 tr.appendChild(inquirerName);
 
-                const inquiryQuestion = dummyRow.querySelector("td.inquiry-question");
+                const inquiryQuestion = dummyRow.querySelector("td.inquiry-question").cloneNode(true);
                 inquiryQuestion.textContent = inquiry.question;
                 tr.appendChild(inquiryQuestion);         
 
-                const inquiryAsnwer = dummyRow.querySelector("td.inquiry-answer");
+                const inquiryAsnwer = dummyRow.querySelector("td.inquiry-answer").cloneNode(true);
                 inquiryAsnwer.textContent = inquiry.answer;
                 tr.appendChild(inquiryAsnwer);
+
+                tr.addEventListener('dblclick', (e) => {
+                    const row = e.target.parentElement;
+                    const inquiryId = row.id.replace('inquiry_', '');
+                    document.querySelector('#inquiry-relation-hidden').value = inquiryId;
+
+                    document.querySelector('#inquiry-relation-info').value = `ID：${inquiryId}  （着信日時：${inquiry.incomingDateTimeText} 会社名：${inquiry.companyName}）`;
+
+                    const modalCloseButton = document.querySelector('#modal-inquiry-search .uk-modal-close');
+                    modalCloseButton.click();
+                })
+
+                tbody.appendChild(tr);
             });
 
             return;
+        }
+
+        static _rowRemove() {
+            const tbody = document.querySelector('#modal-inquiry-search-result tbody');
+            const removeRows = tbody.querySelectorAll('tr:not(.dummy-row)');
+            
+            removeRows.forEach(removeRow => {
+                removeRow.remove();
+            });
         }
     }
 })();
