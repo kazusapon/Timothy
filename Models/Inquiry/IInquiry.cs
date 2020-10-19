@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Inquiry.View.Models;
@@ -7,7 +8,7 @@ namespace Inquiry.Model
 {
     public interface IInquiry
     {
-        Task<List<InquiryIndexLists>> GetIndexListAsync();
+        Task<List<InquiryIndexLists>> GetIndexListAsync(DateTime? startTime=null, DateTime? endTime=null, int? systemId=0, bool check=false, string freeWord=null);
 
         Task CreateInquiryAsync(EntityModels.Inquiry inquiry);
     }

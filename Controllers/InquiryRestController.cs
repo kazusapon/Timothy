@@ -26,7 +26,7 @@ namespace Timothy.Controllers
         [Route("{id?}/telephoneNumber/{telephoneNumber?}")]
         public async Task<ActionResult<IEnumerable<EntityModels.Inquiry>>> GetInquiry(int? id, string telephoneNumber)
         {
-            var telephoneNumberHyphenDelete =  telephoneNumber == "" ? "" : telephoneNumber.Replace("-", "");
+            var telephoneNumberHyphenDelete =  (telephoneNumber == null || telephoneNumber == "") ? "" : telephoneNumber.Replace("-", "");
 
             return await this._context.Inquiry
                         .WhereIf(id >= 1, inquiry => inquiry.Id == id)

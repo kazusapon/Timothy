@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Database.Models;
 using Inquiry.View.Models;
+using Utils;
 
 namespace Inquiry.Model
 {
@@ -17,27 +18,48 @@ namespace Inquiry.Model
             this._context = context;
         }
         
-        public async Task<List<InquiryIndexLists>> GetIndexListAsync()
+        public async Task<List<InquiryIndexLists>> GetIndexListAsync(DateTime? startTime=null, DateTime? endTime=null, int? systemId=0, bool check=false, string freeWord=null)
         {
-            return await (from inquiry in this._context.Inquiry
-                            join system in this._context.System
-                            on inquiry.SystemId equals system.Id
-                            join user in this._context.User
-                            on inquiry.UserId equals user.Id
-                            orderby inquiry.IncomingDate descending
-                            orderby inquiry.Id descending
-                            select new InquiryIndexLists
-                            {
-                                Id = inquiry.Id,
-                                IncomingDateTime = inquiry.IncomingDate,
-                                CompanyName = inquiry.CompanyName,
-                                InquirerName = inquiry.InquirerName,
-                                TelephoneNumber = inquiry.TelephoneNumber,
-                                SystemName = system.Abbreviation,
-                                UserName = user.UserName,
-                                Question = inquiry.Question,
-                                Answer = inquiry.Answer
-                            }).AsNoTracking().ToListAsync();
+            return await this._context.Inquiry
+                    .Join(this._context.System,
+                        inquiry => inquiry.SystemId,
+                        system => system.Id,
+                        (Inquiry, system) => new {
+                            Inquiry = Inquiry,
+                            SystemName = system.SystemName
+                        })
+                    .Join(this._context.User,
+                        inquiry => inquiry.Inquiry.UserId,
+                        user => user.Id,
+                        (inquiry, user) => new {
+                            Inquiry = inquiry,
+                            UserName = user.UserName
+                        })
+                    .WhereIf(startTime != null, inquiry => startTime >= inquiry.Inquiry.Inquiry.StartTime )
+                    .WhereIf(endTime != null, inquiry => inquiry.Inquiry.Inquiry.EndTime <= endTime)
+                    .WhereIf(systemId != 0, inquiry => inquiry.Inquiry.Inquiry.SystemId == systemId)
+                    .WhereIf(check, inquiry => !inquiry.Inquiry.Inquiry.ComplateFlag)
+                    .WhereIf((freeWord != null || freeWord == ""),
+                        inquiry => inquiry.Inquiry.Inquiry.InquirerName.Contains(freeWord)
+                        || inquiry.Inquiry.Inquiry.TelephoneNumber.Contains(freeWord)
+                        || inquiry.Inquiry.Inquiry.SpareTelephoneNumber.Contains(freeWord)
+                        || inquiry.UserName.Contains(freeWord)
+                        || inquiry.Inquiry.Inquiry.Question.Contains(freeWord)
+                        || inquiry.Inquiry.Inquiry.Answer.Contains(freeWord)
+                    )
+                    .Select(inquiry => new InquiryIndexLists{
+                            Id = inquiry.Inquiry.Inquiry.Id,
+                            IncomingDateTime = inquiry.Inquiry.Inquiry.IncomingDate,
+                            CompanyName = inquiry.Inquiry.Inquiry.CompanyName,
+                            InquirerName = inquiry.Inquiry.Inquiry.InquirerName,
+                            TelephoneNumber = inquiry.Inquiry.Inquiry.TelephoneNumber,
+                            SystemName = inquiry.Inquiry.SystemName,
+                            UserName = inquiry.UserName,
+                            Question = inquiry.Inquiry.Inquiry.Question,
+                            Answer = inquiry.Inquiry.Inquiry.Answer
+                    })
+                    .AsNoTracking()
+                    .ToListAsync();
         }
 
         public async Task CreateInquiryAsync(EntityModels.Inquiry inquiry)

@@ -71,7 +71,7 @@ namespace EntityModels
         [MaxLength(500, ErrorMessage = "500文字以下で入力してください")]
         public string Answer {get; set;}
 
-        [Display(Name = "完了")]
+        [Display(Name = "完了ステータス")]
         public bool ComplateFlag {get; set;}
 
         [Display(Name = "承認状態")]

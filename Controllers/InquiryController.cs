@@ -49,8 +49,37 @@ namespace Timothy.Controllers
         [Route("Inquiry")]
         public async Task<IActionResult> Index()
         {
-            return View(await this._inquiryModel.GetIndexListAsync());
+            var inquiryIndexViewModel = new InquiryIndexViewModel
+            {
+                inquirySearchForm = new InquirySearchForm()
+                {
+                    Systems = await this._system.GetSelectListItemsAsync()
+                },
+                inquiryIndexLists = await this._inquiryModel.GetIndexListAsync()
+            };
+            return View(inquiryIndexViewModel);
         }
+
+        [HttpGet]
+        [Route("Inquiry/Search")]
+        public async Task<IActionResult> Search(InquiryIndexViewModel form)
+        {
+            form.inquirySearchForm.Systems = await this._system.GetSelectListItemsAsync();
+            var inquirySearchViewModel = new InquiryIndexViewModel
+            {
+                inquirySearchForm = form.inquirySearchForm,
+                inquiryIndexLists = await this._inquiryModel.GetIndexListAsync
+                (
+                    form.inquirySearchForm.StartTime,
+                    form.inquirySearchForm.EndTime,
+                    form.inquirySearchForm.SystemId,
+                    form.inquirySearchForm.CheckedFlag,
+                    form.inquirySearchForm.FreeWord
+                )
+            };
+            return View(nameof(Index), inquirySearchViewModel);
+        }
+
 
         [HttpGet]
         [Route("Inquiry/New")]

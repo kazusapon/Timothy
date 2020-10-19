@@ -97,8 +97,8 @@
     </label>
     <div class="uk-form-controls">
         <div class="width-100">
-            <input asp-for="inquiry.TelephoneNumber" type="tel" class="uk-input telephone-number" required maxlength="13">
-            <label><input type="checkbox" class="uk-checkbox uk-margin-left"> 番号不明</label>
+            <input asp-for="inquiry.TelephoneNumber" type="tel" class="uk-input telephone-number" required maxlength="13" pattern="\d{1,5}-\d{1,4}-\d{4,5}">
+            <label><input type="checkbox" id="unknown-telephone-number" class="uk-checkbox uk-margin-left"> 番号不明</label>
         </div>
         <span asp-validation-for="inquiry.TelephoneNumber" class="uk-text-danger"></span>
     </div>
@@ -110,7 +110,7 @@
     </label>
     <div class="uk-form-controls">
         <div class="width-100">
-            <input asp-for="inquiry.SpareTelephoneNumber" type="tel" class="uk-input telephone-number" maxlength="13">
+            <input asp-for="inquiry.SpareTelephoneNumber" type="tel" class="uk-input telephone-number" maxlength="13" pattern="\d{1,5}-\d{1,4}-\d{4,5}">
         </div>
         <span asp-validation-for="inquiry.SpareTelephoneNumber" class="uk-text-danger"></span>
     </div>

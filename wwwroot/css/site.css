@@ -223,3 +223,7 @@ a.menu-title:hover {
 .stealth {
   display: none !important;
 }
+
+.align-left {
+  text-align: left;
+}

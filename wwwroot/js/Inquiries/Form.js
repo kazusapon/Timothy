@@ -9,9 +9,22 @@
 
     class InquiryFormHelper {
         static init() {
+            this._unknownTelephoneNumberCheckboxEventListener();
             this._inquirySearchModelOpenButtonEventListener();
             this._clearRelation();
             this._clearSearchModalInput();
+        }
+
+        static _unknownTelephoneNumberCheckboxEventListener() {
+            const unknownCheckbox = document.querySelector("#unknown-telephone-number");
+            unknownCheckbox.addEventListener('change', () => {
+                const telephoneNumber = document.querySelector("#inquiry-input-form .telephone-number");
+                if (unknownCheckbox.checked) {
+                    telephoneNumber.value = "9999-99-9999"; // 電話番号を聞き取れなかった、もしくは取得できなかった場合に設定する。
+                } else {
+                    telephoneNumber.value = "";
+                }
+            });
         }
 
         static _inquirySearchModelOpenButtonEventListener() {
