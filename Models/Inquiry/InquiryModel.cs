@@ -47,6 +47,9 @@ namespace Inquiry.Model
                         || inquiry.Inquiry.Inquiry.Question.Contains(freeWord)
                         || inquiry.Inquiry.Inquiry.Answer.Contains(freeWord)
                     )
+                    .OrderByDescending(inquiry => inquiry.Inquiry.Inquiry.IncomingDate)
+                    .ThenByDescending(inquiry => inquiry.Inquiry.Inquiry.StartTime)
+                    .ThenByDescending(inquiry => inquiry.Inquiry.Inquiry.Id)
                     .Select(inquiry => new InquiryIndexLists{
                             Id = inquiry.Inquiry.Inquiry.Id,
                             IncomingDateTime = inquiry.Inquiry.Inquiry.IncomingDate,
@@ -60,6 +63,11 @@ namespace Inquiry.Model
                     })
                     .AsNoTracking()
                     .ToListAsync();
+        }
+
+        public async Task<EntityModels.Inquiry> FindByIdAsync(int id)
+        {
+            return await this._context.Inquiry.FirstOrDefaultAsync(inquiry => inquiry.Id == id);
         }
 
         public async Task CreateInquiryAsync(EntityModels.Inquiry inquiry)

@@ -80,6 +80,14 @@ namespace Timothy.Controllers
             return View(nameof(Index), inquirySearchViewModel);
         }
 
+        [HttpGet]
+        [Route("Inquiry/{id}")]
+        public async Task<IActionResult> Detail(int id)
+        {
+            var inquiry = await this._inquiryModel.FindByIdAsync(id);
+
+            return inquiry == null ? View(nameof(Index)) : View(nameof(Detail), inquiry);
+        }
 
         [HttpGet]
         [Route("Inquiry/New")]
@@ -122,6 +130,25 @@ namespace Timothy.Controllers
             ViewBag.fromTime = inquiry.EndTime.ToString("HH:mm");
 
             return View(nameof(New), inquiryViewModel);
+        }
+
+        [HttpGet]
+        [Route("Inquiry/Edit/{id}")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var inquiry = await this._inquiryModel.FindByIdAsync(id);
+            if (inquiry == null)
+            {
+                return View(nameof(Index));
+            }
+
+            var inquiryViewModel = new InquiryViewModel
+            {
+                inquiry = inquiry,
+                inquiryFrom = await SetInquiryFormValuesAsync()
+            };
+
+            return View(inquiryViewModel);
         }
 
         private async Task<InquiryForm> SetInquiryFormValuesAsync()

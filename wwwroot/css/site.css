@@ -97,6 +97,14 @@ a.menu-title:hover {
   width: 100%;
 }
 
+.stealth {
+  display: none !important;
+}
+
+.align-left {
+  text-align: left;
+}
+
 #inquiry-search-area {
   margin: 0 auto;
   height: 60px;
@@ -220,10 +228,21 @@ a.menu-title:hover {
   width: 370px;
 }
 
-.stealth {
-  display: none !important;
+
+#inquiry-detail {
+  width: 1000px;
 }
 
-.align-left {
-  text-align: left;
+#inquiry-detail .uk-ditail-label {
+  width: 200px;
+}
+
+#inquiry-detail .detail-under-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.detail-item {
+  border: #E5E5E5 solid 1px;
+  background-color: #fdfdfd;
 }

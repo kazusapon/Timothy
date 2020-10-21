@@ -1,0 +1,170 @@
+@model EntityModels.Inquiry
+
+<div id="inquiry-detail" class="uk-padiving-small">
+    <div class="uk-margin uk-flex uk-flex-left">
+        <div class="uk-ditail-label uk-text-large">
+            @Html.DisplayNameFor(model => model.IncomingDate)
+        </div>
+        
+        <div class="detail-item uk-text-large">
+            @Html.DisplayFor(model => @model.IncomingDate)
+        </div>
+    </div>
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            着信時刻
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.StartTime)
+            <span>　～　</span>
+            @Html.DisplayFor(model => @model.EndTime)
+        </div>
+    </div>
+
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            @Html.DisplayNameFor(model => model.SystemId)
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.SystemId)
+        </div>
+    </div>
+
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            @Html.DisplayNameFor(model => model.ContactMethodId)
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.ContactMethodId)
+        </div>
+    </div>
+
+
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.CompanyName)
+        </div>
+    </div>
+
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            @Html.DisplayNameFor(model => model.GuestTypeId)
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.GuestTypeId)
+        </div>
+    </div>
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            @Html.DisplayNameFor(model => model.InquirerName)
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.InquirerName)
+        </div>
+    </div>
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            @Html.DisplayNameFor(model => model.TelephoneNumber)
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.TelephoneNumber)
+        </div>
+    </div>
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            @Html.DisplayNameFor(model => model.SpareTelephoneNumber)
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.SpareTelephoneNumber)
+        </div>
+    </div>
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            @Html.DisplayNameFor(model => model.UserId)
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.UserId)
+        </div>
+    </div>
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            @Html.DisplayNameFor(model => model.Question)
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.Question)
+        </div>
+    </div>
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            @Html.DisplayNameFor(model => model.Answer)
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.Answer)
+        </div>
+    </div>
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            @Html.DisplayNameFor(model => model.ClassificationId)
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.ClassificationId)
+        </div>
+    </div>
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            @Html.DisplayNameFor(model => model.InquiryRelation)
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.InquiryRelation)
+        </div>
+    </div>
+
+    <div class="uk-margin">
+        <div class="uk-form-label">
+            @Html.DisplayNameFor(model => model.ComplateFlag)
+        </div>
+        
+        <div class="uk-inline">
+            @Html.DisplayFor(model => @model.ComplateFlag)
+        </div>
+    </div>
+
+    <div class="detail-under-buttons">
+        <a asp-controller="Inquiry" asp-action="Index" class="uk-button uk-button-default">戻る</a>
+        <span>　</span>
+        <button class="uk-button uk-button-primary">確認</button>
+        <span>　</span>
+        <a asp-controller="Inquiry" asp-action="Edit" class="uk-button uk-button-primary">編集</a>
+        <span>　</span>
+        <button class="uk-button uk-button-danger">削除</button>
+    </div>
+</div>

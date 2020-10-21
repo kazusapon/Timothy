@@ -39,6 +39,15 @@ namespace Timothy
                 )
             );
 
+            // Session Setting
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".AdventureWorks.Session";
+                options.IdleTimeout = TimeSpan.FromHours(1);
+                options.Cookie.IsEssential = true;
+            });
+
             // Insert dependencies
             services.AddScoped<IInquiry, InquiryModel>();
             services.AddScoped<ISystem, SystemModel>();
@@ -67,6 +76,8 @@ namespace Timothy
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

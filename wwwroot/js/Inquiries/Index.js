@@ -31,7 +31,7 @@
                 inquiryListLine.addEventListener('dblclick', () => {
                     const inquiryId = inquiryListLine.querySelector(".inquiry-id").textContent;
 
-                    location.href = `Inquiry/${inquiryId}`;
+                    location.href = `/Inquiry/${inquiryId}`;
                 })
             });
         }
