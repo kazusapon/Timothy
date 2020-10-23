@@ -86,5 +86,19 @@ namespace Inquiry.Model
             
             return;
         }
+
+        public async Task DeleteInquiryAsync(int id)
+        {
+            var inquiry = await this.FindByIdAsync(id);
+            if (inquiry == null)
+            {
+                return;
+            }
+            
+            inquiry.DaletedAt = DateTime.Now;
+            await this._context.SaveChangesAsync();
+
+            return;
+        }
     }
 }

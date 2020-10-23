@@ -29,14 +29,15 @@ namespace Timothy.Controllers
             var telephoneNumberHyphenDelete =  (telephoneNumber == null || telephoneNumber == "") ? "" : telephoneNumber.Replace("-", "");
 
             return await this._context.Inquiry
-                        .WhereIf(editingInquiryId >= 1, inquiry => inquiry.Id != editingInquiryId)
-                        .WhereIf(id >= 1, inquiry => inquiry.Id == id)
-                        .WhereIf(telephoneNumberHyphenDelete != "", inquiry => inquiry.TelephoneNumber.Replace("-", "") == telephoneNumberHyphenDelete)
-                        .OrderByDescending(inquiry => inquiry.IncomingDate)
-                        .ThenByDescending(inquiry => inquiry.StartTime)
-                        .ThenByDescending(inquiry => inquiry.Id)
-                        .AsNoTracking()
-                        .ToListAsync();
+                    .Where(inquiry => inquiry.DaletedAt == null)
+                    .WhereIf(editingInquiryId >= 1, inquiry => inquiry.Id != editingInquiryId)
+                    .WhereIf(id >= 1, inquiry => inquiry.Id == id)
+                    .WhereIf(telephoneNumberHyphenDelete != "", inquiry => inquiry.TelephoneNumber.Replace("-", "") == telephoneNumberHyphenDelete)
+                    .OrderByDescending(inquiry => inquiry.IncomingDate)
+                    .ThenByDescending(inquiry => inquiry.StartTime)
+                    .ThenByDescending(inquiry => inquiry.Id)
+                    .AsNoTracking()
+                    .ToListAsync();
         }
     }
 }

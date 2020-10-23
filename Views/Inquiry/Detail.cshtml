@@ -165,6 +165,17 @@
         <span>　</span>
         <a asp-controller="Inquiry" asp-action="Edit" asp-route-id=@Model.Id class="uk-button uk-button-primary">編集</a>
         <span>　</span>
-        <button class="uk-button uk-button-danger">削除</button>
+        <button type="button" class="uk-button uk-button-danger" uk-toggle="target: #modal-delete-confirm">削除</button>
+    </div>
+</div>
+
+<div id="modal-delete-confirm" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <p>削除してもよろしいですか？</p>
+        <p class="uk-text-right">
+            <a asp-controller="Inquiry" asp-action="Destroy" asp-route-id=@Model.Id class="uk-button uk-button-danger" type="button">削除</a>
+            <button class="uk-button uk-button-default uk-modal-close" type="button">キャンセル</button>
+            
+        </p>
     </div>
 </div>

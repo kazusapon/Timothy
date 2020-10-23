@@ -15,5 +15,7 @@ namespace Inquiry.Model
         Task CreateInquiryAsync(EntityModels.Inquiry inquiry);
 
         Task UpdateInquiryAsync(EntityModels.Inquiry inquiry);
+
+        Task DeleteInquiryAsync(int id);
     }
 }

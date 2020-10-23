@@ -191,6 +191,15 @@ namespace Timothy.Controllers
 
         }
 
+        [HttpGet]
+        [Route("Inquiry/Destory")]
+        public async Task<IActionResult> Destroy(int id)
+        {
+            await this._inquiryModel.DeleteInquiryAsync(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         private async Task<InquiryForm> SetInquiryFormValuesAsync()
         {
             var inquiryForm = new InquiryForm();
