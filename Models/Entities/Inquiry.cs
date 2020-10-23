@@ -1,4 +1,6 @@
 using System;
+using System.Web;
+using System.Text;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
@@ -97,7 +99,16 @@ namespace EntityModels
                 var date = this.IncomingDate.ToString("yy/MM/dd");
                 var time = this.StartTime.ToString("HH:mm");
                 
-                return date + " " + time;
+                return HttpUtility.HtmlDecode(date + "&nbsp;" + time);
+            }
+        }
+
+        [NotMapped]
+        public string RelationInquiryText
+        {
+            get
+            {
+                return this.BuildRelationInquiryText();
             }
         }
 
@@ -116,6 +127,20 @@ namespace EntityModels
             }
 
             return completionStateList;
+        }
+
+        private string BuildRelationInquiryText()
+        {
+            var sb = new StringBuilder();
+            sb.Append("ID：");
+            sb.Append(this.Id);
+            sb.Append("　（着信日時：");
+            sb.Append(this.IncomingDateTimeText);
+            sb.Append("　会社名：");
+            sb.Append(this.CompanyName);
+            sb.Append(")");
+
+            return sb.ToString();
         }
     }
 }

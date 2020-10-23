@@ -23,12 +23,13 @@ namespace Timothy.Controllers
         }
 
         [HttpGet]
-        [Route("{id?}/telephoneNumber/{telephoneNumber?}")]
-        public async Task<ActionResult<IEnumerable<EntityModels.Inquiry>>> GetInquiry(int? id, string telephoneNumber)
+        [Route("{editingInquiryId}/{id}/telephoneNumber/{telephoneNumber?}")]
+        public async Task<ActionResult<IEnumerable<EntityModels.Inquiry>>> GetInquiry(int editingInquiryId, int id, string telephoneNumber)
         {
             var telephoneNumberHyphenDelete =  (telephoneNumber == null || telephoneNumber == "") ? "" : telephoneNumber.Replace("-", "");
 
             return await this._context.Inquiry
+                        .WhereIf(editingInquiryId >= 1, inquiry => inquiry.Id != editingInquiryId)
                         .WhereIf(id >= 1, inquiry => inquiry.Id == id)
                         .WhereIf(telephoneNumberHyphenDelete != "", inquiry => inquiry.TelephoneNumber.Replace("-", "") == telephoneNumberHyphenDelete)
                         .OrderByDescending(inquiry => inquiry.IncomingDate)

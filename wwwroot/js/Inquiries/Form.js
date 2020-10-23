@@ -13,6 +13,7 @@
             this._inquirySearchModelOpenButtonEventListener();
             this._clearRelation();
             this._clearSearchModalInput();
+            this._initUnkwonTelephoneNumberOnCheck();
         }
 
         static _unknownTelephoneNumberCheckboxEventListener() {
@@ -51,6 +52,14 @@
                 document.querySelector(".inquiry-search-form input.inquiry-search-telephone-number").value = "";
             });
         }
+
+        static _initUnkwonTelephoneNumberOnCheck() {
+            const telephoneNumber = document.querySelector("#inquiry-input-form .telephone-number").value;
+            if (telephoneNumber === "9999-99-9999") {
+                const unknownCheckbox = document.querySelector("#unknown-telephone-number");
+                unknownCheckbox.checked = true;
+            }
+        }
     }
 
     class InquiryRelationHelper {
@@ -74,9 +83,10 @@
         }
 
         static async _fetchInquieries() {
+            const edtingInquiryId = document.querySelector("#inquiry-id-hidden").value === "" ? "-1" : document.querySelector("#inquiry-id-hidden").value;
             const id = document.querySelector(".inquiry-search-form input.inquiry-search-id").value === "" ? "-1" : document.querySelector(".inquiry-search-form input.inquiry-search-id").value;
             const telephoneNumber = document.querySelector(".inquiry-search-form input.inquiry-search-telephone-number").value;
-            return await fetch(`/api/InquiryRest/${id}/telephoneNumber/${telephoneNumber}`, {
+            return await fetch(`/api/InquiryRest/${edtingInquiryId}/${id}/telephoneNumber/${telephoneNumber}`, {
                 method: 'GET'
             }).then((responce) => {
                 if (responce.ok) {
@@ -127,7 +137,7 @@
                     const inquiryId = row.id.replace('inquiry_', '');
                     document.querySelector('#inquiry-relation-hidden').value = inquiryId;
 
-                    document.querySelector('#inquiry-relation-info').value = `ID：${inquiryId}  （着信日時：${inquiry.incomingDateTimeText} 会社名：${inquiry.companyName}）`;
+                    document.querySelector('#inquiry-relation-info').value = inquiry.relationInquiryText;
 
                     const modalCloseButton = document.querySelector('#modal-inquiry-search .uk-modal-close');
                     modalCloseButton.click();

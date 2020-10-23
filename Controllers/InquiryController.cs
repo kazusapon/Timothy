@@ -104,6 +104,8 @@ namespace Timothy.Controllers
             ViewBag.toTime = now.ToString("HH:mm");
             ViewBag.fromTime = now.ToString("HH:mm");
 
+            ViewBag.relationInquiryText = "";
+
             return View(inquiryViewModel);
         }
 
@@ -129,6 +131,8 @@ namespace Timothy.Controllers
             ViewBag.toTime = inquiry.StartTime.ToString("HH:mm");
             ViewBag.fromTime = inquiry.EndTime.ToString("HH:mm");
 
+            ViewBag.relationInquiryText = "";
+
             return View(nameof(New), inquiryViewModel);
         }
 
@@ -147,6 +151,13 @@ namespace Timothy.Controllers
                 inquiry = inquiry,
                 inquiryFrom = await SetInquiryFormValuesAsync()
             };
+
+            ViewBag.toDate = inquiry.IncomingDate.ToString("yyyy-MM-dd");
+            ViewBag.toTime = inquiry.StartTime.ToString("HH:mm");
+            ViewBag.fromTime = inquiry.EndTime.ToString("HH:mm");
+
+            var relationInquiry = await this._inquiryModel.FindByIdAsync(inquiry.InquiryRelation);
+            ViewBag.relationInquiryText = relationInquiry == null ? "" : relationInquiry.RelationInquiryText;
 
             return View(inquiryViewModel);
         }

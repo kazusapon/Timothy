@@ -165,7 +165,7 @@
         @Html.DisplayNameFor(model => model.inquiry.InquiryRelation)
     </label>
     <div class="uk-form-controls">
-        <input type="text" id="inquiry-relation-info" class="uk-input inquiry-relation" readonly>
+        <input type="text" id="inquiry-relation-info" class="uk-input inquiry-relation" readonly value=@ViewBag.relationInquiryText>
         <div class="uk-button-group">
             <a href="#modal-inquiry-search" id="inquiry-search-modal-open-button" class="uk-button uk-button-default" uk-toggle><span uk-icon="link"></span></a>
             <button type="button" id="inquiry-relation-clear-button" class="uk-button uk-button-default">クリア</button>
@@ -183,6 +183,8 @@
         </select>
     </div>
 </div>
+
+<input asp-for="inquiry.Id" type="hidden" id="inquiry-id-hidden">
 
 <div class="form-under-buttons">
     <a asp-controller="Inquiry" asp-action="Index" class="uk-button uk-button-default">戻る</a>
