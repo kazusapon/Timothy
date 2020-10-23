@@ -35,7 +35,8 @@ namespace Inquiry.Model
                             Inquiry = inquiry,
                             UserName = user.UserName
                         })
-                    .WhereIf(startTime != null, inquiry => startTime >= inquiry.Inquiry.Inquiry.StartTime )
+                    .Where(inquiry => inquiry.Inquiry.Inquiry.DaletedAt == null)
+                    .WhereIf(startTime != null, inquiry => startTime >= inquiry.Inquiry.Inquiry.StartTime)
                     .WhereIf(endTime != null, inquiry => inquiry.Inquiry.Inquiry.EndTime <= endTime)
                     .WhereIf(systemId != 0, inquiry => inquiry.Inquiry.Inquiry.SystemId == systemId)
                     .WhereIf(check, inquiry => !inquiry.Inquiry.Inquiry.ComplateFlag)
@@ -73,6 +74,14 @@ namespace Inquiry.Model
         public async Task CreateInquiryAsync(EntityModels.Inquiry inquiry)
         {
             this._context.Inquiry.Add(inquiry);
+            await this._context.SaveChangesAsync();
+            
+            return;
+        }
+
+        public async Task UpdateInquiryAsync(EntityModels.Inquiry inquiry)
+        {
+            this._context.Update(inquiry);
             await this._context.SaveChangesAsync();
             
             return;

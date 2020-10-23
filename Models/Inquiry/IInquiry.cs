@@ -13,5 +13,7 @@ namespace Inquiry.Model
         Task<EntityModels.Inquiry> FindByIdAsync(int id);
 
         Task CreateInquiryAsync(EntityModels.Inquiry inquiry);
+
+        Task UpdateInquiryAsync(EntityModels.Inquiry inquiry);
     }
 }

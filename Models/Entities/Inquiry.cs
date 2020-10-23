@@ -40,6 +40,9 @@ namespace EntityModels
         [Display(Name = "関連問合せ")]
         public int InquiryRelation {get; set;}
 
+        [Display(Name = "着信履歴ID")]
+        public int CallRegisterId {get; set;}
+
         [Display(Name = "問合せ元")]
         [Required(ErrorMessage = "必須項目です")]
         [MaxLength(30, ErrorMessage = "30文字以下で入力してください")]
@@ -90,6 +93,10 @@ namespace EntityModels
         [Display(Name = "着信終了時刻")]
         [DataType(DataType.Time, ErrorMessage = "時刻として認識できません")]
         public DateTime EndTime {get; set;}
+
+        [Display(Name = "削除日")]
+        [DataType(DataType.DateTime)]
+        public DateTime? DaletedAt {get; set;}
 
         [NotMapped]
         public string IncomingDateTimeText

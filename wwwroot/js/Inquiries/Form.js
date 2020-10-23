@@ -19,10 +19,12 @@
         static _unknownTelephoneNumberCheckboxEventListener() {
             const unknownCheckbox = document.querySelector("#unknown-telephone-number");
             unknownCheckbox.addEventListener('change', () => {
+                const isUnknownCheckboxChecked = document.querySelector("#unknown-telephone-number").checked;
                 const telephoneNumber = document.querySelector("#inquiry-input-form .telephone-number");
-                if (unknownCheckbox.checked) {
+
+                if (isUnknownCheckboxChecked) {
                     telephoneNumber.value = "9999-99-9999"; // 電話番号を聞き取れなかった、もしくは取得できなかった場合に設定する。
-                } else {
+                } else if (!isUnknownCheckboxChecked && telephoneNumber.value === "9999-99-9999") {
                     telephoneNumber.value = "";
                 }
             });

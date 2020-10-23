@@ -162,6 +162,35 @@ namespace Timothy.Controllers
             return View(inquiryViewModel);
         }
 
+        [HttpPost]
+        [Route("Inquiry/Update")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update([Bind("Id, UserId, SystemId, ContactMethodId, GuestTypeId, ClassificationId, InquiryRelation, CompanyName, InquirerName, TelephoneNumber, SpareTelephoneNumber, Question, Answer, ComplateFlag, IncomingDate, StartTime, EndTime")] EntityModels.Inquiry inquiry)
+        {
+            if (ModelState.IsValid)
+            {
+                await this._inquiryModel.UpdateInquiryAsync(inquiry);
+
+                return RedirectToAction(nameof(Detail), inquiry.Id);
+            }
+
+            var inquiryViewModel = new InquiryViewModel
+            {
+                inquiry = inquiry,
+                inquiryFrom = await SetInquiryFormValuesAsync()
+            };
+
+            ViewBag.toDate = inquiry.IncomingDate.ToString("yyyy-MM-dd");
+            ViewBag.toTime = inquiry.StartTime.ToString("HH:mm");
+            ViewBag.fromTime = inquiry.EndTime.ToString("HH:mm");
+
+            var relationInquiry = await this._inquiryModel.FindByIdAsync(inquiry.InquiryRelation);
+            ViewBag.relationInquiryText = relationInquiry == null ? "" : relationInquiry.RelationInquiryText;
+
+            return View(inquiryViewModel);
+
+        }
+
         private async Task<InquiryForm> SetInquiryFormValuesAsync()
         {
             var inquiryForm = new InquiryForm();
