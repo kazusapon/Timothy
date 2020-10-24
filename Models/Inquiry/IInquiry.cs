@@ -17,5 +17,7 @@ namespace Inquiry.Model
         Task UpdateInquiryAsync(EntityModels.Inquiry inquiry);
 
         Task DeleteInquiryAsync(int id);
+
+        Task ApprovalInquiryAsync(int id);
     }
 }

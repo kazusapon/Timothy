@@ -55,7 +55,14 @@ namespace Timothy.Controllers
                 {
                     Systems = await this._system.GetSelectListItemsAsync()
                 },
-                inquiryIndexLists = await this._inquiryModel.GetIndexListAsync()
+                inquiryIndexLists = await this._inquiryModel.GetIndexListAsync
+                (
+                    null, // 着信日（To）
+                    null, // 着信日（From）
+                    null, // システムID
+                    true, // 確認フラグ
+                    null  // フリーワード
+                )
             };
             return View(inquiryIndexViewModel);
         }
@@ -77,6 +84,7 @@ namespace Timothy.Controllers
                     form.inquirySearchForm.FreeWord
                 )
             };
+            
             return View(nameof(Index), inquirySearchViewModel);
         }
 
@@ -196,6 +204,15 @@ namespace Timothy.Controllers
         public async Task<IActionResult> Destroy(int id)
         {
             await this._inquiryModel.DeleteInquiryAsync(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        [Route("Inquiry/Approval")]
+        public async Task<IActionResult> Approval(int id)
+        {
+            await this._inquiryModel.ApprovalInquiryAsync(id);
 
             return RedirectToAction(nameof(Index));
         }

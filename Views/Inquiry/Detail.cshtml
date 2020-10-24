@@ -45,8 +45,6 @@
         </div>
     </div>
 
-
-
     <div class="uk-margin">
         <div class="uk-form-label">
             @Html.DisplayNameFor(model => model.CompanyName)
@@ -161,11 +159,21 @@
     <div class="detail-under-buttons">
         <a asp-controller="Inquiry" asp-action="Index" class="uk-button uk-button-default">戻る</a>
         <span>　</span>
-        <button class="uk-button uk-button-primary">確認</button>
+        <button type="button" class="uk-button uk-button-primary" uk-toggle="target: #modal-approval-confirm">確認</button>
         <span>　</span>
         <a asp-controller="Inquiry" asp-action="Edit" asp-route-id=@Model.Id class="uk-button uk-button-primary">編集</a>
         <span>　</span>
         <button type="button" class="uk-button uk-button-danger" uk-toggle="target: #modal-delete-confirm">削除</button>
+    </div>
+</div>
+
+<div id="modal-approval-confirm" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <p>確認済みに変更してもよろしいですか？</p>
+        <p class="uk-text-right">
+            <a asp-controller="Inquiry" asp-action="Approval" asp-route-id=@Model.Id class="uk-button uk-button-primary" type="button">確認</a>
+            <button class="uk-button uk-button-default uk-modal-close" type="button">キャンセル</button>
+        </p>
     </div>
 </div>
 
@@ -175,7 +183,6 @@
         <p class="uk-text-right">
             <a asp-controller="Inquiry" asp-action="Destroy" asp-route-id=@Model.Id class="uk-button uk-button-danger" type="button">削除</a>
             <button class="uk-button uk-button-default uk-modal-close" type="button">キャンセル</button>
-            
         </p>
     </div>
 </div>

@@ -18,7 +18,7 @@ namespace Inquiry.Model
             this._context = context;
         }
         
-        public async Task<List<InquiryIndexLists>> GetIndexListAsync(DateTime? startTime=null, DateTime? endTime=null, int? systemId=0, bool check=false, string freeWord=null)
+        public async Task<List<InquiryIndexLists>> GetIndexListAsync(DateTime? startTime=null, DateTime? endTime=null, int? systemId=0, bool check=true, string freeWord=null)
         {
             return await this._context.Inquiry
                     .Join(this._context.System,
@@ -39,7 +39,7 @@ namespace Inquiry.Model
                     .WhereIf(startTime != null, inquiry => startTime >= inquiry.Inquiry.Inquiry.StartTime)
                     .WhereIf(endTime != null, inquiry => inquiry.Inquiry.Inquiry.EndTime <= endTime)
                     .WhereIf(systemId != 0, inquiry => inquiry.Inquiry.Inquiry.SystemId == systemId)
-                    .WhereIf(check, inquiry => !inquiry.Inquiry.Inquiry.ComplateFlag)
+                    .WhereIf(check, inquiry => !inquiry.Inquiry.Inquiry.ApprovalFlag)
                     .WhereIf((freeWord != null || freeWord == ""),
                         inquiry => inquiry.Inquiry.Inquiry.InquirerName.Contains(freeWord)
                         || inquiry.Inquiry.Inquiry.TelephoneNumber.Contains(freeWord)
@@ -96,6 +96,20 @@ namespace Inquiry.Model
             }
             
             inquiry.DaletedAt = DateTime.Now;
+            await this._context.SaveChangesAsync();
+
+            return;
+        }
+
+        public async Task ApprovalInquiryAsync(int id)
+        {
+            var inquiry = await this.FindByIdAsync(id);
+            if (inquiry == null)
+            {
+                return;
+            }
+            
+            inquiry.ApprovalFlag = true;
             await this._context.SaveChangesAsync();
 
             return;
