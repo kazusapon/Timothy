@@ -18,7 +18,7 @@ namespace Inquiry.Model
             this._context = context;
         }
         
-        public async Task<List<InquiryIndexLists>> GetIndexListAsync(DateTime? startTime=null, DateTime? endTime=null, int? systemId=0, bool check=true, string freeWord=null)
+        public async Task<List<InquiryIndexLists>> GetIndexListAsync(DateTime? startTime=null, DateTime? endTime=null, int systemId=0, bool check=true, string freeWord=null)
         {
             return await this._context.Inquiry
                     .Join(this._context.System,

@@ -59,7 +59,7 @@ namespace Timothy.Controllers
                 (
                     null, // 着信日（To）
                     null, // 着信日（From）
-                    null, // システムID
+                    0, // システムID
                     true, // 確認フラグ
                     null  // フリーワード
                 )
@@ -179,7 +179,7 @@ namespace Timothy.Controllers
             {
                 await this._inquiryModel.UpdateInquiryAsync(inquiry);
 
-                return RedirectToAction(nameof(Detail), inquiry.Id);
+                return RedirectToAction(nameof(Detail), new {id = inquiry.Id});
             }
 
             var inquiryViewModel = new InquiryViewModel

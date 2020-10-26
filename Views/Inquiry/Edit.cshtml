@@ -1,7 +1,7 @@
 @model Inquiry.View.Models.InquiryViewModel;
 
 <div class="uk-padding-small">
-    <form asp-controller="Inquiry" asp-action="Create" method="post" id="inquiry-input-form" class="uk-form-horizontal uk-margin-large">
+    <form asp-controller="Inquiry" asp-action="Update" method="post" id="inquiry-input-form" class="uk-form-horizontal uk-margin-large">
         @await Html.PartialAsync("_Form", Model)
     </form>
 </div>

@@ -1,5 +1,16 @@
 @model Inquiry.View.Models.InquiryViewModel;
 
+@{
+    if (Model.inquiry.Id == 0)
+    {
+        ViewBag.buttonName = "登録";
+    }
+    else
+    {
+        ViewBag.buttonName = "更新";
+    }
+}
+
 <script src="~/js/Inquiries/Form.js" asp-append-version="true"></script>
 
 <div class="uk-margin">
@@ -189,5 +200,5 @@
 <div class="form-under-buttons">
     <a asp-controller="Inquiry" asp-action="Index" class="uk-button uk-button-default">戻る</a>
     <span>　</span>
-    <button class="uk-button uk-button-primary">登録</button>
+    <button class="uk-button uk-button-primary">@ViewBag.buttonName</button>
 </div>
