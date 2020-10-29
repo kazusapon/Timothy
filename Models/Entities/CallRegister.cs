@@ -12,7 +12,7 @@ namespace EntityModels
 
         public string TelephoneNumber {get; set;}
 
-        public int UserId {get; set;}
+        public int? UserId {get; set;}
 
         public DateTime IncomingDate {get; set;}
 

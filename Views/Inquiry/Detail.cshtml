@@ -1,170 +1,209 @@
 @model EntityModels.Inquiry
 
-<div id="inquiry-detail" class="uk-padiving-small">
-    <div class="uk-margin uk-flex uk-flex-left">
-        <div class="uk-ditail-label uk-text-large">
-            @Html.DisplayNameFor(model => model.IncomingDate)
-        </div>
-        
-        <div class="detail-item uk-text-large">
-            @Html.DisplayFor(model => @model.IncomingDate)
-        </div>
-    </div>
+<table id="inquiry-detail-table" class="uk-table uk-table-divider">
+    <tr>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.ApprovalFlag)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.ApprovalFlag)
+            </div>
+        </td>
 
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            着信時刻
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.StartTime)
-            <span>　～　</span>
-            @Html.DisplayFor(model => @model.EndTime)
-        </div>
-    </div>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.ComplateFlag)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.ComplateFlag)
+            </div>
+        </td>
+    </tr>
 
+    <tr>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.IncomingDate)
+            </div>
+        </th>
+        <td>
+            <div>
+                @Html.DisplayFor(model => @model.IncomingDate)
+            </div>
+        </td>
 
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            @Html.DisplayNameFor(model => model.SystemId)
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.SystemId)
-        </div>
-    </div>
+        <th>
+            <div class="uk-form-label">
+                着信時刻
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.StartTime)
+                <span>　～　</span>
+                @Html.DisplayFor(model => @model.EndTime)
+            </div>
+        </td>
+    </tr>
 
+    <tr>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.SystemId)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.SystemId)
+            </div>
+        </td>
 
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            @Html.DisplayNameFor(model => model.ContactMethodId)
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.ContactMethodId)
-        </div>
-    </div>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.ContactMethodId)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.ContactMethodId)
+            </div>
+        </td>
+    </tr>
 
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            @Html.DisplayNameFor(model => model.CompanyName)
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.CompanyName)
-        </div>
-    </div>
+    <tr>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.CompanyName)
+            </div>
+        </td>
 
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.GuestTypeId)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.GuestTypeId)
+            </div>
+        </td>
+    </tr>
 
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            @Html.DisplayNameFor(model => model.GuestTypeId)
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.GuestTypeId)
-        </div>
-    </div>
+    <tr>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.InquirerName)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.InquirerName)
+            </div>
+        </td>
 
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            @Html.DisplayNameFor(model => model.InquirerName)
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.InquirerName)
-        </div>
-    </div>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.TelephoneNumber)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.TelephoneNumber)
+            </div>
+        </td>
+    </tr>
 
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            @Html.DisplayNameFor(model => model.TelephoneNumber)
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.TelephoneNumber)
-        </div>
-    </div>
+    <tr>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.SpareTelephoneNumber)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.SpareTelephoneNumber)
+            </div>
+        </td>
 
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            @Html.DisplayNameFor(model => model.SpareTelephoneNumber)
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.SpareTelephoneNumber)
-        </div>
-    </div>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.UserId)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.UserId)
+            </div>
+        </td>
+    </tr>
 
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            @Html.DisplayNameFor(model => model.UserId)
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.UserId)
-        </div>
-    </div>
+    <tr>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.Question)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.Question)
+            </div>
+        </td>
 
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            @Html.DisplayNameFor(model => model.Question)
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.Question)
-        </div>
-    </div>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.Answer)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.Answer)
+            </div>
+        </td>
+    </tr>
 
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            @Html.DisplayNameFor(model => model.Answer)
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.Answer)
-        </div>
-    </div>
+    <tr>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.ClassificationId)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.ClassificationId)
+            </div>
+        </td>
 
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            @Html.DisplayNameFor(model => model.ClassificationId)
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.ClassificationId)
-        </div>
-    </div>
+        <th>
+            <div class="uk-form-label">
+                @Html.DisplayNameFor(model => model.InquiryRelation)
+            </div>
+        </th>
+        <td>
+            <div class="uk-inline">
+                @Html.DisplayFor(model => @model.InquiryRelation)
+            </div>
+        </td>
+    </tr>
+</table>
 
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            @Html.DisplayNameFor(model => model.InquiryRelation)
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.InquiryRelation)
-        </div>
-    </div>
-
-    <div class="uk-margin">
-        <div class="uk-form-label">
-            @Html.DisplayNameFor(model => model.ComplateFlag)
-        </div>
-        
-        <div class="uk-inline">
-            @Html.DisplayFor(model => @model.ComplateFlag)
-        </div>
-    </div>
-
-    <div class="detail-under-buttons">
-        <a asp-controller="Inquiry" asp-action="Index" class="uk-button uk-button-default">戻る</a>
-        <span>　</span>
-        <button type="button" class="uk-button uk-button-primary" uk-toggle="target: #modal-approval-confirm">確認</button>
-        <span>　</span>
-        <a asp-controller="Inquiry" asp-action="Edit" asp-route-id=@Model.Id class="uk-button uk-button-primary">編集</a>
-        <span>　</span>
-        <button type="button" class="uk-button uk-button-danger" uk-toggle="target: #modal-delete-confirm">削除</button>
-    </div>
+<div class="detail-under-buttons">
+    <a asp-controller="Inquiry" asp-action="Index" class="uk-button uk-button-default">戻る</a>
+    <span>　</span>
+    <button type="button" class="uk-button uk-button-primary" uk-toggle="target: #modal-approval-confirm">確認</button>
+    <span>　</span>
+    <a asp-controller="Inquiry" asp-action="Edit" asp-route-id=@Model.Id class="uk-button uk-button-primary">編集</a>
+    <span>　</span>
+    <button type="button" class="uk-button uk-button-danger" uk-toggle="target: #modal-delete-confirm">削除</button>
 </div>
 
 <div id="modal-approval-confirm" uk-modal>

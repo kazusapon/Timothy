@@ -229,20 +229,15 @@ a.menu-title:hover {
 }
 
 
-#inquiry-detail {
-  width: 1000px;
+#inquiry-detail-table {
+  width: 1500px;
+  margin: 0 auto;
 }
 
-#inquiry-detail .uk-ditail-label {
-  width: 200px;
+#inquiry-detail-table th {
+  width: 250px;
 }
 
-#inquiry-detail .detail-under-buttons {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.detail-item {
-  border: #E5E5E5 solid 1px;
-  background-color: #fdfdfd;
+#inquiry-detail-table td {
+  width: 500px;
 }
