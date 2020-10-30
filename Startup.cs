@@ -16,6 +16,7 @@ using GuestType.Model;
 using User.Model;
 using Classification.Model;
 using ContactMethod.Model;
+using CallRegister.Model;
 
 namespace Timothy
 {
@@ -55,6 +56,7 @@ namespace Timothy
             services.AddScoped<IGuestType, GuestTypeModel>();
             services.AddScoped<IUser, UserModel>();
             services.AddScoped<IClassification, ClassificationModel>();
+            services.AddScoped<ICallRegister, CallRegisterModel>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

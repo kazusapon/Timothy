@@ -241,3 +241,12 @@ a.menu-title:hover {
 #inquiry-detail-table td {
   width: 500px;
 }
+
+
+#call-register p {
+  line-height: 30px;
+}
+
+#call-register {
+  width: 460px;
+}

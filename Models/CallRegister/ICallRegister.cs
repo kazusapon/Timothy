@@ -6,6 +6,6 @@ namespace CallRegister.Model
 {
     public interface ICallRegister
     {
-        
+        Task<List<EntityModels.CallRegister>> GetCallRegisters();
     }
 }

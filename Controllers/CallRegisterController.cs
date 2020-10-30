@@ -7,29 +7,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Database.Models;
 using EntityModels;
-using Inquiry.Model;
-using System.Model;
-using ContactMethod.Model;
-using Inquiry.View.Models;
-using GuestType.Model;
-using User.Model;
-using Classification.Model;
-using Form.View.Models;
+using CallRegister.Model;
 
 namespace Timothy.Controllers
 {
     public class CallRegisterController : Controller
     {
-        public CallRegisterController()
-        {
+        private readonly DatabaseContext _context;
 
+        private readonly ICallRegister _callRegister;
+
+        public CallRegisterController(DatabaseContext context, ICallRegister callRegister)
+        {
+            this._context = context;
+            this._callRegister = callRegister;
         }
 
         [HttpGet]
         [Route("CallRegister")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var callRegisters = await this._callRegister.GetCallRegisters();
+            return View(callRegisters);
         }
     }
 }
