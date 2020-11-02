@@ -149,5 +149,23 @@ namespace EntityModels
 
             return sb.ToString();
         }
+
+        public void BuildInquiryFromCallRegister(EntityModels.CallRegister callRegister)
+        {
+            if (callRegister == null)
+            {
+                return;
+            }
+
+            CallRegisterId = callRegister.Id;
+            IncomingDate = callRegister.IncomingDate;
+            StartTime = callRegister.StartTime;
+            EndTime = callRegister.EndTime;
+            CompanyName = callRegister.CompanyName;
+            InquirerName = callRegister.InquirerName;
+            TelephoneNumber = callRegister.TelephoneNumber;
+            UserId = (int)callRegister.UserId;
+            GuestTypeId = (int)callRegister.GuestTypeId;
+        }
     }
 }

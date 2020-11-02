@@ -242,11 +242,10 @@ a.menu-title:hover {
   width: 500px;
 }
 
-
-#call-register p {
-  line-height: 30px;
+.call-register {
+  width: 460px !important;
 }
 
-#call-register {
-  width: 460px;
+.call-register p {
+  line-height: 30px;
 }

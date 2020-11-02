@@ -99,11 +99,14 @@ namespace Timothy.Controllers
 
         [HttpGet]
         [Route("Inquiry/New")]
-        public async Task<IActionResult> New()
+        public async Task<IActionResult> New(EntityModels.CallRegister callRegister=null)
         {
+            EntityModels.Inquiry inquiry = new EntityModels.Inquiry();
+            inquiry.BuildInquiryFromCallRegister(callRegister);
+
             var inquiryViewModel = new InquiryViewModel
             {
-                inquiry = new EntityModels.Inquiry(),
+                inquiry = inquiry,
                 inquiryFrom = await SetInquiryFormValuesAsync()
             };
 
@@ -201,7 +204,7 @@ namespace Timothy.Controllers
 
         [HttpGet]
         [Route("Inquiry/Destory")]
-        public async Task<IActionResult> Destroy(int id)
+        public async Task<IActionResult> DestroyCallRegister(int id)
         {
             await this._inquiryModel.DeleteInquiryAsync(id);
 

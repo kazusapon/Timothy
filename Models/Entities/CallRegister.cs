@@ -11,9 +11,13 @@ namespace EntityModels
 
         public string CompanyName {get; set;}
 
+        public string InquirerName {get; set;}
+
         public string TelephoneNumber {get; set;}
 
         public int? UserId {get; set;}
+
+        public int? GuestTypeId {get; set;}
 
         public DateTime IncomingDate {get; set;}
 

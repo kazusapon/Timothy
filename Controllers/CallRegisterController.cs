@@ -28,7 +28,35 @@ namespace Timothy.Controllers
         public async Task<IActionResult> Index()
         {
             var callRegisters = await this._callRegister.GetCallRegisters();
+            ViewBag.isNotFountId = false;
+
             return View(callRegisters);
+        }
+
+        [HttpGet]
+        [Route("CallRegister/Registration/{id}")]
+        public async Task<IActionResult> Registration(int id)
+        {
+            var callRegister = await this._callRegister.FindById(id);
+            
+            if (callRegister == null)
+            {
+                var callRegisters = await this._callRegister.GetCallRegisters();
+                ViewBag.isNotFoundId = true;
+
+                return View(nameof(Index), callRegisters);
+            }
+
+            return RedirectToAction("New", "Inquiry", callRegister);
+        }
+
+        [HttpGet]
+        [Route("CallRegister/Destory/{id}")]
+        public async Task<IActionResult> Destory(int id)
+        {
+            await this._callRegister.DestroyCallRegisterAsync(id);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

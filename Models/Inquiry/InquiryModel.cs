@@ -71,6 +71,18 @@ namespace Inquiry.Model
             return await this._context.Inquiry.FirstOrDefaultAsync(inquiry => inquiry.Id == id);
         }
 
+        public async Task<EntityModels.Inquiry> FindByTelephoneNumberLastRecordAsync(string telephoneNumber)
+        {
+            return await this._context.Inquiry
+                    .Where(inquiry => inquiry.TelephoneNumber == telephoneNumber)
+                    .Where(inquiry => inquiry.DaletedAt == null)
+                    .OrderByDescending(inquiry => inquiry.IncomingDate)
+                    .ThenByDescending(inquiry => inquiry.StartTime)
+                    .ThenByDescending(inquiry => inquiry.Id)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
+        }
+
         public async Task CreateInquiryAsync(EntityModels.Inquiry inquiry)
         {
             this._context.Inquiry.Add(inquiry);

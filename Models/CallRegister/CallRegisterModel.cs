@@ -17,6 +17,15 @@ namespace CallRegister.Model
             this._context = context;
         }
 
+        public async Task<EntityModels.CallRegister> FindById(int id)
+        {
+            return await this._context.CallRegister
+                .Where(callRegister => callRegister.DaletedAt == null)
+                .Where(callRegister => callRegister.Id == id)
+                .AsNoTracking()
+                .SingleOrDefaultAsync();
+        }
+
         public async Task<List<EntityModels.CallRegister>> GetCallRegisters()
         {
             return await (from callRegister in this._context.CallRegister
@@ -34,11 +43,31 @@ namespace CallRegister.Model
                         IncomingDate = callRegister.IncomingDate,
                         StartTime = callRegister.StartTime,
                         EndTime = callRegister.EndTime,
+                        InquirerName = callRegister.InquirerName,
                         TelephoneNumber = callRegister.TelephoneNumber,
-                        UserId = callRegister.UserId
+                        UserId = callRegister.UserId,
+                        GuestTypeId = callRegister.GuestTypeId
                     })
                     .AsNoTracking()
                     .ToListAsync();
+        }
+
+        public async Task DestroyCallRegisterAsync(int id)
+        {
+            var callRegister = await this._context.CallRegister
+                                .Where(callRegister => callRegister.Id == id)
+                                .Where(callRegister => callRegister.DaletedAt == null)
+                                .AsNoTracking()
+                                .SingleOrDefaultAsync();
+            
+            if (callRegister == null)
+            {
+                return;
+            }
+            
+            callRegister.DaletedAt = DateTime.Now;
+
+            await this._context.SaveChangesAsync();
         }
     }
 }
