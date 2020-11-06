@@ -1,5 +1,7 @@
 @model IEnumerable<EntityModels.CallRegister>
 
+<script src="~/js/CallRegisters/Index.js" asp-append-version="true"></script>
+
 <div class="uk-padding-small uk-padding-remove-left uk-padding-remove-right" >
     <div id="call-registers" class="uk-grid-column-small uk-grid-row-large uk-child-width-1-3@s uk-flex uk-flex-center" uk-grid>
         @if (Model.Count() == 0)
@@ -40,8 +42,8 @@
             <p>削除してもよろしいですか？</p>
             <p class="uk-text-right">
                 <form aspc-controller="CallRegister" asp-action="Destory" method="get" class="uk-align-right uk-margin-remove">
-                    <input id="delete-target-id" type="hidden">
-                    <button class="uk-button uk-button-danger" type="button">削除</button>
+                    <input id="delete-target-id" type="hidden" name="id" value="0">
+                    <button class="uk-button uk-button-danger" type="submit">削除</button>
                     <button class="uk-button uk-button-default uk-modal-close" type="button">キャンセル</button>
                 </form>
             </p>

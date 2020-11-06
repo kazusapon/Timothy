@@ -57,16 +57,14 @@ namespace CallRegister.Model
             var callRegister = await this._context.CallRegister
                                 .Where(callRegister => callRegister.Id == id)
                                 .Where(callRegister => callRegister.DaletedAt == null)
-                                .AsNoTracking()
-                                .SingleOrDefaultAsync();
-            
+                                .FirstOrDefaultAsync();
+
             if (callRegister == null)
             {
                 return;
             }
-            
-            callRegister.DaletedAt = DateTime.Now;
 
+            callRegister.DaletedAt = DateTime.Now;
             await this._context.SaveChangesAsync();
         }
     }

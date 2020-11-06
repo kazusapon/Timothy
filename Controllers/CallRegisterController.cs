@@ -51,7 +51,6 @@ namespace Timothy.Controllers
         }
 
         [HttpGet]
-        [Route("CallRegister/Destory/{id}")]
         public async Task<IActionResult> Destory(int id)
         {
             await this._callRegister.DestroyCallRegisterAsync(id);

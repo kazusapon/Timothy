@@ -152,7 +152,7 @@ namespace EntityModels
 
         public void BuildInquiryFromCallRegister(EntityModels.CallRegister callRegister)
         {
-            if (callRegister == null)
+            if (callRegister.Id == 0)
             {
                 return;
             }
@@ -164,8 +164,8 @@ namespace EntityModels
             CompanyName = callRegister.CompanyName;
             InquirerName = callRegister.InquirerName;
             TelephoneNumber = callRegister.TelephoneNumber;
-            UserId = (int)callRegister.UserId;
-            GuestTypeId = (int)callRegister.GuestTypeId;
+            UserId = callRegister.UserId == null ? 0 : (int)callRegister.UserId;
+            GuestTypeId = callRegister.GuestTypeId == null ? 0 : (int)callRegister.GuestTypeId;
         }
     }
 }
