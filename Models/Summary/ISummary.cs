@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SummaryModel
+namespace Summary.Model
 {
     public interface ISummary
     {
-
+        Task<ChartModel> BuildEachSystemInquiryCountAndMonthly();
     }
 }
