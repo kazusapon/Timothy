@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,10 +15,16 @@ namespace EntityModels
         public string InquirerName {get; set;}
 
         public string TelephoneNumber {get; set;}
-
+        
         public int? UserId {get; set;}
 
+        [ForeignKey("UserId")]
+        public User User {get; set;}
+
         public int? GuestTypeId {get; set;}
+
+        [ForeignKey("GuestTypeId")]
+        public GuestType GuestType {get; set;}
 
         public DateTime IncomingDate {get; set;}
 
@@ -26,6 +33,8 @@ namespace EntityModels
         public DateTime EndTime {get; set;}
 
         public DateTime? DaletedAt {get; set;}
+
+        public virtual ICollection<EntityModels.Inquiry> Inquiries { get; set; }
 
         public string BuildIncomingDateTimeBetWeen()
         {

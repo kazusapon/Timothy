@@ -2,6 +2,7 @@
 
 <div class="uk-padding-small">
     <form asp-controller="Inquiry" asp-action="Create" method="post" id="inquiry-input-form" class="uk-form-horizontal uk-margin-large">
+        <div asp-validation-summary="All"></div>
         @await Html.PartialAsync("_Form", Model)
     </form>
 </div>

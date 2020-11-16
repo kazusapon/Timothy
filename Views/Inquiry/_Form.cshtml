@@ -53,7 +53,7 @@
         @Html.DisplayNameFor(model => model.inquiry.SystemId)
     </label>
     <div class="uk-form-controls">
-        <select asp-for="inquiry.SystemId" asp-items="Model.inquiryFrom.Systems" class="uk-select select-box-field" required>
+        <select asp-for="inquiry.System.Id" asp-items="Model.inquiryFrom.Systems" class="uk-select select-box-field" required>
         </select>
     </div>
 </div>
@@ -63,7 +63,7 @@
         @Html.DisplayNameFor(model => model.inquiry.ContactMethodId)
     </label>
     <div class="uk-form-controls">
-        <select asp-for="inquiry.ContactMethodId" asp-items="Model.inquiryFrom.ContactMethods" class="uk-select select-box-field" required>
+        <select asp-for="inquiry.ContactMethod.Id" asp-items="Model.inquiryFrom.ContactMethods" class="uk-select select-box-field" required>
         </select>
     </div>
 </div>
@@ -85,7 +85,7 @@
         @Html.DisplayNameFor(model => model.inquiry.GuestTypeId)
     </label>
     <div class="uk-form-controls">
-        <select asp-for="inquiry.GuestTypeId" asp-items="Model.inquiryFrom.GuestTypes" class="uk-select select-box-field" required>
+        <select asp-for="inquiry.GuestType.Id" asp-items="Model.inquiryFrom.GuestTypes" class="uk-select select-box-field" required>
         </select>
     </div>
 </div>
@@ -132,7 +132,7 @@
         @Html.DisplayNameFor(model => model.inquiry.UserId)
     </label>
     <div class="uk-form-controls">
-        <select asp-for="inquiry.UserId" asp-items="Model.inquiryFrom.Users" class="uk-select select-box-field" required>
+        <select asp-for="inquiry.User.Id" asp-items="Model.inquiryFrom.Users" class="uk-select select-box-field" required>
         </select>
     </div>
 </div>
@@ -166,14 +166,14 @@
         @Html.DisplayNameFor(model => model.inquiry.ClassificationId)
     </label>
     <div class="uk-form-controls">
-        <select asp-for="inquiry.ClassificationId" asp-items="Model.inquiryFrom.Classifications" class="uk-select select-box-field" required>
+        <select asp-for="inquiry.Classification.Id" asp-items="Model.inquiryFrom.Classifications" class="uk-select select-box-field" required>
         </select>
     </div>
 </div>
 
 <div class="uk-margin">
     <label class="uk-form-label">
-        @Html.DisplayNameFor(model => model.inquiry.InquiryRelation)
+        @Html.DisplayNameFor(model => model.inquiry.InquiryRelationId)
     </label>
     <div class="uk-form-controls">
         <input type="text" id="inquiry-relation-info" class="uk-input inquiry-relation" readonly value=@ViewBag.relationInquiryText>
@@ -181,9 +181,12 @@
             <a href="#modal-inquiry-search" id="inquiry-search-modal-open-button" class="uk-button uk-button-default" uk-toggle><span uk-icon="link"></span></a>
             <button type="button" id="inquiry-relation-clear-button" class="uk-button uk-button-default">クリア</button>
         </div>
-        <input asp-for="inquiry.InquiryRelation" type="hidden" id="inquiry-relation-hidden">
+        <input asp-for="inquiry.InquiryRelationId" type="hidden" id="inquiry-relation-hidden">
     </div>
 </div>
+
+<input asp-for="inquiry.CallRegisterId" type="hidden">
+<span asp-validation-for="inquiry.CallRegisterId" class="uk-text-danger"></span>
 
 <div class="uk-margin">
     <label class="uk-form-label">

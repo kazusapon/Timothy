@@ -18,57 +18,41 @@ namespace Inquiry.Model
             this._context = context;
         }
         
-        public async Task<List<InquiryIndexLists>> GetIndexListAsync(DateTime? startTime=null, DateTime? endTime=null, int systemId=0, bool check=true, string freeWord=null)
+        public async Task<List<EntityModels.Inquiry>> GetIndexListAsync(DateTime? startTime=null, DateTime? endTime=null, int systemId=0, bool check=true, string freeWord=null)
         {
             return await this._context.Inquiry
-                    .Join(this._context.System,
-                        inquiry => inquiry.SystemId,
-                        system => system.Id,
-                        (Inquiry, system) => new {
-                            Inquiry = Inquiry,
-                            SystemName = system.SystemName
-                        })
-                    .Join(this._context.User,
-                        inquiry => inquiry.Inquiry.UserId,
-                        user => user.Id,
-                        (inquiry, user) => new {
-                            Inquiry = inquiry,
-                            UserName = user.UserName
-                        })
-                    .Where(inquiry => inquiry.Inquiry.Inquiry.DaletedAt == null)
-                    .WhereIf(startTime != null, inquiry => startTime >= inquiry.Inquiry.Inquiry.StartTime)
-                    .WhereIf(endTime != null, inquiry => inquiry.Inquiry.Inquiry.EndTime <= endTime)
-                    .WhereIf(systemId != 0, inquiry => inquiry.Inquiry.Inquiry.SystemId == systemId)
-                    .WhereIf(check, inquiry => !inquiry.Inquiry.Inquiry.ApprovalFlag)
+                    .Where(inquiry => inquiry.DaletedAt == null)
+                    .WhereIf(startTime != null, inquiry => startTime >= inquiry.StartTime)
+                    .WhereIf(endTime != null, inquiry => inquiry.EndTime <= endTime)
+                    .WhereIf(systemId != 0, inquiry => inquiry.System.Id == systemId)
+                    .WhereIf(check, inquiry => !inquiry.ApprovalFlag)
                     .WhereIf((freeWord != null || freeWord == ""),
-                        inquiry => inquiry.Inquiry.Inquiry.InquirerName.Contains(freeWord)
-                        || inquiry.Inquiry.Inquiry.TelephoneNumber.Contains(freeWord)
-                        || inquiry.Inquiry.Inquiry.SpareTelephoneNumber.Contains(freeWord)
-                        || inquiry.UserName.Contains(freeWord)
-                        || inquiry.Inquiry.Inquiry.Question.Contains(freeWord)
-                        || inquiry.Inquiry.Inquiry.Answer.Contains(freeWord)
-                    )
-                    .OrderByDescending(inquiry => inquiry.Inquiry.Inquiry.IncomingDate)
-                    .ThenByDescending(inquiry => inquiry.Inquiry.Inquiry.StartTime)
-                    .ThenByDescending(inquiry => inquiry.Inquiry.Inquiry.Id)
-                    .Select(inquiry => new InquiryIndexLists{
-                            Id = inquiry.Inquiry.Inquiry.Id,
-                            IncomingDateTime = inquiry.Inquiry.Inquiry.IncomingDate,
-                            CompanyName = inquiry.Inquiry.Inquiry.CompanyName,
-                            InquirerName = inquiry.Inquiry.Inquiry.InquirerName,
-                            TelephoneNumber = inquiry.Inquiry.Inquiry.TelephoneNumber,
-                            SystemName = inquiry.Inquiry.SystemName,
-                            UserName = inquiry.UserName,
-                            Question = inquiry.Inquiry.Inquiry.Question,
-                            Answer = inquiry.Inquiry.Inquiry.Answer
-                    })
+                        inquiry => inquiry.InquirerName.Contains(freeWord)
+                        || inquiry.TelephoneNumber.Contains(freeWord)
+                        || inquiry.SpareTelephoneNumber.Contains(freeWord)
+                        || inquiry.User.UserName.Contains(freeWord)
+                        || inquiry.Question.Contains(freeWord)
+                        || inquiry.Answer.Contains(freeWord))
+                    .Include(model => model.System)
+                    .Include(model => model.User)
+                    .OrderByDescending(inquiry => inquiry.IncomingDate)
+                    .ThenByDescending(inquiry => inquiry.StartTime)
+                    .ThenByDescending(inquiry => inquiry.Id)
                     .AsNoTracking()
                     .ToListAsync();
         }
 
         public async Task<EntityModels.Inquiry> FindByIdAsync(int id)
         {
-            return await this._context.Inquiry.FirstOrDefaultAsync(inquiry => inquiry.Id == id);
+            return await this._context.Inquiry
+                    .Where(inquiry => inquiry.Id == id)
+                    .Include(model => model.System)
+                    .Include(model => model.User)
+                    .Include(model => model.GuestType)
+                    .Include(model => model.Classification)
+                    .Include(model => model.ContactMethod)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
         }
 
         public async Task<EntityModels.Inquiry> FindByTelephoneNumberLastRecordAsync(string telephoneNumber)
@@ -85,6 +69,7 @@ namespace Inquiry.Model
 
         public async Task CreateInquiryAsync(EntityModels.Inquiry inquiry)
         {
+            this._context.Entry(inquiry).State = EntityState.Added;
             this._context.Inquiry.Add(inquiry);
             await this._context.SaveChangesAsync();
             
@@ -93,6 +78,13 @@ namespace Inquiry.Model
 
         public async Task UpdateInquiryAsync(EntityModels.Inquiry inquiry)
         {
+            this._context.Entry(inquiry).State = EntityState.Modified;
+            this._context.Entry(inquiry.System).State = EntityState.Unchanged;
+            this._context.Entry(inquiry.ContactMethod).State = EntityState.Unchanged;
+            this._context.Entry(inquiry.Classification).State = EntityState.Unchanged;
+            this._context.Entry(inquiry.User).State = EntityState.Unchanged;
+            this._context.Entry(inquiry.GuestType).State = EntityState.Unchanged;
+
             this._context.Update(inquiry);
             await this._context.SaveChangesAsync();
             
@@ -102,6 +94,13 @@ namespace Inquiry.Model
         public async Task DeleteInquiryAsync(int id)
         {
             var inquiry = await this.FindByIdAsync(id);
+            this._context.Entry(inquiry).State = EntityState.Deleted;
+            this._context.Entry(inquiry.System).State = EntityState.Unchanged;
+            this._context.Entry(inquiry.ContactMethod).State = EntityState.Unchanged;
+            this._context.Entry(inquiry.Classification).State = EntityState.Unchanged;
+            this._context.Entry(inquiry.User).State = EntityState.Unchanged;
+            this._context.Entry(inquiry.GuestType).State = EntityState.Unchanged;
+            
             if (inquiry == null)
             {
                 return;

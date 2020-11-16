@@ -59,7 +59,7 @@
         </th>
         <td>
             <div class="uk-inline">
-                @Html.DisplayFor(model => @model.SystemId)
+                @Html.DisplayFor(model => @model.System.SystemName)
             </div>
         </td>
 
@@ -70,7 +70,7 @@
         </th>
         <td>
             <div class="uk-inline">
-                @Html.DisplayFor(model => @model.ContactMethodId)
+                @Html.DisplayFor(model => @model.ContactMethod.ContactMethodName)
             </div>
         </td>
     </tr>
@@ -94,7 +94,7 @@
         </th>
         <td>
             <div class="uk-inline">
-                @Html.DisplayFor(model => @model.GuestTypeId)
+                @Html.DisplayFor(model => @model.GuestType.GuestTypeName)
             </div>
         </td>
     </tr>
@@ -142,7 +142,7 @@
         </th>
         <td>
             <div class="uk-inline">
-                @Html.DisplayFor(model => @model.UserId)
+                @Html.DisplayFor(model => @model.User.Id)
             </div>
         </td>
     </tr>
@@ -174,23 +174,23 @@
     <tr>
         <th>
             <div class="uk-form-label">
-                @Html.DisplayNameFor(model => model.ClassificationId)
+                @Html.DisplayNameFor(model => model.Classification)
             </div>
         </th>
         <td>
             <div class="uk-inline">
-                @Html.DisplayFor(model => @model.ClassificationId)
+                @Html.DisplayFor(model => @model.Classification.ClassificationName)
             </div>
         </td>
 
         <th>
             <div class="uk-form-label">
-                @Html.DisplayNameFor(model => model.InquiryRelation)
+                @Html.DisplayNameFor(model => model.InquiryRelationId)
             </div>
         </th>
         <td>
             <div class="uk-inline">
-                @Html.DisplayFor(model => @model.InquiryRelation)
+                @Html.DisplayFor(model => @model.InquiryRelationId)
             </div>
         </td>
     </tr>

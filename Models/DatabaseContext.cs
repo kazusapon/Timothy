@@ -10,6 +10,11 @@ namespace Database.Models
             
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+        }
+
         public DbSet<EntityModels.CallRegister> CallRegister {get; set;}
 
         public DbSet<EntityModels.Classification> Classification {get; set;}

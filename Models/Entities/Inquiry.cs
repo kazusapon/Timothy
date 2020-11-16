@@ -25,20 +25,35 @@ namespace EntityModels
         [Display(Name = "回答者")]
         public int UserId {get; set;}
 
+        [ForeignKey("UserId")]
+        public User User {get; set;}
+
         [Display(Name = "システム")]
         public int SystemId {get; set;}
+
+        [ForeignKey("SystemId")]
+        public System System {get; set;}
 
         [Display(Name = "連絡方法")]
         public int ContactMethodId {get; set;}
 
+        [ForeignKey("ContactMethodId")]
+        public ContactMethod ContactMethod {get; set;}
+
         [Display(Name = "問合せ元分類")]
         public int GuestTypeId {get; set;}
+
+        [ForeignKey("GuestTypeId")]
+        public GuestType GuestType {get; set;}
 
         [Display(Name = "問合せ分類")]
         public int ClassificationId {get; set;}
 
+        [ForeignKey("ClassificationId")]
+        public Classification Classification {get; set;}
+
         [Display(Name = "関連問合せ")]
-        public int InquiryRelation {get; set;}
+        public int InquiryRelationId {get; set;}
 
         [Display(Name = "着信履歴ID")]
         public int CallRegisterId {get; set;}
@@ -164,8 +179,8 @@ namespace EntityModels
             CompanyName = callRegister.CompanyName;
             InquirerName = callRegister.InquirerName;
             TelephoneNumber = callRegister.TelephoneNumber;
-            UserId = callRegister.UserId == null ? 0 : (int)callRegister.UserId;
-            GuestTypeId = callRegister.GuestTypeId == null ? 0 : (int)callRegister.GuestTypeId;
+            UserId = (int)callRegister.UserId;
+            GuestType = callRegister.GuestType;
         }
     }
 }

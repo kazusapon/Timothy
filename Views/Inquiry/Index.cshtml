@@ -39,12 +39,12 @@
         <thead>
             <tr>
                 <th class="inquiry-id">@Html.DisplayNameFor(model => model.inquiryIndexLists.GetEnumerator().Current.Id)</th>
-                <th class="incoming-dated">@Html.DisplayNameFor(model => model.inquiryIndexLists.GetEnumerator().Current.IncomingDateTime)</th>
+                <th class="incoming-dated">@Html.DisplayNameFor(model => model.inquiryIndexLists.GetEnumerator().Current.IncomingDate)</th>
                 <th class="company-name">@Html.DisplayNameFor(model => model.inquiryIndexLists.GetEnumerator().Current.CompanyName)</th>
                 <th class="inquirer-name">@Html.DisplayNameFor(model => model.inquiryIndexLists.GetEnumerator().Current.InquirerName)</th>
                 <th class="telephone-number">@Html.DisplayNameFor(model => model.inquiryIndexLists.GetEnumerator().Current.TelephoneNumber)</th>
-                <th class="system-name">@Html.DisplayNameFor(model => model.inquiryIndexLists.GetEnumerator().Current.SystemName)</th>
-                <th class="respondent">@Html.DisplayNameFor(model => model.inquiryIndexLists.GetEnumerator().Current.UserName)</th>
+                <th class="system-name">@Html.DisplayNameFor(model => model.inquiryIndexLists.GetEnumerator().Current.SystemId)</th>
+                <th class="respondent">@Html.DisplayNameFor(model => model.inquiryIndexLists.GetEnumerator().Current.UserId)</th>
                 <th class="question">@Html.DisplayNameFor(model => model.inquiryIndexLists.GetEnumerator().Current.Question)</th>
                 <th class="answer">@Html.DisplayNameFor(model => model.inquiryIndexLists.GetEnumerator().Current.Answer)</th>
             </tr>
@@ -54,12 +54,12 @@
             {
                 <tr class="inquiry-list-line">
                     <td class="inquiry-id">@inquiry.Id</td>
-                    <td class="incoming-dated">@inquiry.IncomingDateTime.ToString("yy/MM/dd HH:mm")</td>
+                    <td class="incoming-dated">@inquiry.IncomingDateTimeText</td>
                     <td class="company-name">@inquiry.CompanyName</td>
                     <td class="inquirer-name">@inquiry.InquirerName</td>
                     <td class="telephone-number">@inquiry.TelephoneNumber</td>
-                    <td class="system-name">@inquiry.SystemName</td>
-                    <td class="respondent">@inquiry.UserName</td>
+                    <td class="system-name">@inquiry.System.SystemName</td>
+                    <td class="respondent">@inquiry.User.UserName</td>
                     <td class="question">@inquiry.Question</td>
                     <td class="answer">@inquiry.Answer</td>
                 </tr>   

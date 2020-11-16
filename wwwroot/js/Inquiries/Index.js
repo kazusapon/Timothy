@@ -19,7 +19,7 @@
                     textField.value = '';
                 });
 
-                document.querySelector("#inquiry-search-area .uk-select").value = "-1";
+                document.querySelector("#inquiry-search-area .uk-select").options[0].selected = true; //「すべて」を選択
                 document.querySelector("#inquiry-search-area .uk-checkbox").checked = true;
             });
         }

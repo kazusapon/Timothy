@@ -14,6 +14,7 @@ using Inquiry.View.Models;
 using GuestType.Model;
 using User.Model;
 using Classification.Model;
+using CallRegister.Model;
 using Form.View.Models;
 
 namespace Timothy.Controllers
@@ -30,11 +31,13 @@ namespace Timothy.Controllers
 
         private readonly IGuestType _guestType;
 
+        private readonly ICallRegister _callRegister;
+
         private readonly IUser _user;
 
         private readonly IClassification _classification;
 
-        public InquiryController(DatabaseContext context, IInquiry inquiry, ISystem system, IContactMethod contactMethod, IGuestType guestType, IUser user, IClassification classification)
+        public InquiryController(DatabaseContext context, IInquiry inquiry, ISystem system, IContactMethod contactMethod, IGuestType guestType, IUser user, IClassification classification, ICallRegister callRegister)
         {
             this._context = context;
             this._inquiryModel = inquiry;
@@ -43,6 +46,7 @@ namespace Timothy.Controllers
             this._guestType = guestType;
             this._user = user;
             this._classification = classification;
+            this._callRegister = callRegister;
         }
         
         [HttpGet]
@@ -120,14 +124,22 @@ namespace Timothy.Controllers
             return View(inquiryViewModel);
         }
 
+        [BindProperty]
+        public EntityModels.Inquiry inquiry {get; set;}
+
         [HttpPost]
         [Route("Inquiry/Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId, SystemId, ContactMethodId, GuestTypeId, ClassificationId, InquiryRelation, CompanyName, InquirerName, TelephoneNumber, SpareTelephoneNumber, Question, Answer, ComplateFlag, IncomingDate, StartTime, EndTime")] EntityModels.Inquiry inquiry)
+        public async Task<IActionResult> Create()
         {
             if (ModelState.IsValid)
             {
                 await this._inquiryModel.CreateInquiryAsync(inquiry);
+
+                if (inquiry.CallRegisterId > 0)
+                {
+                    await this._callRegister.DestroyCallRegisterAsync(inquiry.CallRegisterId);
+                }
 
                 return RedirectToAction(nameof(Index));
             }
@@ -167,7 +179,7 @@ namespace Timothy.Controllers
             ViewBag.toTime = inquiry.StartTime.ToString("HH:mm");
             ViewBag.fromTime = inquiry.EndTime.ToString("HH:mm");
 
-            var relationInquiry = await this._inquiryModel.FindByIdAsync(inquiry.InquiryRelation);
+            var relationInquiry = await this._inquiryModel.FindByIdAsync(inquiry.InquiryRelationId);
             ViewBag.relationInquiryText = relationInquiry == null ? "" : relationInquiry.RelationInquiryText;
 
             return View(inquiryViewModel);
@@ -176,7 +188,7 @@ namespace Timothy.Controllers
         [HttpPost]
         [Route("Inquiry/Update")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update([Bind("Id, UserId, SystemId, ContactMethodId, GuestTypeId, ClassificationId, InquiryRelation, CompanyName, InquirerName, TelephoneNumber, SpareTelephoneNumber, Question, Answer, ComplateFlag, IncomingDate, StartTime, EndTime")] EntityModels.Inquiry inquiry)
+        public async Task<IActionResult> Update()
         {
             if (ModelState.IsValid)
             {
@@ -195,7 +207,7 @@ namespace Timothy.Controllers
             ViewBag.toTime = inquiry.StartTime.ToString("HH:mm");
             ViewBag.fromTime = inquiry.EndTime.ToString("HH:mm");
 
-            var relationInquiry = await this._inquiryModel.FindByIdAsync(inquiry.InquiryRelation);
+            var relationInquiry = await this._inquiryModel.FindByIdAsync(inquiry.InquiryRelationId);
             ViewBag.relationInquiryText = relationInquiry == null ? "" : relationInquiry.RelationInquiryText;
 
             return View(inquiryViewModel);
