@@ -120,6 +120,7 @@ namespace Inquiry.Model
                 return;
             }
             
+            this._context.Entry(inquiry).State = EntityState.Modified;
             inquiry.ApprovalFlag = true;
             await this._context.SaveChangesAsync();
 

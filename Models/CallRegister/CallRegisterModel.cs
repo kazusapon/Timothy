@@ -52,5 +52,26 @@ namespace CallRegister.Model
             callRegister.DaletedAt = DateTime.Now;
             await this._context.SaveChangesAsync();
         }
+
+        public async Task UpdateCompanyNameAndInquierName(EntityModels.Inquiry inquiry)
+        {
+            var callRegiters = await this._context.CallRegister
+                                .Where(callRegister => callRegister.TelephoneNumber == inquiry.TelephoneNumber)
+                                .Where(callRegister => callRegister.DaletedAt == null)
+                                .AsNoTracking()
+                                .ToListAsync();
+
+            foreach (var callRegiter in callRegiters)
+            {
+                this._context.Entry(callRegiter).State = EntityState.Modified;
+                //this._context.Entry(callRegiter.User).State = EntityState.Unchanged;
+                    
+                callRegiter.CompanyName = inquiry.CompanyName;
+                callRegiter.InquirerName = inquiry.InquirerName;
+                callRegiter.GuestTypeId = inquiry.GuestTypeId;
+            }
+
+            await this._context.SaveChangesAsync();
+        }
     }
 }

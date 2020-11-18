@@ -11,5 +11,7 @@ namespace CallRegister.Model
         Task<EntityModels.CallRegister> FindById(int id);
 
         Task DestroyCallRegisterAsync(int id);
+
+        Task UpdateCompanyNameAndInquierName(EntityModels.Inquiry inquiry);
     }
 }

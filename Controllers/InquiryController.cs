@@ -135,6 +135,7 @@ namespace Timothy.Controllers
             if (ModelState.IsValid)
             {
                 await this._inquiryModel.CreateInquiryAsync(inquiry);
+                await this._callRegister.UpdateCompanyNameAndInquierName(inquiry);
 
                 if (inquiry.CallRegisterId > 0)
                 {
@@ -193,6 +194,7 @@ namespace Timothy.Controllers
             if (ModelState.IsValid)
             {
                 await this._inquiryModel.UpdateInquiryAsync(inquiry);
+                await this._callRegister.UpdateCompanyNameAndInquierName(inquiry);
 
                 return RedirectToAction(nameof(Detail), new {id = inquiry.Id});
             }
