@@ -34,8 +34,6 @@ namespace EntityModels
 
         public DateTime? DaletedAt {get; set;}
 
-        public virtual ICollection<EntityModels.Inquiry> Inquiries { get; set; }
-
         public string BuildIncomingDateTimeBetWeen()
         {
             var sb = new StringBuilder();

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Database.Models;
 using Inquiry.View.Models;
 using Utils;
+using Summary.Model;
 
 namespace Inquiry.Model
 {
@@ -125,6 +126,54 @@ namespace Inquiry.Model
             await this._context.SaveChangesAsync();
 
             return;
+        }
+
+
+        public async Task<List<SystemsCountModel>> GetMonthlySystemsCountAsync(DateTime date, string searchType)
+        {
+            var inquiryies = await this._context.Inquiry
+                .WhereIf(searchType == "year" ,inquiry => inquiry.IncomingDate.Year == date.Year)
+                .WhereIf(searchType == "monthly" ,inquiry => inquiry.IncomingDate.Month == date.Month)
+                .WhereIf(searchType == "weekly" ,inquiry => inquiry.IncomingDate.DayOfWeek == date.DayOfWeek)
+                .Where(inquiry => inquiry.DaletedAt == null)
+                .Include(model => model.System)
+                .Select(inquiry =>  new {System = inquiry.System, IncomingDate = inquiry.IncomingDate})
+                .ToListAsync();
+
+            var eachSystemCount = inquiryies.GroupBy(inquiry => new {system = inquiry.System, month = inquiry.IncomingDate.Month})
+                    .OrderBy(inquiry => inquiry.Key.system.Id)
+                    .ThenBy(inquiry => inquiry.Key.month)
+                    .Select(inquiry =>  new SystemsCountModel()
+                    {
+                        System = inquiry.Key.system,
+                        YearOrMonth = inquiry.Key.month,
+                        InquiryCount = inquiry.Count()
+                    })
+                    .ToList();
+
+            var eachSystemMonthlyCount = new List<SystemsCountModel>();
+            // 各システム毎に、1～12月まででデータがないものについて、仮データ（件数ゼロ）をセットする。
+            foreach (var systemCount in eachSystemCount)
+            {
+                for(var month=1; month <= 12; month++)
+                {
+                    if (systemCount.YearOrMonth != month)
+                    {
+                        eachSystemMonthlyCount.Add(new SystemsCountModel
+                        {
+                            System = systemCount.System,
+                            YearOrMonth = month,
+                            InquiryCount = 0
+                        });
+                    }
+                    else
+                    {
+                        eachSystemMonthlyCount.Add(systemCount);
+                    }
+                }
+            }
+
+            return eachSystemMonthlyCount;
         }
     }
 }

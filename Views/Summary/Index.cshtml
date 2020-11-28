@@ -1,4 +1,11 @@
+<script src="~/lib/chartjs/Chart.min.js" asp-append-version="true"></script>
+<script src="~/lib/chartjs/chartjs-plugin-colorschemes.min.js" asp-append-version="true"></script>
 <script src="~/js/Summaries/Index.js" asp-append-version="true"></script>
+
+<div style="width: 50%">
+    <canvas id="chart" height="600" width="1000"></canvas>
+</div>
+
 
 <!-- ドーナツグラフ -->
 <input type="hidden" name="eachUserAverageAnswerTime" value="">

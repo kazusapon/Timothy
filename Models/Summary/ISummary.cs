@@ -7,6 +7,6 @@ namespace Summary.Model
 {
     public interface ISummary
     {
-        Task<ChartModel> BuildEachSystemInquiryCountAndMonthly();
+        Task<ChartModel> BuildEachSystemInquiryCountAndMonthlyAsync(DateTime date);
     }
 }
