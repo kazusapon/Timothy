@@ -7,18 +7,16 @@
 
     class VerticalChartHelper {
         static init() {
-            this._download(); 
+            this._initVerticalChart(); 
         }
 
-        static async _download() {
+        static async _initVerticalChart() {
             const chartData = await this._fetchEachSystemCountMonthly();
             if (chartData === null) {
                 return;
             }
 
-            console.log(chartData);
-
-            this._buildVerticalChart(chartData)
+            this._buildVerticalChart(chartData);
         }
 
         static async _fetchEachSystemCountMonthly() {
@@ -37,6 +35,21 @@
                 type: 'bar',
                 data: chartData,
                 options: {
+                    legend: {
+                        display: true
+                    },
+                    scales: {
+                        yAxes: [{
+                          ticks: {
+                            suggestedMax: 100,
+                            suggestedMin: 0,
+                            stepSize: 10,
+                            callback: function(value, index, values){
+                              return  value +  '件'
+                            }
+                          }
+                        }]
+                      },
                     plugins: {
                         colorschemes: {
                             scheme: 'brewer.PastelOne8'
