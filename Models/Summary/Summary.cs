@@ -28,7 +28,7 @@ namespace Summary.Model
         {
             var chartModel = new ChartModel
             {
-                Dataset = await BuildChartModelForEachSystemInquiryCountAsync(date, "monthly"),
+                Datasets = await BuildChartModelForEachSystemInquiryCountAsync(date, "monthly"),
                 Labels = MonthText()
             };
 
@@ -38,21 +38,22 @@ namespace Summary.Model
         private async Task<List<DatasetModel>> BuildChartModelForEachSystemInquiryCountAsync(DateTime date, string searchType)
         {
             List<DatasetModel> datasets = new();
-            var inquiries = await this._inquiry.GetMonthlySystemsCountAsync(date, searchType);
+            var eachSystemCountForMonth = await this._inquiry.GetMonthlySystemsCountAsync(date, searchType);
 
-            foreach (var inquiry in inquiries)
+            foreach(var system in this._context.System)
             {
                 DatasetModel datasetModel = new DatasetModel
                 {
-                    Label = inquiry.System.SystemName,
-                    Datas = inquiries.Where(inquiries => inquiries.System.Id == inquiry.System.Id)
-                                .OrderBy(inquiries => inquiries.YearOrMonth)
-                                .Select(inquiries => inquiries.InquiryCount)
+                    Label = system.SystemName,
+                    Data = eachSystemCountForMonth
+                                .Where(inquiry => inquiry.System.Id == system.Id)
+                                .OrderBy(inquiry => inquiry.YearOrMonth)
+                                .Select(inquiry => inquiry.InquiryCount)
                                 .ToList()
                 };
 
                 datasets.Add(datasetModel);
-            }
+            };
 
             return datasets;
         }
@@ -66,5 +67,14 @@ namespace Summary.Model
         {
             return new List<string>{ "日", "月", "火", "水", "木", "金", "土" };
         }
+    }
+
+    public class VerticalChartModel
+    {
+        public EntityModels.System System {get; set;}
+
+        public int YearOrMonth {get; set;}
+
+        public int InquiryCount { get; set;}
     }
 }

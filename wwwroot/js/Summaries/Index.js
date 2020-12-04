@@ -7,7 +7,6 @@
 
     class VerticalChartHelper {
         static init() {
-            this._buildChart();
             this._download(); 
         }
 
@@ -18,10 +17,12 @@
             }
 
             console.log(chartData);
+
+            this._buildVerticalChart(chartData)
         }
 
         static async _fetchEachSystemCountMonthly() {
-            return await fetch(`/api/SummaryRest`, {
+            return await fetch(`/api/SummaryRest/Monthly`, {
                 method: 'GET'
             }).then((responce) => {
                 if (responce.ok) {
@@ -30,21 +31,11 @@
             });
         }
 
-        static _buildChart() {
+        static _buildVerticalChart(chartData) {
             const canvas = document.querySelector("#chart");
             const myChart = new Chart(canvas, {
                 type: 'bar',
-                data: {
-                    labels: ["M", "T", "W", "T", "F", "S", "S"],
-                    datasets: [{
-                        label: 'apples',
-                        data: [12, 19, 3, 17, 28, 24, 7]
-                    }, 
-                    {
-                        label: 'oranges',
-                        data: [30, 29, 5, 5, 20, 3, 10]
-                    }]
-                },
+                data: chartData,
                 options: {
                     plugins: {
                         colorschemes: {

@@ -9,21 +9,21 @@ namespace Summary.Model
         public List<string> Labels {get; set;}
 
         //public List<int> Dataset {get; set;}
-        public List<DatasetModel> Dataset {get; set;}
+        public List<DatasetModel> Datasets {get; set;}
     }
 
     public class DatasetModel
     {
         public string Label {get; set;}
 
-        public List<int> Datas {get; set;}
+        public List<int> Data {get; set;}
     }
     
     public class SystemsCountModel
     {
         public EntityModels.System System {get; set;}
 
-        public int YearOrMonth {get; set;}
+        public int? YearOrMonth {get; set;}
 
         public int InquiryCount {get; set;}
     }

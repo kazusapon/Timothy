@@ -128,26 +128,35 @@ namespace Inquiry.Model
             return;
         }
 
-
+        // searchType
+        //  "year" => 抽出条件なし
+        //  "monthly" => "年で抽出"
+        //  "weekly" => "年と月で抽出"
         public async Task<List<SystemsCountModel>> GetMonthlySystemsCountAsync(DateTime date, string searchType)
         {
-            var inquiryies = await this._context.Inquiry
-                .WhereIf(searchType == "year" ,inquiry => inquiry.IncomingDate.Year == date.Year)
-                .WhereIf(searchType == "monthly" ,inquiry => inquiry.IncomingDate.Month == date.Month)
-                .WhereIf(searchType == "weekly" ,inquiry => inquiry.IncomingDate.DayOfWeek == date.DayOfWeek)
-                .Where(inquiry => inquiry.DaletedAt == null)
-                .Include(model => model.System)
-                .Select(inquiry =>  new {System = inquiry.System, IncomingDate = inquiry.IncomingDate})
-                .ToListAsync();
+            var inquiryies = await (from system in this._context.System
+                                    join inquiry in (this._context.Inquiry
+                                        .WhereIf(searchType == "monthly",  inquiry => inquiry.IncomingDate.Year == date.Year)
+                                        .WhereIf(searchType == "weekly",  inquiry => inquiry.IncomingDate.Year == date.Year)
+                                        .WhereIf(searchType == "weekly" ,inquiry => inquiry.IncomingDate.Month == date.Month)
+                                    )
+                                on system equals inquiry.System into gj
+                                from subInquiry in gj.DefaultIfEmpty()
+                                select new SystemsCountModel
+                                {
+                                    System = system,
+                                    YearOrMonth = subInquiry.IncomingDate.Month,
+                                    InquiryCount = system.Inquiries.Count()
+                                }).ToListAsync();
 
-            var eachSystemCount = inquiryies.GroupBy(inquiry => new {system = inquiry.System, month = inquiry.IncomingDate.Month})
+            var eachSystemCount = inquiryies.GroupBy(inquiry => new {system = inquiry.System, month = inquiry.YearOrMonth})
                     .OrderBy(inquiry => inquiry.Key.system.Id)
                     .ThenBy(inquiry => inquiry.Key.month)
                     .Select(inquiry =>  new SystemsCountModel()
                     {
                         System = inquiry.Key.system,
                         YearOrMonth = inquiry.Key.month,
-                        InquiryCount = inquiry.Count()
+                        InquiryCount = inquiry.First().InquiryCount
                     })
                     .ToList();
 
