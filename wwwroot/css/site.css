@@ -105,6 +105,12 @@ a.menu-title:hover {
   text-align: left;
 }
 
+#summary .switcher ul {
+  height: 20px;
+  width: 100%;
+}
+
+
 #inquiry-search-area {
   margin: 0 auto;
   height: 60px;

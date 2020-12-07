@@ -27,10 +27,9 @@ namespace Timothy.Controllers
         }
 
         [HttpGet]
-        [Route("monthly")]
-        public async Task<ActionResult<ChartModel>> GetEachSystemCountForManthly()
+        [Route("monthly/{dateString}")]
+        public async Task<ActionResult<ChartModel>> GetEachSystemCountForManthly(string dateString)
         {
-            string dateString = "2020-11-20";
             DateTime date;
             if (!DateTime.TryParse(dateString, out date))
             {

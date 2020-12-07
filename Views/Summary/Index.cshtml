@@ -2,18 +2,48 @@
 <script src="~/lib/chartjs/chartjs-plugin-colorschemes.min.js" asp-append-version="true"></script>
 <script src="~/js/Summaries/Index.js" asp-append-version="true"></script>
 
-<div style="width: 50%">
-    <canvas id="chart" height="600" width="1000"></canvas>
+<div class="uk-margin uk-flex">
+    <div class="uk-inline">
+        <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+        <input id="reference-date" class="uk-input uk-form-width-medium flatpicker-calendar" type="date" value=@ViewBag.today>
+    </div>
+
+    <button class="uk-button uk-button-primary" uk-icon="icon: refresh"></button>
 </div>
 
+<div id="summary">
+    <ul uk-tab>
+        <li><a href="#">件数</a></li>
+        <li><a href="#">ユーザ</a></li>
+        <li><a href="#">その他</a></li>
+    </ul>
 
-<!-- ドーナツグラフ -->
-<input type="hidden" name="eachUserAverageAnswerTime" value="">
 
-<!-- 円グラフ（真ん中だけ平均回答時間） -->
-<input type="hidden" name="eachSystemInquiryCount" value="">
-<input type="hidden" name="eachUserInquiryCount" value="">
+    <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-medium-left">
+        <h3 class="">総件数：<span>123445</span>件</h3>
+        <div class="uk-margin-medium-right">
+            <ul class="uk-subnav uk-subnav-pill" uk-switcher>
+                <li class="year"><a href="#">年次</a></li>
+                <li class="monthly"><a href="#">月次</a></li>
+                <li class="weekly"><a href="#">週次</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="main-chart">
+        <div style="width: 50%">
+            <canvas id="chart" height="600" width="1000"></canvas>
+        </div>
+    </div>
 
-<!-- 折れ線グラフ -->
-<input type="hidden" name="eachSystemInquiryCountAndMonthly" value="">
-<input type="hidden" name="eachSystemInquiryCountAndDayOfWeekOf" value="">
+    <!-- ドーナツグラフ -->
+    <input type="hidden" name="eachUserAverageAnswerTime" value="">
+
+    <!-- 円グラフ（真ん中だけ平均回答時間） -->
+    <input type="hidden" name="eachSystemInquiryCount" value="">
+    <input type="hidden" name="eachUserInquiryCount" value="">
+
+    <!-- 折れ線グラフ -->
+    <input type="hidden" name="eachSystemInquiryCountAndMonthly" value="">
+    <input type="hidden" name="eachSystemInquiryCountAndDayOfWeekOf" value="">
+</div>

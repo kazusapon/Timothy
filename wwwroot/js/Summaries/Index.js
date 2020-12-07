@@ -20,7 +20,9 @@
         }
 
         static async _fetchEachSystemCountMonthly() {
-            return await fetch(`/api/SummaryRest/Monthly`, {
+            const dateString = document.querySelector("#reference-date").value;
+            
+            return await fetch(`/api/SummaryRest/Monthly/${dateString}`, {
                 method: 'GET'
             }).then((responce) => {
                 if (responce.ok) {
@@ -36,7 +38,8 @@
                 data: chartData,
                 options: {
                     legend: {
-                        display: true
+                        display: true,
+                        position: 'bottom'
                     },
                     scales: {
                         yAxes: [{

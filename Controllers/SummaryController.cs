@@ -16,6 +16,8 @@ namespace Timothy.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.today = DateTime.Today.ToString("yyyy-MM-dd");
+            
             return View();
         }
     }
