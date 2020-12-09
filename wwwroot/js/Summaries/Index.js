@@ -7,7 +7,23 @@
 
     class VerticalChartHelper {
         static init() {
-            this._initVerticalChart(); 
+            this._swicherEventListner();
+            this._initVerticalChart();
+        }
+
+        static _swicherEventListner() {
+            const swichers = document.querySelectorAll("#display-swicher a");
+
+            [...swichers].forEach(swicher => {
+                swicher.addEventListener('click', () => {
+                    const displaySwicherHidden = document.querySelector("#display-swicher input[type=hidden]");
+
+                    displaySwicherHidden.value = swicher.className;
+                    this._initVerticalChart();
+
+                    return this;
+                })
+            })
         }
 
         static async _initVerticalChart() {
@@ -16,19 +32,34 @@
                 return;
             }
 
+            this._setTotalCount(chartData.datasets);
             this._buildVerticalChart(chartData);
         }
 
         static async _fetchEachSystemCountMonthly() {
+            const displaySwicher = document.querySelector("#display-swicher input[type=hidden]").value;
             const dateString = document.querySelector("#reference-date").value;
             
-            return await fetch(`/api/SummaryRest/Monthly/${dateString}`, {
+            return await fetch(`/api/SummaryRest/${displaySwicher}/${dateString}`, {
                 method: 'GET'
             }).then((responce) => {
                 if (responce.ok) {
                    return responce.json()
                 }
             });
+        }
+
+        static _setTotalCount(datasets) {
+            const totalCount = document.querySelector("#total-count");
+            var total = 0;
+
+            [...datasets].forEach(dataset => {
+                const data = dataset.data;
+
+                total += data.reduce(function(a, x) { return a + x; });
+            });
+            
+            totalCount.textContent = total;
         }
 
         static _buildVerticalChart(chartData) {
