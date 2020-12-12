@@ -24,28 +24,68 @@ namespace Summary.Model
             this._inquiry = inquiry;
         }
 
-        public async Task<ChartModel> BuildEachSystemInquiryCountAndMonthlyAsync(DateTime date)
+        public async Task<ChartModel> BuildEachSystemInquiryCountAndTodayAsync(DateTime date)
         {
+            var eachSystemCountForToday = await this._inquiry.GetTodaySystemsCountAsync(date);
+
             var chartModel = new ChartModel
             {
-                Datasets = await BuildChartModelForEachSystemInquiryCountAsync(date, "monthly"),
+                Datasets = BuildChartModelForEachSystemInquiryCountAsync(eachSystemCountForToday),
+                Labels = HourText()
+            };
+
+            return chartModel;
+        }
+
+        public async Task<ChartModel> BuildEachSystemInquiryCountAndMonthlyAsync(DateTime date)
+        {
+            var eachSystemCountForMonth = await this._inquiry.GetMonthlySystemsCountAsync(date);
+
+            var chartModel = new ChartModel
+            {
+                Datasets = BuildChartModelForEachSystemInquiryCountAsync(eachSystemCountForMonth),
                 Labels = MonthText()
             };
 
             return chartModel;
         }
 
-        private async Task<List<DatasetModel>> BuildChartModelForEachSystemInquiryCountAsync(DateTime date, string searchType)
+        public async Task<ChartModel> BuildEachSystemInquiryCountAndYaerAsync(DateTime date)
+        {
+            var eachSystemCountForYear = await this._inquiry.GetYearSystemsCountAsync(date);
+
+            var chartModel = new ChartModel
+            {
+                Datasets = BuildChartModelForEachSystemInquiryCountAsync(eachSystemCountForYear),
+                Labels = YearText(date)
+            };
+
+            return chartModel;
+        }
+
+        public async Task<ChartModel> BuildEachSystemInquiryCountAndWeekAsync(DateTime date)
+        {
+            var eachSystemCountForWeek = await this._inquiry.GetWeekSystemsCountAsync(date);
+
+            var chartModel = new ChartModel
+            {
+                Datasets = BuildChartModelForEachSystemInquiryCountAsync(eachSystemCountForWeek),
+                Labels = DayOfWeekText()
+            };
+
+            return chartModel;
+        }
+
+        private List<DatasetModel> BuildChartModelForEachSystemInquiryCountAsync(List<SystemsCountModel> systemsCount)
         {
             List<DatasetModel> datasets = new();
-            var eachSystemCountForMonth = await this._inquiry.GetMonthlySystemsCountAsync(date, searchType);
 
             foreach(var system in this._context.System)
             {
                 DatasetModel datasetModel = new DatasetModel
                 {
                     Label = system.SystemName,
-                    Data = eachSystemCountForMonth
+                    Data = systemsCount
                                 .Where(inquiry => inquiry.System.Id == system.Id)
                                 .OrderBy(inquiry => inquiry.YearOrMonth)
                                 .Select(inquiry => inquiry.InquiryCount)
@@ -58,9 +98,36 @@ namespace Summary.Model
             return datasets;
         }
 
+        private List<string> HourText()
+        {
+            List<string> hours = new();
+
+            for(var i=0; i < 24; i++)
+            {
+                hours.Add(i.ToString() + "時");
+            }
+
+            return hours;
+        }
+
         private List<string> MonthText()
         {
             return new List<string>{ "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月" };
+        }
+
+        private List<string> YearText(DateTime date)
+        {
+            int MaxYear = 11;
+            int baseYear = date.Year - 5;
+
+            List<string> text = new();
+
+            for(var i = 0; i < MaxYear; i++)
+            {
+               text.Add((baseYear + i) + "年");
+            }
+
+            return text;
         }
 
         private List<string> DayOfWeekText()

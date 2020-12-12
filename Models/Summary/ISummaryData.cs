@@ -7,6 +7,12 @@ namespace Summary.Model
 {
     public interface ISummaryData
     {
-        Task<List<SystemsCountModel>> GetMonthlySystemsCountAsync(DateTime date, string searchType);
+        Task<List<SystemsCountModel>> GetTodaySystemsCountAsync(DateTime date);
+        
+        Task<List<SystemsCountModel>> GetMonthlySystemsCountAsync(DateTime date);
+
+        Task<List<SystemsCountModel>> GetYearSystemsCountAsync(DateTime date);
+
+        Task<List<SystemsCountModel>> GetWeekSystemsCountAsync(DateTime date);
     }
 }

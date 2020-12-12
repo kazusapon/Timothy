@@ -7,6 +7,12 @@ namespace Summary.Model
 {
     public interface ISummary
     {
+        Task<ChartModel> BuildEachSystemInquiryCountAndTodayAsync(DateTime date);
+        
         Task<ChartModel> BuildEachSystemInquiryCountAndMonthlyAsync(DateTime date);
+
+        Task<ChartModel> BuildEachSystemInquiryCountAndYaerAsync(DateTime date);
+
+        Task<ChartModel> BuildEachSystemInquiryCountAndWeekAsync(DateTime date);
     }
 }

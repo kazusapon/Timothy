@@ -32,6 +32,10 @@
                 return;
             }
 
+            if (this.myChart != null) {
+                this.myChart.destory();
+            }
+            
             this._setTotalCount(chartData.datasets);
             this._buildVerticalChart(chartData);
         }

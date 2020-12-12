@@ -27,6 +27,19 @@ namespace Timothy.Controllers
         }
 
         [HttpGet]
+        [Route("today/{dateString}")]
+        public async Task<ActionResult<ChartModel>> GetEachSystemCountForToday(string dateString)
+        {
+            DateTime date;
+            if (!DateTime.TryParse(dateString, out date))
+            {
+                return new ChartModel();
+            }
+
+            return await this._summary.BuildEachSystemInquiryCountAndTodayAsync(date);
+        }
+
+        [HttpGet]
         [Route("monthly/{dateString}")]
         public async Task<ActionResult<ChartModel>> GetEachSystemCountForManthly(string dateString)
         {
@@ -37,6 +50,32 @@ namespace Timothy.Controllers
             }
 
             return await this._summary.BuildEachSystemInquiryCountAndMonthlyAsync(date);
+        }
+
+        [HttpGet]
+        [Route("year/{dateString}")]
+        public async Task<ActionResult<ChartModel>> GetEachSystemCountForYear(string dateString)
+        {
+            DateTime date;
+            if (!DateTime.TryParse(dateString, out date))
+            {
+                return new ChartModel();
+            }
+
+            return await this._summary.BuildEachSystemInquiryCountAndYaerAsync(date);
+        }
+
+        [HttpGet]
+        [Route("weekly/{dateString}")]
+        public async Task<ActionResult<ChartModel>> GetEachSystemCountForWeek(string dateString)
+        {
+            DateTime date;
+            if (!DateTime.TryParse(dateString, out date))
+            {
+                return new ChartModel();
+            }
+
+            return await this._summary.BuildEachSystemInquiryCountAndWeekAsync(date);
         }
     }
 }

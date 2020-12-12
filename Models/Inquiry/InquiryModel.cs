@@ -128,17 +128,40 @@ namespace Inquiry.Model
             return;
         }
 
-        // searchType
-        //  "year" => 抽出条件なし
-        //  "monthly" => "年で抽出"
-        //  "weekly" => "年と月で抽出"
-        public async Task<List<SystemsCountModel>> GetMonthlySystemsCountAsync(DateTime date, string searchType)
+        public async Task<List<SystemsCountModel>> GetTodaySystemsCountAsync(DateTime date)
         {
             var inquiryies = await (from system in this._context.System
                                     join inquiry in (this._context.Inquiry
-                                        .WhereIf(searchType == "monthly",  inquiry => inquiry.IncomingDate.Year == date.Year)
-                                        .WhereIf(searchType == "weekly",  inquiry => inquiry.IncomingDate.Year == date.Year)
-                                        .WhereIf(searchType == "weekly" ,inquiry => inquiry.IncomingDate.Month == date.Month)
+                                        .Where(inquiry => inquiry.IncomingDate == date)
+                                    )
+                                on system equals inquiry.System into gj
+                                from subInquiry in gj.DefaultIfEmpty()
+                                select new SystemsCountModel
+                                {
+                                    System = system,
+                                    YearOrMonth = subInquiry.StartTime.Hour,
+                                    InquiryCount = system.Inquiries.Count()
+                                }).ToListAsync();
+
+            var eachSystemCount = inquiryies.GroupBy(inquiry => new {system = inquiry.System, hour = inquiry.YearOrMonth})
+                    .OrderBy(inquiry => inquiry.Key.system.Id)
+                    .ThenBy(inquiry => inquiry.Key.hour)
+                    .Select(inquiry =>  new SystemsCountModel()
+                    {
+                        System = inquiry.Key.system,
+                        YearOrMonth = inquiry.Key.hour,
+                        InquiryCount = inquiry.First().InquiryCount
+                    })
+                    .ToList();
+
+            return FillHour(eachSystemCount);
+        }
+
+        public async Task<List<SystemsCountModel>> GetMonthlySystemsCountAsync(DateTime date)
+        {
+            var inquiryies = await (from system in this._context.System
+                                    join inquiry in (this._context.Inquiry
+                                        .Where(inquiry => inquiry.IncomingDate.Year == date.Year)
                                     )
                                 on system equals inquiry.System into gj
                                 from subInquiry in gj.DefaultIfEmpty()
@@ -160,6 +183,94 @@ namespace Inquiry.Model
                     })
                     .ToList();
 
+            return FillMonth(eachSystemCount);
+        }
+
+        public async Task<List<SystemsCountModel>> GetYearSystemsCountAsync(DateTime date)
+        {
+            var inquiryies = await (from system in this._context.System
+                                    join inquiry in (this._context.Inquiry
+                                )
+                                on system equals inquiry.System into gj
+                                from subInquiry in gj.DefaultIfEmpty()
+                                select new SystemsCountModel
+                                {
+                                    System = system,
+                                    YearOrMonth = subInquiry.IncomingDate.Year,
+                                    InquiryCount = system.Inquiries.Count()
+                                }).ToListAsync();
+
+            var eachSystemCount = inquiryies.GroupBy(inquiry => new {system = inquiry.System, year = inquiry.YearOrMonth})
+                    .OrderBy(inquiry => inquiry.Key.system.Id)
+                    .ThenBy(inquiry => inquiry.Key.year)
+                    .Select(inquiry =>  new SystemsCountModel()
+                    {
+                        System = inquiry.Key.system,
+                        YearOrMonth = inquiry.Key.year,
+                        InquiryCount = inquiry.First().InquiryCount
+                    })
+                    .ToList();
+
+            return FillFiveYearsBeforeAndAfter(eachSystemCount, date.Year);
+        }
+
+        public async Task<List<SystemsCountModel>> GetWeekSystemsCountAsync(DateTime date)
+        {
+            var inquiryies = await (from system in this._context.System
+                                    join inquiry in (this._context.Inquiry
+                                )
+                                on system equals inquiry.System into gj
+                                from subInquiry in gj.DefaultIfEmpty()
+                                select new SystemsCountModel
+                                {
+                                    System = system,
+                                    YearOrMonth = (int?)subInquiry.IncomingDate.DayOfWeek,
+                                    InquiryCount = system.Inquiries.Count()
+                                }).ToListAsync();
+
+            var eachSystemCount = inquiryies.GroupBy(inquiry => new {system = inquiry.System, week = inquiry.YearOrMonth})
+                    .OrderBy(inquiry => inquiry.Key.system.Id)
+                    .ThenBy(inquiry => inquiry.Key.week)
+                    .Select(inquiry =>  new SystemsCountModel()
+                    {
+                        System = inquiry.Key.system,
+                        YearOrMonth = inquiry.Key.week,
+                        InquiryCount = inquiry.First().InquiryCount
+                    })
+                    .ToList();
+
+            return FillWeek(eachSystemCount);
+        }
+
+        private List<SystemsCountModel> FillHour(List<SystemsCountModel> eachSystemCount)
+        {
+            var eachSystemMonthlyCount = new List<SystemsCountModel>();
+
+            foreach (var systemCount in eachSystemCount)
+            {
+                for(var hour=0; hour <= 23; hour++)
+                {
+                    if (systemCount.YearOrMonth != hour)
+                    {
+                        eachSystemMonthlyCount.Add(new SystemsCountModel
+                        {
+                            System = systemCount.System,
+                            YearOrMonth = hour,
+                            InquiryCount = 0
+                        });
+                    }
+                    else
+                    {
+                        eachSystemMonthlyCount.Add(systemCount);
+                    }
+                }
+            }
+
+            return eachSystemMonthlyCount;
+        }
+
+        private List<SystemsCountModel> FillMonth(List<SystemsCountModel> eachSystemCount)
+        {
             var eachSystemMonthlyCount = new List<SystemsCountModel>();
             // 各システム毎に、1～12月まででデータがないものについて、仮データ（件数ゼロ）をセットする。
             foreach (var systemCount in eachSystemCount)
@@ -172,6 +283,62 @@ namespace Inquiry.Model
                         {
                             System = systemCount.System,
                             YearOrMonth = month,
+                            InquiryCount = 0
+                        });
+                    }
+                    else
+                    {
+                        eachSystemMonthlyCount.Add(systemCount);
+                    }
+                }
+            }
+
+            return eachSystemMonthlyCount;
+        }
+
+        private List<SystemsCountModel> FillFiveYearsBeforeAndAfter(List<SystemsCountModel> eachSystemCount, int year)
+        {
+            var eachSystemMonthlyCount = new List<SystemsCountModel>();
+            int baseYear = year - 5;
+            int maxYear = 11;
+
+            foreach (var systemCount in eachSystemCount)
+            {
+                for(var i = 0; i < maxYear; i++)
+                {
+                    if (systemCount.YearOrMonth != baseYear + i)
+                    {
+                        eachSystemMonthlyCount.Add(new SystemsCountModel
+                        {
+                            System = systemCount.System,
+                            YearOrMonth = baseYear + i,
+                            InquiryCount = 0
+                        });
+                    }
+                    else
+                    {
+                        eachSystemMonthlyCount.Add(systemCount);
+                    }
+                }
+            }
+
+            return eachSystemMonthlyCount;
+        }
+
+        private List<SystemsCountModel> FillWeek(List<SystemsCountModel> eachSystemCount)
+        {
+            var eachSystemMonthlyCount = new List<SystemsCountModel>();
+            // 各システム毎に、1～12月まででデータがないものについて、仮データ（件数ゼロ）をセットする。
+            foreach (var systemCount in eachSystemCount)
+            {
+                for(var week=0; week < 7; week++)
+                {
+                    if (systemCount.YearOrMonth != week)
+                    {
+                        eachSystemMonthlyCount.Add(new SystemsCountModel
+                        {
+                            System = systemCount.System,
+                            YearOrMonth = week,
                             InquiryCount = 0
                         });
                     }
