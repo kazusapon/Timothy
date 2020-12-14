@@ -12,15 +12,16 @@
 </div>
 
 <div id="summary">
-    <ul uk-tab>
-        <li><a href="#">件数</a></li>
-        <li><a href="#">ユーザ</a></li>
-        <li><a href="#">その他</a></li>
+    <ul id="tab" uk-tab="swiping: false" data-uk-switcher="{connect:'#chart-contents'}">
+        <li><a href="#" class="count">件数</a></li>
+        <li><a href="#" class="user">ユーザ</a></li>
+        <li><a href="#" class="other">その他</a></li>
     </ul>
+    <input id="selected-tab" type="hidden" value="count">
 
 
     <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-medium-left">
-        <h3>総件数：<span id="total-count">0</span>件</h3>
+        <h3 class="dummy-text"></h3>
         <div id="display-swicher" class="uk-margin-medium-right">
             <ul class="uk-subnav uk-subnav-pill" uk-switcher>
                 <li><a href="#" class="today">今日</a></li>
@@ -28,13 +29,20 @@
                 <li><a href="#" class="monthly">月次</a></li>
                 <li><a href="#" class="year">年次</a></li>
             </ul>
-            <input type="hidden" value="monthly">
+            <input type="hidden" value="today">
         </div>
     </div>
     
-    <div class="count-chart">
-        <div style="width: 50%">
-            <canvas id="chart" height="600" width="1000"></canvas>
-        </div>
-    </div>
+    <ul id="chart-contents" class="uk-switcher">
+        <li>
+            <h3>総件数：<span id="total-count">0</span>件</h3>
+            <div class="count-chart">
+                <div style="width: 50%">
+                    <canvas id="chart" height="600" width="1000"></canvas>
+                </div>
+            </div>
+        </li>
+        <li></li>
+        <li></li>
+    </ul>
 </div>

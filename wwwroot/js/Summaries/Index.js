@@ -2,13 +2,33 @@
     'use strict';
 
     document.addEventListener('DOMContentLoaded', () => {
+        TabHelper.init();
+        SwicherHelper.init();
         VerticalChartHelper.init();
     });
 
-    class VerticalChartHelper {
+    class TabHelper {
+        static init() {
+            this._tabEventListner();
+        }
+
+        static _tabEventListner() {
+            const tabs = document.querySelectorAll("#tab");
+
+            [...tabs].forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabHidden = document.querySelector("#selected-tab");
+                    tabHidden.value = tab.className;
+
+                    VerticalChartHelper._initVerticalChart();
+                });
+            });
+        }
+    }
+
+    class SwicherHelper {
         static init() {
             this._swicherEventListner();
-            this._initVerticalChart();
         }
 
         static _swicherEventListner() {
@@ -19,11 +39,15 @@
                     const displaySwicherHidden = document.querySelector("#display-swicher input[type=hidden]");
 
                     displaySwicherHidden.value = swicher.className;
-                    this._initVerticalChart();
-
-                    return this;
+                    VerticalChartHelper._initVerticalChart();
                 })
             })
+        }
+    }
+
+    class VerticalChartHelper {
+        static init() {
+            this._initVerticalChart();
         }
 
         static async _initVerticalChart() {
@@ -41,10 +65,11 @@
         }
 
         static async _fetchEachSystemCountMonthly() {
+            const displayTab = document.querySelector("#selected-tab").value;
             const displaySwicher = document.querySelector("#display-swicher input[type=hidden]").value;
             const dateString = document.querySelector("#reference-date").value;
             
-            return await fetch(`/api/SummaryRest/${displaySwicher}/${dateString}`, {
+            return await fetch(`/api/SummaryRest/${displayTab}/${displaySwicher}/${dateString}`, {
                 method: 'GET'
             }).then((responce) => {
                 if (responce.ok) {
@@ -83,7 +108,7 @@
                             suggestedMin: 0,
                             stepSize: 10,
                             callback: function(value, index, values){
-                              return  value +  '件'
+                              return  value + '件'
                             }
                           }
                         }]

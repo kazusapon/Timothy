@@ -218,6 +218,8 @@ namespace Inquiry.Model
         {
             var inquiryies = await (from system in this._context.System
                                     join inquiry in (this._context.Inquiry
+                                    .Where(inquiry => inquiry.IncomingDate.Year == date.Year)
+                                    .Where(inquiry => inquiry.IncomingDate.Month == date.Month)
                                 )
                                 on system equals inquiry.System into gj
                                 from subInquiry in gj.DefaultIfEmpty()
