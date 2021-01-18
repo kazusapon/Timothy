@@ -27,7 +27,20 @@ namespace Timothy.Controllers
         }
 
         [HttpGet]
-        [Route("count/today/{dateString}")]
+        [Route("guestType/{dateString}/{searchType}")]
+        public async Task<ActionResult<PieModel>> GetEachSystemCountForToday(string dateString, string searchType)
+        {
+            DateTime date;
+            if (!DateTime.TryParse(dateString, out date))
+            {
+                return new PieModel();
+            }
+
+            return await this._summary.BuildEachGuestTypeInquiryCountAsync(date, searchType);
+        }
+
+        [HttpGet]
+        [Route("today/{dateString}")]
         public async Task<ActionResult<ChartModel>> GetEachSystemCountForToday(string dateString)
         {
             DateTime date;
@@ -40,7 +53,7 @@ namespace Timothy.Controllers
         }
 
         [HttpGet]
-        [Route("count/weekly/{dateString}")]
+        [Route("weekly/{dateString}")]
         public async Task<ActionResult<ChartModel>> GetEachSystemCountForWeek(string dateString)
         {
             DateTime date;
@@ -53,7 +66,7 @@ namespace Timothy.Controllers
         }
 
         [HttpGet]
-        [Route("count/monthly/{dateString}")]
+        [Route("monthly/{dateString}")]
         public async Task<ActionResult<ChartModel>> GetEachSystemCountForManthly(string dateString)
         {
             DateTime date;
@@ -66,7 +79,7 @@ namespace Timothy.Controllers
         }
 
         [HttpGet]
-        [Route("count/year/{dateString}")]
+        [Route("year/{dateString}")]
         public async Task<ActionResult<ChartModel>> GetEachSystemCountForYear(string dateString)
         {
             DateTime date;

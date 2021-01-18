@@ -19,7 +19,7 @@ namespace EntityModels
     public class Inquiry
     {
         [Key]
-        [Display(Name = "ID")]
+        [Display(Name = "#")]
         public int Id {get; set;}
 
         [Display(Name = "回答者")]
@@ -179,7 +179,7 @@ namespace EntityModels
             CompanyName = callRegister.CompanyName;
             InquirerName = callRegister.InquirerName;
             TelephoneNumber = callRegister.TelephoneNumber;
-            UserId = (int)callRegister.UserId;
+            UserId = callRegister.UserId == null ? 0 : (int)callRegister.UserId;
             GuestType = callRegister.GuestType;
         }
     }

@@ -7,6 +7,8 @@ namespace Summary.Model
 {
     public interface ISummary
     {
+        Task<PieModel> BuildEachGuestTypeInquiryCountAsync(DateTime date, string searchType);
+
         Task<ChartModel> BuildEachSystemInquiryCountAndTodayAsync(DateTime date);
         
         Task<ChartModel> BuildEachSystemInquiryCountAndMonthlyAsync(DateTime date);

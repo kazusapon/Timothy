@@ -2,29 +2,10 @@
     'use strict';
 
     document.addEventListener('DOMContentLoaded', () => {
-        TabHelper.init();
         SwicherHelper.init();
         VerticalChartHelper.init();
+        PieChartHelper.init();
     });
-
-    class TabHelper {
-        static init() {
-            this._tabEventListner();
-        }
-
-        static _tabEventListner() {
-            const tabs = document.querySelectorAll("#tab");
-
-            [...tabs].forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const tabHidden = document.querySelector("#selected-tab");
-                    tabHidden.value = tab.className;
-
-                    VerticalChartHelper._initVerticalChart();
-                });
-            });
-        }
-    }
 
     class SwicherHelper {
         static init() {
@@ -40,8 +21,65 @@
 
                     displaySwicherHidden.value = swicher.className;
                     VerticalChartHelper._initVerticalChart();
+                    PieChartHelper._initGuestTypeChart();
                 })
             })
+        }
+    }
+
+    class PieChartHelper {
+        static init() {
+            this._initGuestTypeChart();
+        }
+        
+        static async _initGuestTypeChart() {
+            const chartData = await this._fetchEachGuestTypeCount();
+            if (chartData === null) {
+                return;
+            }
+
+            if (this.guestPieChart != null) {
+                this.guestPieChart.delete();
+            }
+            
+            this._buildGuestTypePieChart(chartData);
+        }
+
+        static async _fetchEachGuestTypeCount() {
+            const dateString = document.querySelector("#reference-date").value;
+            const displaySwicher = document.querySelector("#display-swicher input[type=hidden]").value;
+
+            return await fetch(`/api/SummaryRest/guestType/${dateString}/${displaySwicher}`, {
+                method: 'GET'
+            }).then((responce) => {
+                if (responce.ok) {
+                   return responce.json()
+                }
+            });
+        }
+
+        static _buildGuestTypePieChart(chartData) {
+            const canvas1 = document.querySelector("#guest-type-chart");
+            const guestPieChart = new Chart(canvas1, {
+                type: 'pie',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        data: chartData.datasets
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: true,
+                        position: 'bottom'
+                    },
+                    plugins: {
+                        colorschemes: {
+                            scheme: 'brewer.PastelOne8'
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -57,7 +95,7 @@
             }
 
             if (this.myChart != null) {
-                this.myChart.destory();
+                this.myChart.delete();
             }
             
             this._setTotalCount(chartData.datasets);
@@ -65,11 +103,10 @@
         }
 
         static async _fetchEachSystemCountMonthly() {
-            const displayTab = document.querySelector("#selected-tab").value;
             const displaySwicher = document.querySelector("#display-swicher input[type=hidden]").value;
             const dateString = document.querySelector("#reference-date").value;
             
-            return await fetch(`/api/SummaryRest/${displayTab}/${displaySwicher}/${dateString}`, {
+            return await fetch(`/api/SummaryRest/${displaySwicher}/${dateString}`, {
                 method: 'GET'
             }).then((responce) => {
                 if (responce.ok) {
@@ -91,6 +128,21 @@
             totalCount.textContent = total;
         }
 
+        static _getMaxCount(datasets) {
+            var maxCount = 0;
+            var total = 0;
+            [...datasets].forEach(dataset => {
+                const data = dataset.data;
+
+                total = data.reduce(function(a, x) { return a + x; });
+                if (total > maxCount) {
+                    maxCount = total;
+                } 
+            });
+            
+            return maxCount;
+        }
+
         static _buildVerticalChart(chartData) {
             const canvas = document.querySelector("#chart");
             const myChart = new Chart(canvas, {
@@ -104,9 +156,9 @@
                     scales: {
                         yAxes: [{
                           ticks: {
-                            suggestedMax: 100,
+                            suggestedMax: this._getMaxCount(chartData.datasets) + 10,
                             suggestedMin: 0,
-                            stepSize: 10,
+                            stepSize: 50,
                             callback: function(value, index, values){
                               return  value + '件'
                             }

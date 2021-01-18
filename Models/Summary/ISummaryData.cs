@@ -7,6 +7,8 @@ namespace Summary.Model
 {
     public interface ISummaryData
     {
+        Task<List<GuestTypePieChartModel>> GetGuestTypeOfCount(DateTime date, string searchType);
+
         Task<List<SystemsCountModel>> GetTodaySystemsCountAsync(DateTime date);
         
         Task<List<SystemsCountModel>> GetMonthlySystemsCountAsync(DateTime date);

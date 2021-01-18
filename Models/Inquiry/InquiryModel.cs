@@ -128,6 +128,23 @@ namespace Inquiry.Model
             return;
         }
 
+        public async Task<List<GuestTypePieChartModel>> GetGuestTypeOfCount(DateTime date, string searchType)
+        {
+            return await this._context.GuestType
+                    .Select(guest => new GuestTypePieChartModel
+                    {
+                        GuestType = guest,
+                        InquiryCount = guest.Inquiries
+                                    .Where(inquiry => searchType != "monthly" || inquiry.IncomingDate.Year == date.Year)
+                                    .Where(inquiry => searchType != "weekly" || inquiry.IncomingDate.Month == date.Month)
+                                    .Where(inquiry => searchType != "weekly"  || inquiry.IncomingDate >= getDateByWeek(date, 0))
+                                    .Where(inquiry => searchType != "weekly" || inquiry.IncomingDate <= getDateByWeek(date, 6))
+                                    .Where(inquiry => searchType != "today" || inquiry.IncomingDate == date)
+                                    .Count()
+                    })
+                    .ToListAsync();
+        }
+
         public async Task<List<SystemsCountModel>> GetTodaySystemsCountAsync(DateTime date)
         {
             var inquiryies = await (from system in this._context.System
@@ -216,10 +233,14 @@ namespace Inquiry.Model
 
         public async Task<List<SystemsCountModel>> GetWeekSystemsCountAsync(DateTime date)
         {
+            DateTime sunday = getDateByWeek(date, 0);
+            DateTime saturday = getDateByWeek(date, 6);
             var inquiryies = await (from system in this._context.System
                                     join inquiry in (this._context.Inquiry
                                     .Where(inquiry => inquiry.IncomingDate.Year == date.Year)
                                     .Where(inquiry => inquiry.IncomingDate.Month == date.Month)
+                                    .Where(inquiry => inquiry.IncomingDate >= sunday)
+                                    .Where(inquiry => inquiry.IncomingDate <= saturday)
                                 )
                                 on system equals inquiry.System into gj
                                 from subInquiry in gj.DefaultIfEmpty()
@@ -352,6 +373,14 @@ namespace Inquiry.Model
             }
 
             return eachSystemMonthlyCount;
+        }
+
+        private DateTime getDateByWeek(DateTime date, int targetWeek)
+        {
+            int dayOfWeek = (int)date.DayOfWeek;
+            int weekDiff = targetWeek - dayOfWeek;
+            
+            return date.AddDays(weekDiff);
         }
     }
 }

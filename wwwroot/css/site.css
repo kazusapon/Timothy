@@ -195,10 +195,26 @@ a.menu-title:hover {
   justify-content: flex-end;
 }
 
+#modal-inquiry-search div.uk-modal-dialog {
+  max-height: 800px;
+  min-height: 800px;
+  position: relative;
+}
+
+#modal-inquiry-search div.uk-modal-dialog {
+  min-height: 800px;
+}
+
 #modal-inquiry-search .inquiry-search-form {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+}
+
+#modal-inquiry-search div.uk-modal-footer {
+  position: absolute;
+  bottom: 0px;
+  width: 1080px;
 }
 
 #modal-inquiry-search .inquiry-search-form-input {

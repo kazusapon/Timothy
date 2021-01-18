@@ -24,6 +24,19 @@ namespace Summary.Model
             this._inquiry = inquiry;
         }
 
+        public async Task<PieModel> BuildEachGuestTypeInquiryCountAsync(DateTime date, string searchType)
+        {
+            var eachGuestTypeCount = await this._inquiry.GetGuestTypeOfCount(date, searchType);
+
+            var pieModel = new PieModel
+            {
+                Datasets = eachGuestTypeCount.OrderBy(guest => guest.GuestType.Id).Select(guest => guest.InquiryCount).ToList(),
+                Labels = eachGuestTypeCount.OrderBy(guest => guest.GuestType.Id).Select(guest => guest.GuestType.GuestTypeName).ToList()
+            };
+
+            return pieModel;
+        }
+
         public async Task<ChartModel> BuildEachSystemInquiryCountAndTodayAsync(DateTime date)
         {
             var eachSystemCountForToday = await this._inquiry.GetTodaySystemsCountAsync(date);
