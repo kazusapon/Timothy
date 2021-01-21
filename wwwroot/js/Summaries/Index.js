@@ -137,7 +137,7 @@
                 total = data.reduce(function(a, x) { return a + x; });
                 if (total > maxCount) {
                     maxCount = total;
-                } 
+                }
             });
             
             return maxCount;

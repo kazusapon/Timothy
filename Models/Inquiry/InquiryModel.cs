@@ -205,28 +205,23 @@ namespace Inquiry.Model
 
         public async Task<List<SystemsCountModel>> GetYearSystemsCountAsync(DateTime date)
         {
-            var inquiryies = await (from system in this._context.System
-                                    join inquiry in (this._context.Inquiry
-                                )
-                                on system equals inquiry.System into gj
-                                from subInquiry in gj.DefaultIfEmpty()
-                                select new SystemsCountModel
-                                {
-                                    System = system,
-                                    YearOrMonth = subInquiry.IncomingDate.Year,
-                                    InquiryCount = system.Inquiries.Count()
-                                }).ToListAsync();
-
-            var eachSystemCount = inquiryies.GroupBy(inquiry => new {system = inquiry.System, year = inquiry.YearOrMonth})
-                    .OrderBy(inquiry => inquiry.Key.system.Id)
-                    .ThenBy(inquiry => inquiry.Key.year)
-                    .Select(inquiry =>  new SystemsCountModel()
-                    {
-                        System = inquiry.Key.system,
-                        YearOrMonth = inquiry.Key.year,
-                        InquiryCount = inquiry.First().InquiryCount
-                    })
-                    .ToList();
+            var eachSystemCount = await this._context.System.GroupJoin(
+                                    this._context.Inquiry,
+                                    sys => sys,
+                                    inq => inq.System,
+                                    (sys, inq) => new {
+                                        Systems = sys,
+                                        Inquiries = inq
+                                    }).SelectMany(x => x.Inquiries.DefaultIfEmpty(), (x, inquiry) => new SystemsCountModel()
+                                    {
+                                        System = x.Systems,
+                                        YearOrMonth = inquiry.TelephoneNumber == null ? null : inquiry.IncomingDate.Year,
+                                        InquiryCount = x.Systems.Inquiries.Where(x => x.IncomingDate.Year == inquiry.IncomingDate.Year).Count()
+                                    })
+                                    .Distinct()
+                                    .OrderBy(inquiry => inquiry.System.Id)
+                                    .ThenBy(inquiry => inquiry.YearOrMonth)
+                                    .ToListAsync();
 
             return FillFiveYearsBeforeAndAfter(eachSystemCount, date.Year);
         }
@@ -321,31 +316,34 @@ namespace Inquiry.Model
 
         private List<SystemsCountModel> FillFiveYearsBeforeAndAfter(List<SystemsCountModel> eachSystemCount, int year)
         {
-            var eachSystemMonthlyCount = new List<SystemsCountModel>();
+            var eachYearsCount = new List<SystemsCountModel>();
             int baseYear = year - 5;
             int maxYear = 11;
 
-            foreach (var systemCount in eachSystemCount)
+            foreach(var system in this._context.System)
             {
-                for(var i = 0; i < maxYear; i++)
+                for(int i = 0; i < maxYear; i++)
                 {
-                    if (systemCount.YearOrMonth != baseYear + i)
+                    var inquiry = eachSystemCount.Where(inquiry => inquiry.System.Id == system.Id).Where(inquiry => inquiry.YearOrMonth == baseYear + i);
+                    if (inquiry.Any())
                     {
-                        eachSystemMonthlyCount.Add(new SystemsCountModel
-                        {
-                            System = systemCount.System,
-                            YearOrMonth = baseYear + i,
-                            InquiryCount = 0
-                        });
+                        eachYearsCount.Add(inquiry.First());
                     }
                     else
                     {
-                        eachSystemMonthlyCount.Add(systemCount);
+                        var eachYears = new SystemsCountModel()
+                        {
+                            System = system,
+                            YearOrMonth = baseYear + i,
+                            InquiryCount = 0
+                        };
+
+                        eachYearsCount.Add(eachYears);
                     }
                 }
             }
 
-            return eachSystemMonthlyCount;
+            return eachYearsCount;
         }
 
         private List<SystemsCountModel> FillWeek(List<SystemsCountModel> eachSystemCount)
