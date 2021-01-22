@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using EntityModels;
+using Timothy.Models;
 using Database.Models;
 
-namespace CallRegister.Model
+namespace Timothy.Models.CallRegister
 {
     public class CallRegisterModel : ICallRegister
     {
@@ -17,7 +17,7 @@ namespace CallRegister.Model
             this._context = context;
         }
 
-        public async Task<EntityModels.CallRegister> FindById(int id)
+        public async Task<Entities.CallRegister> FindById(int id)
         {
             return await this._context.CallRegister
                 .Where(callRegister => callRegister.DaletedAt == null)
@@ -26,7 +26,7 @@ namespace CallRegister.Model
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<List<EntityModels.CallRegister>> GetCallRegisters()
+        public async Task<List<Entities.CallRegister>> GetCallRegisters()
         {
             return await this._context.CallRegister
                     .Where(callRegister => callRegister.DaletedAt == null)
@@ -53,7 +53,7 @@ namespace CallRegister.Model
             await this._context.SaveChangesAsync();
         }
 
-        public async Task UpdateCompanyNameAndInquierName(EntityModels.Inquiry inquiry)
+        public async Task UpdateCompanyNameAndInquierName(Timothy.Models.Entities.Inquiry inquiry)
         {
             var callRegiters = await this._context.CallRegister
                                 .Where(callRegister => callRegister.TelephoneNumber == inquiry.TelephoneNumber)

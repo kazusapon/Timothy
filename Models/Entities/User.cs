@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EntityModels
+namespace Timothy.Models.Entities
 {
     public class User
     {
@@ -21,8 +21,8 @@ namespace EntityModels
  
         public bool ConnectableFlag {get; set;}
 
-        public virtual ICollection<EntityModels.Inquiry> Inquiries { get; set; }
+        public virtual ICollection<Timothy.Models.Entities.Inquiry> Inquiries { get; set; }
 
-        public virtual ICollection<EntityModels.CallRegister> CallRegisters { get; set; }
+        public virtual ICollection<Timothy.Models.Entities.CallRegister> CallRegisters { get; set; }
     }
 }

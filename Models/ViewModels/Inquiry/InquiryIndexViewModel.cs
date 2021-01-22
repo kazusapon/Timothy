@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Timothy.Models;
 using Database.Models;
 
-namespace Inquiry.View.Models
+namespace Timothy.Models.ViewModels.inquiry
 {
     public class InquiryIndexViewModel
     {
         public InquirySearchForm inquirySearchForm {get; set;}
 
-        public List<EntityModels.Inquiry> inquiryIndexLists {get; set;}
+        public List<Entities.Inquiry> inquiryIndexLists {get; set;}
     }
 
     public class InquirySearchForm

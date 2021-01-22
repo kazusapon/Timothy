@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Database.Models;
-using EntityModels;
-using CallRegister.Model;
+using Timothy.Models.Entities;
+using Timothy.Models.CallRegister;
 
 namespace Timothy.Controllers
 {

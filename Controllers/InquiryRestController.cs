@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Database.Models;
-using Utils;
+using Timothy.Utils;
 
 namespace Timothy.Controllers
 {
@@ -24,7 +24,7 @@ namespace Timothy.Controllers
 
         [HttpGet]
         [Route("{editingInquiryId}/{id}/telephoneNumber/{telephoneNumber?}")]
-        public async Task<ActionResult<IEnumerable<EntityModels.Inquiry>>> GetInquiry(int editingInquiryId, int id, string telephoneNumber)
+        public async Task<ActionResult<IEnumerable<Timothy.Models.Entities.Inquiry>>> GetInquiry(int editingInquiryId, int id, string telephoneNumber)
         {
             var telephoneNumberHyphenDelete =  (telephoneNumber == null || telephoneNumber == "") ? "" : telephoneNumber.Replace("-", "");
 

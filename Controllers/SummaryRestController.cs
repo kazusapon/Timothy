@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Database.Models;
-using Utils;
-using Summary.Model;
+using Timothy.Utils;
+using Timothy.Models.Summary;
 
 namespace Timothy.Controllers
 {

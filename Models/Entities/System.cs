@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EntityModels
+namespace Timothy.Models.Entities
 {
     public class System
     {
@@ -13,6 +13,6 @@ namespace EntityModels
 
         public string Abbreviation {get; set;}
 
-        public virtual ICollection<EntityModels.Inquiry> Inquiries { get; set; }
+        public virtual ICollection<Inquiry> Inquiries { get; set; }
     }
 }

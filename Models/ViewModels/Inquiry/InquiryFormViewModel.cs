@@ -1,11 +1,12 @@
 using System;
-using Form.View.Models;
+using Timothy.Models;
+using Timothy.Models.ViewModels.inquiry;
 
-namespace Inquiry.View.Models
+namespace Timothy.Models.ViewModels.inquiry
 {
     public class InquiryViewModel
     {
-        public EntityModels.Inquiry inquiry {get; set;}
+        public Entities.Inquiry inquiry {get; set;}
 
         public InquiryForm inquiryFrom {get; set;}
     }

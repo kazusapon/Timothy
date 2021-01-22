@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace EntityModels
+namespace Timothy.Models.Entities
 {
     public enum CompletionState
     {
@@ -170,7 +170,7 @@ namespace EntityModels
             return sb.ToString();
         }
 
-        public void BuildInquiryFromCallRegister(EntityModels.CallRegister callRegister)
+        public void BuildInquiryFromCallRegister(CallRegister callRegister)
         {
             if (callRegister.Id == 0)
             {

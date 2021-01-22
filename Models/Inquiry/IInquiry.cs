@@ -1,21 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Inquiry.View.Models;
-using EntityModels;
-using Summary.Model;
+using Timothy.Models.ViewModels.inquiry;
+using Timothy.Models;
+using Timothy.Models.Summary;
 
-namespace Inquiry.Model
+namespace Timothy.Models.Inquiry
 {
     public interface IInquiry : ISummaryData
     {
-        Task<List<EntityModels.Inquiry>> GetIndexListAsync(DateTime? startTime=null, DateTime? endTime=null, int systemId=0, bool check=false, string freeWord=null);
+        Task<List<Entities.Inquiry>> GetIndexListAsync(DateTime? startTime=null, DateTime? endTime=null, int systemId=0, bool check=false, string freeWord=null);
 
-        Task<EntityModels.Inquiry> FindByIdAsync(int id);
+        Task<Entities.Inquiry> FindByIdAsync(int id);
 
-        Task CreateInquiryAsync(EntityModels.Inquiry inquiry);
+        Task CreateInquiryAsync(Entities.Inquiry inquiry);
 
-        Task UpdateInquiryAsync(EntityModels.Inquiry inquiry);
+        Task UpdateInquiryAsync(Entities.Inquiry inquiry);
 
         Task DeleteInquiryAsync(int id);
 

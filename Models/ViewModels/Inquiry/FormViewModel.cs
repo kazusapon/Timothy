@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using EntityModels;
+using Timothy.Models.Entities;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Form.View.Models
+namespace Timothy.Models.ViewModels.inquiry
 {
     public class InquiryForm
     {

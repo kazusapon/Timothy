@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace SelectList.View.Model
+namespace Timothy.Models.ViewModels.SelectList
 {
     public interface ISelectList
     {

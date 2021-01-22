@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Database.Models;
-using Inquiry.View.Models;
-using Utils;
-using Summary.Model;
+using Timothy.Models;
+using Timothy.Models.ViewModels.inquiry;
+using Timothy.Utils;
+using Timothy.Models.Summary;
 
-namespace Inquiry.Model
+namespace Timothy.Models.Inquiry
 {
     public class InquiryModel : IInquiry
     {
@@ -19,7 +20,7 @@ namespace Inquiry.Model
             this._context = context;
         }
         
-        public async Task<List<EntityModels.Inquiry>> GetIndexListAsync(DateTime? startTime=null, DateTime? endTime=null, int systemId=0, bool check=true, string freeWord=null)
+        public async Task<List<Entities.Inquiry>> GetIndexListAsync(DateTime? startTime=null, DateTime? endTime=null, int systemId=0, bool check=true, string freeWord=null)
         {
             return await this._context.Inquiry
                     .Where(inquiry => inquiry.DaletedAt == null)
@@ -43,7 +44,7 @@ namespace Inquiry.Model
                     .ToListAsync();
         }
 
-        public async Task<EntityModels.Inquiry> FindByIdAsync(int id)
+        public async Task<Entities.Inquiry> FindByIdAsync(int id)
         {
             return await this._context.Inquiry
                     .Where(inquiry => inquiry.Id == id)
@@ -56,7 +57,7 @@ namespace Inquiry.Model
                     .FirstOrDefaultAsync();
         }
 
-        public async Task<EntityModels.Inquiry> FindByTelephoneNumberLastRecordAsync(string telephoneNumber)
+        public async Task<Entities.Inquiry> FindByTelephoneNumberLastRecordAsync(string telephoneNumber)
         {
             return await this._context.Inquiry
                     .Where(inquiry => inquiry.TelephoneNumber == telephoneNumber)
@@ -68,7 +69,7 @@ namespace Inquiry.Model
                     .FirstOrDefaultAsync();
         }
 
-        public async Task CreateInquiryAsync(EntityModels.Inquiry inquiry)
+        public async Task CreateInquiryAsync(Entities.Inquiry inquiry)
         {
             this._context.Entry(inquiry).State = EntityState.Added;
             this._context.Inquiry.Add(inquiry);
@@ -77,7 +78,7 @@ namespace Inquiry.Model
             return;
         }
 
-        public async Task UpdateInquiryAsync(EntityModels.Inquiry inquiry)
+        public async Task UpdateInquiryAsync(Entities.Inquiry inquiry)
         {
             this._context.Entry(inquiry).State = EntityState.Modified;
             this._context.Entry(inquiry.System).State = EntityState.Unchanged;
@@ -148,7 +149,7 @@ namespace Inquiry.Model
         public async Task<List<SystemsCountModel>> GetTodaySystemsCountAsync(DateTime date)
         {
             var eachSystemCount = await this._context.System.GroupJoin(
-                                    this._context.Inquiry.Where(inquiry => inquiry.StartTime.Date == date.Date),
+                                    this._context.Inquiry.Where(inquiry => inquiry.DaletedAt == null).Where(inquiry => inquiry.StartTime.Date == date.Date),
                                     sys => sys,
                                     inq => inq.System,
                                     (sys, inq) => new {
@@ -171,7 +172,7 @@ namespace Inquiry.Model
         public async Task<List<SystemsCountModel>> GetMonthlySystemsCountAsync(DateTime date)
         {
             var eachSystemCount = await this._context.System.GroupJoin(
-                                    this._context.Inquiry,
+                                    this._context.Inquiry.Where(inquiry => inquiry.DaletedAt == null),
                                     sys => sys,
                                     inq => inq.System,
                                     (sys, inq) => new {
@@ -182,6 +183,7 @@ namespace Inquiry.Model
                                         System = x.Systems,
                                         YearOrMonth = inquiry.TelephoneNumber == null ? null : inquiry.IncomingDate.Month,
                                         InquiryCount = x.Systems.Inquiries
+                                                        .Where(inquiry => inquiry.DaletedAt == null)
                                                         .Where(inquiry => inquiry.IncomingDate.Year == date.Year)
                                                         .Where(x => x.IncomingDate.Month == inquiry.IncomingDate.Month).Count()
                                     })
@@ -196,7 +198,7 @@ namespace Inquiry.Model
         public async Task<List<SystemsCountModel>> GetYearSystemsCountAsync(DateTime date)
         {
             var eachSystemCount = await this._context.System.GroupJoin(
-                                    this._context.Inquiry,
+                                    this._context.Inquiry.Where(inquiry => inquiry.DaletedAt == null),
                                     sys => sys,
                                     inq => inq.System,
                                     (sys, inq) => new {
@@ -206,7 +208,9 @@ namespace Inquiry.Model
                                     {
                                         System = x.Systems,
                                         YearOrMonth = inquiry.TelephoneNumber == null ? null : inquiry.IncomingDate.Year,
-                                        InquiryCount = x.Systems.Inquiries.Where(x => x.IncomingDate.Year == inquiry.IncomingDate.Year).Count()
+                                        InquiryCount = x.Systems.Inquiries
+                                                            .Where(inquiry => inquiry.DaletedAt == null)    
+                                                            .Where(x => x.IncomingDate.Year == inquiry.IncomingDate.Year).Count()
                                     })
                                     .Distinct()
                                     .OrderBy(inquiry => inquiry.System.Id)
@@ -221,7 +225,7 @@ namespace Inquiry.Model
             DateTime sunday = getDateByWeek(date, 0);
             DateTime saturday = getDateByWeek(date, 6);
             var eachSystemCount = await this._context.System.GroupJoin(
-                                    this._context.Inquiry,
+                                    this._context.Inquiry.Where(inquiry => inquiry.DaletedAt == null),
                                     sys => sys,
                                     inq => inq.System,
                                     (sys, inq) => new {
@@ -232,6 +236,7 @@ namespace Inquiry.Model
                                         System = x.Systems,
                                         YearOrMonth = inquiry.TelephoneNumber == null ? null : (int?)inquiry.IncomingDate.DayOfWeek,
                                         InquiryCount = x.Systems.Inquiries
+                                                        .Where(inquiry => inquiry.DaletedAt == null)
                                                         .Where(inquiry => inquiry.IncomingDate.Year == date.Year)
                                                         .Where(inquiry => inquiry.IncomingDate.Month == date.Month)
                                                         .Where(inquiry => inquiry.IncomingDate >= sunday)

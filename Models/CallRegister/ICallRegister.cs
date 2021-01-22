@@ -1,17 +1,18 @@
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Timothy.Models;
 
-namespace CallRegister.Model
+namespace Timothy.Models.CallRegister
 {
     public interface ICallRegister
     {
-        Task<List<EntityModels.CallRegister>> GetCallRegisters();
+        Task<List<Entities.CallRegister>> GetCallRegisters();
 
-        Task<EntityModels.CallRegister> FindById(int id);
+        Task<Entities.CallRegister> FindById(int id);
 
         Task DestroyCallRegisterAsync(int id);
 
-        Task UpdateCompanyNameAndInquierName(EntityModels.Inquiry inquiry);
+        Task UpdateCompanyNameAndInquierName(Timothy.Models.Entities.Inquiry inquiry);
     }
 }

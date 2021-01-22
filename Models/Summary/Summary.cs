@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Database.Models;
-using Inquiry.View.Models;
-using Utils;
+using Timothy.Models.ViewModels.inquiry;
+using Timothy.Utils;
 using Microsoft.EntityFrameworkCore;
-using EntityModels;
-using Inquiry.Model;
-using Summary.Model;
+using Timothy.Models;
+using Timothy.Models.Inquiry;
 
-namespace Summary.Model
+namespace Timothy.Models.Summary
 {
     public class SummaryModel : ISummary
     {
@@ -151,7 +150,7 @@ namespace Summary.Model
 
     public class VerticalChartModel
     {
-        public EntityModels.System System {get; set;}
+        public Entities.System System {get; set;}
 
         public int YearOrMonth {get; set;}
 

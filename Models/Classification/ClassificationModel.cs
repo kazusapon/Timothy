@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using EntityModels;
+using Timothy.Models.Entities;
 using Database.Models;
 
-namespace Classification.Model
+namespace Timothy.Models.Classification
 {
     public class ClassificationModel : IClassification
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EntityModels
+namespace Timothy.Models.Entities
 {
     public class ContactMethod
     {
@@ -11,6 +11,6 @@ namespace EntityModels
 
         public string ContactMethodName {get; set;}
 
-        public virtual ICollection<EntityModels.Inquiry> Inquiries { get; set; }
+        public virtual ICollection<Inquiry> Inquiries { get; set; }
     }
 }

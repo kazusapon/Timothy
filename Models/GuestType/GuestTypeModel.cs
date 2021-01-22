@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using EntityModels;
+using Timothy.Models.Entities;
 using Database.Models;
 
-namespace GuestType.Model
+namespace Timothy.Models.GuestType
 {
     public class GuestTypeModel : IGuestType
     {

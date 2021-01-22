@@ -6,16 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Database.Models;
-using EntityModels;
-using Inquiry.Model;
-using System.Model;
-using ContactMethod.Model;
-using Inquiry.View.Models;
-using GuestType.Model;
-using User.Model;
-using Classification.Model;
-using CallRegister.Model;
-using Form.View.Models;
+using Timothy.Models.Entities;
+using Timothy.Models.Inquiry;
+using Timothy.Models.System;
+using Timothy.Models.ContactMethod;
+using Timothy.Models.ViewModels.inquiry;
+using Timothy.Models.GuestType;
+using Timothy.Models.User;
+using Timothy.Models.Classification;
+using Timothy.Models.CallRegister;
 
 namespace Timothy.Controllers
 {
@@ -103,9 +102,9 @@ namespace Timothy.Controllers
 
         [HttpGet]
         [Route("Inquiry/New")]
-        public async Task<IActionResult> New(EntityModels.CallRegister callRegister = null)
+        public async Task<IActionResult> New(CallRegister callRegister = null)
         {
-            EntityModels.Inquiry inquiry = new EntityModels.Inquiry();
+            Inquiry inquiry = new Inquiry();
             inquiry.BuildInquiryFromCallRegister(callRegister);
 
             var inquiryViewModel = new InquiryViewModel
@@ -125,7 +124,7 @@ namespace Timothy.Controllers
         }
 
         [BindProperty]
-        public EntityModels.Inquiry inquiry {get; set;}
+        public Timothy.Models.Entities.Inquiry inquiry {get; set;}
 
         [HttpPost]
         [Route("Inquiry/Create")]

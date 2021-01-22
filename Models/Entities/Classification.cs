@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EntityModels
+namespace Timothy.Models.Entities
 {
     public class Classification
     {
@@ -11,6 +11,6 @@ namespace EntityModels
 
         public string ClassificationName {get; set;}
 
-        public virtual ICollection<EntityModels.Inquiry> Inquiries { get; set; }
+        public virtual ICollection<Timothy.Models.Entities.Inquiry> Inquiries { get; set; }
     }
 }

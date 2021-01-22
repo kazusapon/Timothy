@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using EntityModels;
+using Timothy.Models.Entities;
 using Database.Models;
 
-namespace User.Model
+namespace Timothy.Models.User
 {
     public class UserModel : IUser
     {

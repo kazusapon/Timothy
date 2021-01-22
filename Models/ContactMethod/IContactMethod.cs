@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using SelectList.View.Model;
+using Timothy.Models.ViewModels.SelectList;
 
-namespace ContactMethod.Model
+namespace Timothy.Models.ContactMethod
 {
     public interface IContactMethod : ISelectList
     {

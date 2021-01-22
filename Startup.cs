@@ -10,14 +10,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Database.Models;
-using Inquiry.Model;
-using System.Model;
-using GuestType.Model;
-using User.Model;
-using Classification.Model;
-using ContactMethod.Model;
-using CallRegister.Model;
-using Summary.Model;
+using Timothy.Models.Inquiry;
+using Timothy.Models.System;
+using Timothy.Models.GuestType;
+using Timothy.Models.User;
+using Timothy.Models.Classification;
+using Timothy.Models.ContactMethod;
+using Timothy.Models.CallRegister;
+using Timothy.Models.Summary;
 
 namespace Timothy
 {

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Timothy.Models;
 
-namespace Summary.Model
+namespace Timothy.Models.Summary
 {
     public class PieModel
     {
@@ -28,7 +29,7 @@ namespace Summary.Model
     
     public class SystemsCountModel
     {
-        public EntityModels.System System {get; set;}
+        public Entities.System System {get; set;}
 
         public int? YearOrMonth {get; set;}
 
@@ -37,7 +38,7 @@ namespace Summary.Model
 
     public class GuestTypePieChartModel
     {
-        public EntityModels.GuestType GuestType {get; set;}
+        public Entities.GuestType GuestType {get; set;}
 
         public int InquiryCount {get; set;}
     }

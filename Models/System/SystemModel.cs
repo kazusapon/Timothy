@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using EntityModels;
+using Timothy.Models.Entities;
 using Database.Models;
 
-namespace System.Model
+namespace Timothy.Models.System
 {
     public class SystemModel : ISystem
     {

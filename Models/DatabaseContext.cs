@@ -1,4 +1,5 @@
 using System;
+using Timothy.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Database.Models
@@ -15,18 +16,18 @@ namespace Database.Models
 
         }
 
-        public DbSet<EntityModels.CallRegister> CallRegister {get; set;}
+        public DbSet<CallRegister> CallRegister {get; set;}
 
-        public DbSet<EntityModels.Classification> Classification {get; set;}
+        public DbSet<Classification> Classification {get; set;}
 
-        public DbSet<EntityModels.ContactMethod> ContactMethod {get; set;}
+        public DbSet<ContactMethod> ContactMethod {get; set;}
 
-        public DbSet<EntityModels.GuestType> GuestType {get; set;}
+        public DbSet<GuestType> GuestType {get; set;}
 
-        public DbSet<EntityModels.Inquiry> Inquiry {get; set;}
+        public DbSet<Inquiry> Inquiry {get; set;}
 
-        public DbSet<EntityModels.System> System {get; set;}
+        public DbSet<Timothy.Models.Entities.System> System {get; set;}
 
-        public DbSet<EntityModels.User> User {get; set;}
+        public DbSet<User> User {get; set;}
     }
 }

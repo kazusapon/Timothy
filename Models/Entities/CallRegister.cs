@@ -3,8 +3,9 @@ using System.Text;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Timothy.Models.Entities;
 
-namespace EntityModels
+namespace Timothy.Models.Entities
 {
     public class CallRegister
     {

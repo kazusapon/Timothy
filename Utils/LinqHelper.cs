@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 
-namespace Utils
+namespace Timothy.Utils
 {
     public static class LinqExpression
     {
