@@ -136,6 +136,7 @@ namespace Timothy.Models.Inquiry
                     {
                         GuestType = guest,
                         InquiryCount = guest.Inquiries
+                                    .Where(inquiry => inquiry.DaletedAt == null)
                                     .Where(inquiry => searchType != "monthly" || inquiry.IncomingDate.Year == date.Year)
                                     .Where(inquiry => searchType != "weekly" || inquiry.IncomingDate.Month == date.Month)
                                     .Where(inquiry => searchType != "weekly"  || inquiry.IncomingDate >= getDateByWeek(date, 0))
@@ -149,7 +150,9 @@ namespace Timothy.Models.Inquiry
         public async Task<List<SystemsCountModel>> GetTodaySystemsCountAsync(DateTime date)
         {
             var eachSystemCount = await this._context.System.GroupJoin(
-                                    this._context.Inquiry.Where(inquiry => inquiry.DaletedAt == null).Where(inquiry => inquiry.StartTime.Date == date.Date),
+                                    this._context.Inquiry
+                                        .Where(inquiry => inquiry.DaletedAt == null)
+                                        .Where(inquiry => inquiry.IncomingDate == date),
                                     sys => sys,
                                     inq => inq.System,
                                     (sys, inq) => new {
@@ -159,7 +162,7 @@ namespace Timothy.Models.Inquiry
                                     {
                                         System = x.Systems,
                                         YearOrMonth = inquiry.TelephoneNumber == null ? null : inquiry.StartTime.Hour,
-                                        InquiryCount = x.Systems.Inquiries.Where(inquiry => inquiry.StartTime.Date == date.Date).Count()
+                                        InquiryCount = x.Systems.Inquiries.Where(inquiry => inquiry.IncomingDate == date).Count()
                                     })
                                     .Distinct()
                                     .OrderBy(inquiry => inquiry.System.Id)
@@ -222,31 +225,37 @@ namespace Timothy.Models.Inquiry
 
         public async Task<List<SystemsCountModel>> GetWeekSystemsCountAsync(DateTime date)
         {
+            var eachSystemCount = new List<SystemsCountModel>();
+
             DateTime sunday = getDateByWeek(date, 0);
             DateTime saturday = getDateByWeek(date, 6);
-            var eachSystemCount = await this._context.System.GroupJoin(
-                                    this._context.Inquiry.Where(inquiry => inquiry.DaletedAt == null),
-                                    sys => sys,
-                                    inq => inq.System,
-                                    (sys, inq) => new {
-                                        Systems = sys,
-                                        Inquiries = inq
-                                    }).SelectMany(x => x.Inquiries.DefaultIfEmpty(), (x, inquiry) => new SystemsCountModel()
-                                    {
-                                        System = x.Systems,
-                                        YearOrMonth = inquiry.TelephoneNumber == null ? null : (int?)inquiry.IncomingDate.DayOfWeek,
-                                        InquiryCount = x.Systems.Inquiries
-                                                        .Where(inquiry => inquiry.DaletedAt == null)
-                                                        .Where(inquiry => inquiry.IncomingDate.Year == date.Year)
-                                                        .Where(inquiry => inquiry.IncomingDate.Month == date.Month)
-                                                        .Where(inquiry => inquiry.IncomingDate >= sunday)
-                                                        .Where(inquiry => inquiry.IncomingDate <= saturday)
-                                                        .Where(x => x.IncomingDate.Year == inquiry.IncomingDate.Year).Count()
-                                    })
-                                    .Distinct()
-                                    .OrderBy(inquiry => inquiry.System.Id)
-                                    .ThenBy(inquiry => inquiry.YearOrMonth)
-                                    .ToListAsync();
+            
+            var findDateRange = getWeekRange(sunday, saturday);
+            foreach(var findDate in findDateRange)
+            {
+                eachSystemCount.AddRange(
+                    await this._context.System.GroupJoin(
+                        this._context.Inquiry.Where(inquiry => inquiry.DaletedAt == null)
+                                     .Where(inquiry => findDate == inquiry.IncomingDate),
+                        sys => sys,
+                        inq => inq.System,
+                        (sys, inq) => new {
+                            Systems = sys,
+                            Inquiries = inq
+                        }).SelectMany(x => x.Inquiries.DefaultIfEmpty(), (x, inquiry) => new SystemsCountModel()
+                        {
+                            System = x.Systems,
+                            YearOrMonth = inquiry.TelephoneNumber == null ? null : (int?)inquiry.IncomingDate.DayOfWeek,
+                            InquiryCount = x.Systems.Inquiries
+                                            .Where(inquiry => inquiry.DaletedAt == null)
+                                            .Where(inquiry => findDate == inquiry.IncomingDate).Count()
+                        })
+                        .Distinct()
+                        .OrderBy(inquiry => inquiry.System.Id)
+                        .ThenBy(inquiry => inquiry.YearOrMonth)
+                        .ToListAsync()
+                );
+            }
 
             return FillWeek(eachSystemCount);
         }
@@ -374,6 +383,20 @@ namespace Timothy.Models.Inquiry
             int weekDiff = targetWeek - dayOfWeek;
             
             return date.AddDays(weekDiff);
+        }
+
+        private List<DateTime> getWeekRange(DateTime begin, DateTime end)
+        {
+            var days = new List<DateTime>();
+            days.Add(begin);
+
+            while(begin < end)
+            {
+                begin = begin.AddDays(1);
+                days.Add(begin);
+            }
+        
+            return days;
         }
     }
 }

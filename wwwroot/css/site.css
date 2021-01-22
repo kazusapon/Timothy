@@ -196,13 +196,8 @@ a.menu-title:hover {
 }
 
 #modal-inquiry-search div.uk-modal-dialog {
-  max-height: 800px;
   min-height: 800px;
   position: relative;
-}
-
-#modal-inquiry-search div.uk-modal-dialog {
-  min-height: 800px;
 }
 
 #modal-inquiry-search .inquiry-search-form {
@@ -250,6 +245,9 @@ a.menu-title:hover {
   width: 370px;
 }
 
+#modal-inquiry-search-result tbody {
+  overflow-y: scroll;
+}
 
 #inquiry-detail-table {
   width: 1500px;
