@@ -134,6 +134,11 @@ namespace EntityModels
             }
         }
 
+        public DateTime GetIncomingStartDateTime()
+        {
+            return this.IncomingDate.Date.Add(this.StartTime.TimeOfDay);
+        }
+
         public IEnumerable<SelectListItem> GetCompletionStateSelectListItem()
         {
             var completionStateList = new List<SelectListItem>();

@@ -29,6 +29,7 @@
 
     class PieChartHelper {
         static init() {
+            const guestPieChart = null;
             this._initGuestTypeChart();
         }
         
@@ -38,8 +39,8 @@
                 return;
             }
 
-            if (this.guestPieChart != null) {
-                this.guestPieChart.delete();
+            if (this.guestPieChart) {
+                this.guestPieChart.destroy();
             }
             
             this._buildGuestTypePieChart(chartData);
@@ -60,7 +61,7 @@
 
         static _buildGuestTypePieChart(chartData) {
             const canvas1 = document.querySelector("#guest-type-chart");
-            const guestPieChart = new Chart(canvas1, {
+            this.guestPieChart = new Chart(canvas1, {
                 type: 'pie',
                 data: {
                     labels: chartData.labels,
@@ -85,6 +86,7 @@
 
     class VerticalChartHelper {
         static init() {
+            const myChart = null;
             this._initVerticalChart();
         }
 
@@ -94,10 +96,10 @@
                 return;
             }
 
-            if (this.myChart != null) {
-                this.myChart.delete();
+            if (this.myChart) {
+                this.myChart.destroy();
             }
-            
+
             this._setTotalCount(chartData.datasets);
             this._buildVerticalChart(chartData);
         }
@@ -145,7 +147,7 @@
 
         static _buildVerticalChart(chartData) {
             const canvas = document.querySelector("#chart");
-            const myChart = new Chart(canvas, {
+            this.myChart = new Chart(canvas, {
                 type: 'bar',
                 data: chartData,
                 options: {
