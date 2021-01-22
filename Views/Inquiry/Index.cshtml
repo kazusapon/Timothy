@@ -23,6 +23,7 @@
         <label><input asp-for="inquirySearchForm.CheckedFlag" class="uk-checkbox" type="checkbox"> 未確認のみ</label>
         <div class="uk-button-group">
             <button type="submit" class="uk-button uk-button-default"><span class="uk-margin-small-center" uk-icon="search"></span></button>
+            <button type="button" id="clear-button" class="uk-button uk-button-default"><span class="uk-margin-small-center" uk-icon="trash"></span></button>
             <button type="button" class="uk-button uk-button-default"><span class="uk-margin-small-center" uk-icon="download"></button>
             <div uk-dropdown="mode: click">
                 <ul class="uk-nav uk-dropdown-nav">
@@ -30,7 +31,6 @@
                     <li><a href="#">CSV</a></li>
                 </ul>
             </div>
-            <button type="button" id="clear-button" class="uk-button uk-button-default">クリア</button>
         </div>
         <a asp-controller="Inquiry" asp-action="New" class="uk-button uk-button-primary inquiry-add-button">新規登録</a>
     </form>
