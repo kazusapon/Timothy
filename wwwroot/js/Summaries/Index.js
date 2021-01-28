@@ -2,10 +2,25 @@
     'use strict';
 
     document.addEventListener('DOMContentLoaded', () => {
+        ReloadChartHelper.init();
         SwicherHelper.init();
         VerticalChartHelper.init();
         PieChartHelper.init();
     });
+
+    class ReloadChartHelper {
+        static init() {
+            this._reloadButtonEventListner();
+        }
+
+        static _reloadButtonEventListner() {
+            const button = document.querySelector("#reload-button");
+            button.addEventListener('click', () => {
+                VerticalChartHelper._initVerticalChart();
+                PieChartHelper._initGuestTypeChart();
+            });
+        }
+    }
 
     class SwicherHelper {
         static init() {
