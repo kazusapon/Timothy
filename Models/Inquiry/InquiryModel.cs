@@ -20,12 +20,12 @@ namespace Timothy.Models.Inquiry
             this._context = context;
         }
         
-        public async Task<List<Entities.Inquiry>> GetIndexListAsync(DateTime? startTime=null, DateTime? endTime=null, int systemId=0, bool check=true, string freeWord=null)
+        public async Task<List<Entities.Inquiry>> GetIndexListAsync(DateTime? startDate=null, DateTime? endDate=null, int systemId=0, bool check=true, string freeWord=null)
         {
             return await this._context.Inquiry
                     .Where(inquiry => inquiry.DaletedAt == null)
-                    .WhereIf(startTime != null, inquiry => startTime >= inquiry.StartTime)
-                    .WhereIf(endTime != null, inquiry => inquiry.EndTime <= endTime)
+                    .WhereIf(startDate != null, inquiry => inquiry.IncomingDate >= startDate)
+                    .WhereIf(endDate != null, inquiry => inquiry.IncomingDate <= endDate)
                     .WhereIf(systemId != 0, inquiry => inquiry.System.Id == systemId)
                     .WhereIf(check, inquiry => !inquiry.ApprovalFlag)
                     .WhereIf((freeWord != null || freeWord == ""),
